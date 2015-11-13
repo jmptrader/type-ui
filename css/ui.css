@@ -64,34 +64,34 @@
  * limitations under the License.
  */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px; }
+  width: 8px;
+  height: 8px; }
 
 ::-webkit-scrollbar-button {
-  width: 14px;
-  height: 14px; }
+  width: 0px;
+  height: 0px; }
 
 ::-webkit-scrollbar-thumb {
-  background: #002d59;
-  border: 0px solid #080808;
+  background: #1474d3;
+  border: 0px none #ffffff;
   border-radius: 0px; }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #053e7c; }
+  background: #119fb9; }
 
 ::-webkit-scrollbar-thumb:active {
-  background: #0032a8; }
+  background: #18a8ed; }
 
 ::-webkit-scrollbar-track {
-  background: #7FB5DA;
+  background: #666666;
   border: 0px none #ffffff;
   border-radius: 0px; }
 
 ::-webkit-scrollbar-track:hover {
-  background: #f6fafc; }
+  background: #666666; }
 
 ::-webkit-scrollbar-track:active {
-  background: #cee3f1; }
+  background: #333333; }
 
 ::-webkit-scrollbar-corner {
   background: transparent; }
@@ -499,11 +499,6 @@ html, body {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-.ui-tab {
-  overflow-x: auto;
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch; }
-
 .ui-tab:before,
 .ui-tab:after {
   content: "";
@@ -513,7 +508,15 @@ html, body {
 
 .ui-tab-header {
   margin: 0;
-  padding: 0; }
+  padding: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  display: -webkit-box;
+  display: -moz-box; }
+
+.ui-tab-header::-webkit-scrollbar-corner {
+  background: black; }
 
 .ui-tab-header:after,
 .ui-tab-header:before {
@@ -533,11 +536,10 @@ html, body {
 
 .ui-tab-head {
   margin: 0px 1px;
-  float: left;
+  float: none;
   list-style: none;
   padding: 7px 15px;
   margin-top: 6px;
-  display: inline-block;
   background: #7FB5DA;
   color: #0e0f26;
   font-size: 16px;
@@ -707,5 +709,30 @@ html, body {
   font-weight: bold;
   font-size: 1.2em;
   color: #1c1e4b; }
+
+.ui-split-pane {
+  display: table; }
+
+.ui-h-resize-panel {
+  overflow: auto;
+  display: table-cell; }
+
+.ui-h-resize-panel:first-child {
+  resize: horizontal;
+  border-right: 2px solid #317DB1; }
+
+.ui-h-resize-panel:last-child {
+  border-left: 2px solid #317DB1; }
+
+.ui-v-resize-panel {
+  overflow: auto;
+  display: block; }
+
+.ui-v-resize-panel:first-child {
+  resize: vertical;
+  border-bottom: 2px solid #317DB1; }
+
+.ui-v-resize-panel:last-child {
+  border-top: 2px solid #317DB1; }
 
 /*# sourceMappingURL=ui.css.map */

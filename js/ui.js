@@ -1268,6 +1268,96 @@ var ui;
     })(ui.Widget);
     ui.Paragraph = Paragraph;
 })(ui || (ui = {}));
+/// <reference path="./Container.ts" />
+var ui;
+(function (ui) {
+    var HResizePanel = (function (_super) {
+        __extends(HResizePanel, _super);
+        function HResizePanel(parent) {
+            _super.call(this, parent);
+        }
+        HResizePanel.prototype.createElement = function () {
+            var element = document.createElement('div');
+            return element;
+        };
+        Object.defineProperty(HResizePanel.prototype, "className", {
+            get: function () {
+                return 'ui-h-resize-panel';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return HResizePanel;
+    })(ui.Container);
+    var VResizePanel = (function (_super) {
+        __extends(VResizePanel, _super);
+        function VResizePanel(parent) {
+            _super.call(this, parent);
+        }
+        VResizePanel.prototype.createElement = function () {
+            var element = document.createElement('div');
+            return element;
+        };
+        Object.defineProperty(VResizePanel.prototype, "className", {
+            get: function () {
+                return 'ui-v-resize-panel';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return VResizePanel;
+    })(ui.Container);
+    var SplitPane = (function (_super) {
+        __extends(SplitPane, _super);
+        function SplitPane(parent, direction) {
+            if (direction === void 0) { direction = 'h'; }
+            _super.call(this, parent);
+            this._leftPanel = this._createLeftPanel(direction);
+            this._rightPanel = this._createRightPanel(direction);
+        }
+        SplitPane.prototype._createLeftPanel = function (d) {
+            var panel = d === SplitPane.HORIZONTAL ?
+                new HResizePanel(this) :
+                new VResizePanel(this);
+            return panel;
+        };
+        SplitPane.prototype._createRightPanel = function (d) {
+            var panel = d === SplitPane.HORIZONTAL ?
+                new HResizePanel(this) :
+                new VResizePanel(this);
+            return panel;
+        };
+        SplitPane.prototype.createElement = function () {
+            var element = document.createElement('div');
+            return element;
+        };
+        Object.defineProperty(SplitPane.prototype, "className", {
+            get: function () {
+                return 'ui-split-pane';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(SplitPane.prototype, "panel1", {
+            get: function () {
+                return this._leftPanel;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(SplitPane.prototype, "panel2", {
+            get: function () {
+                return this._rightPanel;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        SplitPane.HORIZONTAL = 'h';
+        SplitPane.VERTICAL = 'v';
+        return SplitPane;
+    })(ui.Container);
+    ui.SplitPane = SplitPane;
+})(ui || (ui = {}));
 /*
  * Copyright 2015 Ramiro Rojo
  *

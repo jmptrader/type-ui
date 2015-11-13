@@ -12,10 +12,8 @@
  * limitations under the License.
  */
 .ui-tab {
-  overflow-x: auto;
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
 }
+
 
 .ui-tab:before,
 .ui-tab:after {
@@ -26,6 +24,15 @@
 .ui-tab-header {
   margin: 0;
   padding: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  display: -webkit-box;
+  display: -moz-box;
+}
+
+.ui-tab-header::-webkit-scrollbar-corner {
+  background:black;
 }
 
 .ui-tab-header:after,
@@ -48,11 +55,10 @@
 
 .ui-tab-head {
   margin:0px 1px;
-  float:left;
+  float:none;
   list-style:none;
   padding: 7px 15px;
   margin-top: 6px;
-  display:inline-block;
   background:  $primary-bg-color;
   color:     $base-txt-color;
   font-size:16px;

@@ -1,13 +1,18 @@
 var app = new ui.Application();
 
-new ui.H1(app, 'Header 1');
-new ui.H2(app, 'Header 2');
-new ui.H3(app, 'Header 3');
-new ui.H4(app, 'Header 4');
-new ui.H5(app, 'Header 5');
-new ui.H6(app, 'Header 6');
+var r1  = app.grid().row();
+var cx1 = r1.cell({md: 3});
+var cx2 = r1.cell({md: 6});
+var cx3 = r1.cell({md: 3});
 
-var tab = new ui.Tab(app);
+new ui.H1(cx1, 'Header 1');
+new ui.H2(cx1, 'Header 2');
+new ui.H3(cx1, 'Header 3');
+new ui.H4(cx1, 'Header 4');
+new ui.H5(cx1, 'Header 5');
+new ui.H6(cx1, 'Header 6');
+
+var tab = new ui.Tab(cx2);
 
 var page1 = tab.addPage("First Tab");
 var page2 = tab.addPage("Second Tab");
@@ -19,6 +24,15 @@ page3.disable();
 tab.addPage("Closeable tab", true);
 
 tab.index = 0;
+
+var sp1 = new ui.SplitPane(app, ui.SplitPane.HORIZONTAL);
+var sp2 = new ui.SplitPane(app, ui.SplitPane.VERTICAL);
+
+sp1.panel1.addText("Split 1-A");
+sp1.panel2.addText("Split 1-B");
+
+sp2.panel1.addText("Split 2-A");
+sp2.panel2.addText("Split 2-B");
 
 new ui.HorizontalRule(app);
 

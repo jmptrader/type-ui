@@ -11,35 +11,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-button {
-  width: 14px;
-  height: 14px;
+  width: 0px;
+  height: 0px;
 }
 ::-webkit-scrollbar-thumb {
-  background: #002d59;
-  border: 0px solid #080808;
+  background: #1474d3;
+  border: 0px none #ffffff;
   border-radius: 0px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #053e7c;
+  background: #119fb9;
 }
 ::-webkit-scrollbar-thumb:active {
-  background: #0032a8;
+  background: #18a8ed;
 }
 ::-webkit-scrollbar-track {
-  background: $primary-bg-color;
+  background: #666666;
   border: 0px none #ffffff;
   border-radius: 0px;
 }
 ::-webkit-scrollbar-track:hover {
-  background: $hover-bg-color;
+  background: #666666;
 }
 ::-webkit-scrollbar-track:active {
-  background: $active-bg-color;
+  background: #333333;
 }
 ::-webkit-scrollbar-corner {
   background: transparent;
