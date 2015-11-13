@@ -1,3 +1,29 @@
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 var ui;
 (function (ui) {
     var Widget = (function () {
@@ -115,6 +141,19 @@ var ui;
     })();
     ui.Widget = Widget;
 })(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 /// <reference path="./Widget.ts" />
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -186,6 +225,19 @@ var ui;
     })(ui.Widget);
     ui.Container = Container;
 })(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 /// <reference path="./Container.ts" />
 var ui;
 (function (ui) {
@@ -211,6 +263,164 @@ var ui;
     })(ui.Container);
     ui.Application = Application;
 })(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// <reference path="./Widget.ts" />
+var ui;
+(function (ui) {
+    var BaseHeader = (function (_super) {
+        __extends(BaseHeader, _super);
+        function BaseHeader(parent, text) {
+            if (text === void 0) { text = ''; }
+            _super.call(this, parent);
+            this.classList.add("ui-h" + this.size);
+            this._text = this._createTextNode(text);
+            this.element.appendChild(this._text);
+        }
+        BaseHeader.prototype.createElement = function () {
+            var element = document.createElement("h" + this.size);
+            return element;
+        };
+        Object.defineProperty(BaseHeader.prototype, "className", {
+            get: function () {
+                return 'ui-hx';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(BaseHeader.prototype, "size", {
+            get: function () {
+                return 0;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        BaseHeader.prototype._createTextNode = function (text) {
+            var textInput = document.createTextNode(text);
+            return textInput;
+        };
+        Object.defineProperty(BaseHeader.prototype, "text", {
+            get: function () {
+                return this._text.nodeValue;
+            },
+            set: function (value) {
+                this._text.nodeValue = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return BaseHeader;
+    })(ui.Widget);
+    ui.BaseHeader = BaseHeader;
+    var H1 = (function (_super) {
+        __extends(H1, _super);
+        function H1() {
+            _super.apply(this, arguments);
+        }
+        Object.defineProperty(H1.prototype, "size", {
+            get: function () { return 1; },
+            enumerable: true,
+            configurable: true
+        });
+        return H1;
+    })(BaseHeader);
+    ui.H1 = H1;
+    ;
+    var H2 = (function (_super) {
+        __extends(H2, _super);
+        function H2() {
+            _super.apply(this, arguments);
+        }
+        Object.defineProperty(H2.prototype, "size", {
+            get: function () { return 2; },
+            enumerable: true,
+            configurable: true
+        });
+        return H2;
+    })(BaseHeader);
+    ui.H2 = H2;
+    ;
+    var H3 = (function (_super) {
+        __extends(H3, _super);
+        function H3() {
+            _super.apply(this, arguments);
+        }
+        Object.defineProperty(H3.prototype, "size", {
+            get: function () { return 3; },
+            enumerable: true,
+            configurable: true
+        });
+        return H3;
+    })(BaseHeader);
+    ui.H3 = H3;
+    ;
+    var H4 = (function (_super) {
+        __extends(H4, _super);
+        function H4() {
+            _super.apply(this, arguments);
+        }
+        Object.defineProperty(H4.prototype, "size", {
+            get: function () { return 4; },
+            enumerable: true,
+            configurable: true
+        });
+        return H4;
+    })(BaseHeader);
+    ui.H4 = H4;
+    ;
+    var H5 = (function (_super) {
+        __extends(H5, _super);
+        function H5() {
+            _super.apply(this, arguments);
+        }
+        Object.defineProperty(H5.prototype, "size", {
+            get: function () { return 5; },
+            enumerable: true,
+            configurable: true
+        });
+        return H5;
+    })(BaseHeader);
+    ui.H5 = H5;
+    ;
+    var H6 = (function (_super) {
+        __extends(H6, _super);
+        function H6() {
+            _super.apply(this, arguments);
+        }
+        Object.defineProperty(H6.prototype, "size", {
+            get: function () { return 6; },
+            enumerable: true,
+            configurable: true
+        });
+        return H6;
+    })(BaseHeader);
+    ui.H6 = H6;
+    ;
+})(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 /// <reference path="./Widget.ts" />
 var ui;
 (function (ui) {
@@ -290,6 +500,19 @@ var ui;
     })(ui.Widget);
     ui.Blockquote = Blockquote;
 })(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 /// <reference path="./Widget.ts" />
 var ui;
 (function (ui) {
@@ -339,6 +562,82 @@ var ui;
     })(ui.Widget);
     ui.Button = Button;
 })(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// <reference path="./Widget.ts" />
+var ui;
+(function (ui) {
+    var Canvas = (function (_super) {
+        __extends(Canvas, _super);
+        function Canvas() {
+            _super.apply(this, arguments);
+        }
+        Object.defineProperty(Canvas.prototype, "width", {
+            get: function () {
+                return this.element.width;
+            },
+            set: function (value) {
+                this.element.width = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Canvas.prototype, "height", {
+            get: function () {
+                return this.element.height;
+            },
+            set: function (value) {
+                this.element.height = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Canvas.prototype.resize = function (width, height) {
+            this.width = width;
+            this.height = height;
+        };
+        Canvas.prototype.createElement = function () {
+            var element = document.createElement('canvas');
+            return element;
+        };
+        Object.defineProperty(Canvas.prototype, "className", {
+            get: function () {
+                return 'ui-canvas';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Canvas.prototype.getContext = function (type) {
+            return this.element.getContext(type);
+        };
+        return Canvas;
+    })(ui.Widget);
+    ui.Canvas = Canvas;
+})(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 /// <reference path="./Form.ts" />
 var ui;
 (function (ui) {
@@ -391,6 +690,19 @@ var ui;
     })(ui.Widget);
     ui.Label = Label;
 })(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 var ui;
 (function (ui) {
     var FormGroup = (function (_super) {
@@ -420,6 +732,19 @@ var ui;
     })(ui.Container);
     ui.FormGroup = FormGroup;
 })(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 /// <reference path="./Container.ts" />
 /// <reference path="./Label.ts" />
 /// <reference path="./FormGroup.ts" />
@@ -472,6 +797,19 @@ var ui;
     })(ui.Container);
     ui.Form = Form;
 })(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 /// <reference path="./Container.ts" />
 /// <reference path="./Form.ts" />
 /// <reference path="./FormGroup.ts" />
@@ -522,6 +860,19 @@ var ui;
     })(ui.Container);
     ui.Fieldset = Fieldset;
 })(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 /// <reference path="./Widget.ts" />
 /// <reference path="./SizeSet.ts" />
 var ui;
@@ -616,6 +967,19 @@ var ui;
     })(ui.Container);
     ui.Grid = Grid;
 })(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 /// <reference path="./Widget.ts" />
 var ui;
 (function (ui) {
@@ -639,6 +1003,19 @@ var ui;
     })(ui.Widget);
     ui.HorizontalRule = HorizontalRule;
 })(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 /// <reference path="./Widget.ts" />
 var ui;
 (function (ui) {
@@ -687,6 +1064,19 @@ var ui;
     })(ui.Widget);
     ui.Input = Input;
 })(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 /// <reference path="./Container.ts" />
 var ui;
 (function (ui) {
@@ -710,6 +1100,19 @@ var ui;
     })(ui.Container);
     ui.ListItem = ListItem;
 })(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 /// <reference path="./ListItem.ts" />
 /// <reference path="./Widget.ts" />
 var ui;
@@ -740,6 +1143,19 @@ var ui;
     })(ui.Container);
     ui.List = List;
 })(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 /// <reference path="./List.ts" />
 var ui;
 (function (ui) {
@@ -763,6 +1179,19 @@ var ui;
     })(ui.List);
     ui.OrderedList = OrderedList;
 })(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 /// <reference path="./Container.ts" />
 var ui;
 (function (ui) {
@@ -786,6 +1215,19 @@ var ui;
     })(ui.Container);
     ui.Panel = Panel;
 })(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 /// <reference path="./Widget.ts" />
 var ui;
 (function (ui) {
@@ -826,6 +1268,19 @@ var ui;
     })(ui.Widget);
     ui.Paragraph = Paragraph;
 })(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 /// <reference path="./Container.ts" />
 var ui;
 (function (ui) {
@@ -1343,6 +1798,19 @@ var ui;
     })(ui.Container);
     ui.Tab = Tab;
 })(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 /// <reference path="./List.ts" />
 var ui;
 (function (ui) {

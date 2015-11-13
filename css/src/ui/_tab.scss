@@ -42,18 +42,15 @@
   color:     $active-txt-color;
 }
 
-.ui-tab-head {
-  margin:0px 1px;
-  float:left;
-  list-style:none;
-}
-
 .ui-tab-head:first-child {
   margin-left: 0;
 }
 
 .ui-tab-head {
-  padding: 6px 15px;
+  margin:0px 1px;
+  float:left;
+  list-style:none;
+  padding: 7px 15px;
   margin-top: 6px;
   display:inline-block;
   background:  $primary-bg-color;

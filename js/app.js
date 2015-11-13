@@ -1,5 +1,12 @@
 var app = new ui.Application();
 
+new ui.H1(app, 'Header 1');
+new ui.H2(app, 'Header 2');
+new ui.H3(app, 'Header 3');
+new ui.H4(app, 'Header 4');
+new ui.H5(app, 'Header 5');
+new ui.H6(app, 'Header 6');
+
 var tab = new ui.Tab(app);
 
 var page1 = tab.addPage("First Tab");
