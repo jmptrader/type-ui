@@ -176,6 +176,12 @@ var ui;
         Container.prototype.addText = function (text) {
             this.element.appendChild(document.createTextNode(text));
         };
+        Container.prototype.addGrid = function () {
+            return new ui.Grid(this);
+        };
+        Container.prototype.grid = function () {
+            return this.addGrid();
+        };
         return Container;
     })(ui.Widget);
     ui.Container = Container;

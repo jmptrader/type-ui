@@ -59,6 +59,14 @@ module ui {
       this.element.appendChild(document.createTextNode(text));
     }
 
+    addGrid() {
+      return new ui.Grid(this);
+    }
+
+    grid() {
+      return this.addGrid();
+    }
+
   }
 
 }
