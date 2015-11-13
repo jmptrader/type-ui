@@ -1,0 +1,35 @@
+
+
+$app-background:  #EAF6FD;
+$app-padding:     5px;
+$app-max-width:   1200px;
+
+$primary-bg-color:    #7FB5DA;
+$secondary-bg-color:  darken($primary-bg-color, 10%);
+$disabled-bg-color:   darken($primary-bg-color, 50%);
+$active-bg-color:     lighten($primary-bg-color, 20%);
+$hover-bg-color:      lighten($primary-bg-color, 30%);
+$pressed-bg-color:    darken($primary-bg-color, 20%);
+
+$primary-border-color:    #317DB1;
+$secondary-border-color:  darken($primary-border-color, 10%);
+$disabled-border-color:   darken($primary-border-color, 50%);
+$active-border-color:     lighten($primary-border-color, 20%);
+$hover-border-color:      lighten($primary-border-color, 30%);
+$pressed-border-color:    darken($primary-border-color, 20%);
+
+$base-txt-color:     #0e0f26;
+$secondary-txt-color: lighten($base-txt-color, 10%);
+$disabled-txt-color: lighten($base-txt-color, 50%);
+$active-txt-color:    lighten($base-txt-color, 20%);
+$hover-txt-color:    lighten($base-txt-color, 30%);
+$pressed-txt-color:  darken($base-txt-color, 20%);
+
+$xs-max-size: 767px;
+$sm-max-size: 992px;
+$md-max-size: $app-max-width;
+
+$grid-gutter-size: 20px;
+$grid-max-cols: 12;
+
+$cursor-disabled: not-allowed;

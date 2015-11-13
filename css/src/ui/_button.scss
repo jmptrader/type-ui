@@ -1,0 +1,30 @@
+.ui-button {
+  border: 2px solid $active-border-color;
+  background: $active-bg-color;
+  color: $base-txt-color;
+  padding: 10px;
+  text-decoration: none;
+}
+
+.ui-button:hover {
+  border: 2px solid $hover-border-color;
+  background: $hover-bg-color;
+  color: $hover-txt-color;
+  text-decoration: none;
+}
+
+.ui-button:checked,
+.ui-button:active {
+  border: 2px solid $pressed-border-color;
+  background: $pressed-bg-color;
+  color: $pressed-txt-color;
+  text-decoration: none;
+}
+
+.ui-button.disabled {
+  border: 2px solid $disabled-border-color;
+  background: $disabled-bg-color;
+  color: $disabled-txt-color;
+  text-decoration: none;
+  cursor: $cursor-disabled;
+}

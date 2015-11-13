@@ -1,0 +1,9 @@
+.ui-fieldset {
+  border: 2px solid $secondary-border-color;
+}
+
+.ui-fieldset legend {
+  font-weight: bold;
+  font-size: 1.2em;
+  color: $secondary-txt-color;
+}

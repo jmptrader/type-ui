@@ -1,0 +1,14 @@
+.ui-blockquote {
+  border-left: 4px solid $primary-border-color;
+  padding-left: 15px;
+}
+
+.ui-blockquote p {
+  font-size: 1.8em;
+  margin-bottom: 5px;
+}
+
+.ui-blockquote footer {
+  font-size: 1em;
+  color: $disabled-txt-color;
+}

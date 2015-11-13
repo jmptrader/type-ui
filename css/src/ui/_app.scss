@@ -1,0 +1,14 @@
+html, body {
+  background: $app-background;
+  color: $base-txt-color;
+}
+
+.ui-app {
+  width: 100%;
+  max-width: $app-max-width;
+  margin: auto;
+}
+
+.ui {
+  font-family: open-sans, sans-serif;
+}

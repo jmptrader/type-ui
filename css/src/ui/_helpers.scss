@@ -1,0 +1,14 @@
+.ui-close {
+  background: transparent;
+  border: 0px solid black;
+  margin-left: 10px;
+  color: $disabled-txt-color;
+  cursor: pointer;
+  font-weight: bolder;
+  border-radius: 50%;
+}
+
+.ui-close:hover {
+  color: $hover-txt-color;
+  background: $hover-bg-color;
+}

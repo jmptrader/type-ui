@@ -1,0 +1,15 @@
+.ui-panel {
+  background: $primary-bg-color;
+  border: 2px solid $primary-border-color;
+  padding: 20px;
+}
+
+.ui-panel.secondary {
+  background: $secondary-bg-color;
+  border: 2px solid $secondary-border-color;
+}
+
+.ui-panel.active {
+  background: $active-bg-color;
+  border: 2px solid $active-border-color;
+}

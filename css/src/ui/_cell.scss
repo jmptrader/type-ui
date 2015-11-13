@@ -1,0 +1,49 @@
+.ui-grid {
+  @include box-sizing(border-box);
+  &:after {
+    @include clearfix();
+  }
+}
+
+.ui-row {
+  @include box-sizing(border-box);
+  margin: 0 $grid-gutter-size;
+  &:after {
+    @include clearfix();
+  }
+}
+
+[class*='ui-cell-'] {
+  @include box-sizing(border-box);
+  float: left;
+  padding-right: $grid-gutter-size;
+  height: 100%;
+  min-height: 1px;
+  .grid &:last-of-type {
+    padding-right: 0;
+  }
+}
+
+
+ @for $i from 1 through $grid-max-cols {
+    @include make-grid-cell($i, 'xs');
+ }
+
+
+ @media all and (min-width: $xs-max-size) {
+  @for $i from 1 through $grid-max-cols {
+    @include make-grid-cell($i, 'sm');
+  }
+ }
+
+ @media all and (min-width: $sm-max-size) {
+   @for $i from 1 through $grid-max-cols {
+     @include make-grid-cell($i, 'md');
+   }
+ }
+
+ @media all and (min-width: $md-max-size) {
+   @for $i from 1 through $grid-max-cols {
+     @include make-grid-cell($i, 'lg');
+   }
+ }

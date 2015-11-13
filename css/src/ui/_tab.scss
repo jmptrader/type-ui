@@ -1,0 +1,114 @@
+
+.ui-tab {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.ui-tab:before,
+.ui-tab:after {
+  @include clearfix();
+  min-height: 5px;
+}
+
+.ui-tab-header {
+  margin: 0;
+  padding: 0;
+}
+
+.ui-tab-header:after,
+.ui-tab-header:before {
+  @include clearfix();
+}
+
+
+.ui-tab-body {
+  margin:0;
+  padding:15px;
+  box-shadow:-1px 1px 1px rgba(0,0,0,0.15);
+  background:  $active-bg-color;
+  color:     $active-txt-color;
+}
+
+.ui-tab-head {
+  margin:0px 1px;
+  float:left;
+  list-style:none;
+}
+
+.ui-tab-head:first-child {
+  margin-left: 0;
+}
+
+.ui-tab-head {
+  padding: 6px 15px;
+  margin-top: 6px;
+  display:inline-block;
+  background:  $primary-bg-color;
+  color:     $base-txt-color;
+  font-size:16px;
+  font-weight:600;
+  transition:all linear 0.15s;
+  border-top: 4px solid $primary-border-color;
+}
+
+.ui-tab-head a {
+  text-decoration:none;
+  color:     $base-txt-color;
+}
+
+.ui-tab-head:hover {
+  background: $active-bg-color;
+  color:      $active-txt-color;
+  text-decoration:none;
+}
+
+.ui-tab-head a:hover,
+.ui-tab-head:hover a {
+  text-decoration:none;
+  color:     $active-txt-color;
+}
+
+.ui-tab-head.active,
+.ui-tab-head.active:hover {
+    padding:10px 15px;
+    margin-top: 0;
+    background: $active-bg-color;
+    color:      $active-txt-color;
+    border-top: 4px solid $active-border-color;
+}
+
+.ui-tab-head.disabled,
+.ui-tab-head.disabled:hover {
+    background: $disabled-bg-color;
+    color: $disabled-txt-color;
+    cursor: $cursor-disabled;
+    border-top: 4px solid $disabled-border-color;
+}
+
+.ui-tab-head.disabled a,
+.ui-tab-head.disabled:hover a,
+.ui-tab-head.disabled a:hover {
+  color: $disabled-txt-color;
+  cursor: $cursor-disabled;
+}
+
+.ui-tab-page {
+  display:none;
+  transition:all linear 0.15s;
+  background:  $active-bg-color;
+  color:     $active-txt-color;
+}
+
+.ui-tab-page.active {
+  display:block;
+}
+
+.ui-tab-head .ui-close {
+  opacity: 0;
+  transition:all linear 0.15s;
+}
+
+.ui-tab-head:hover .ui-close {
+  opacity: 1;
+}
