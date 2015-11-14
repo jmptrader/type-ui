@@ -527,7 +527,6 @@ html, body {
 .ui-tab-body {
   margin: 0;
   padding: 15px;
-  box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.15);
   background: #cee3f1;
   color: #292c71; }
 
@@ -552,7 +551,7 @@ html, body {
   color: #0e0f26; }
 
 .ui-tab-head:hover {
-  background: #cee3f1;
+  background: #f6fafc;
   color: #292c71;
   text-decoration: none; }
 
@@ -734,5 +733,13 @@ html, body {
 
 .ui-v-resize-panel:last-child {
   border-top: 2px solid #317DB1; }
+
+.ui-label {
+  font-weight: bold;
+  font-size: 1em; }
+
+.ui-input {
+  height: 100%;
+  min-height: 2em; }
 
 /*# sourceMappingURL=ui.css.map */

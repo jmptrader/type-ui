@@ -11,20 +11,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/// <reference path="./InputContainer.ts" />
+/// <reference path="./Input.ts" />
 module ui {
 
-  export class FormGroup extends InputContainer {
-
-
-    protected createElement(): HTMLElement {
-      let group = document.createElement('div');
-      group.classList.add('ui-row');
-      return group;
+  export class NumberInput extends Input {
+    get type(): string {
+      return 'number';
     }
 
-    protected get className() {
-      return 'ui-form-group';
+    get max() {
+      return this.input.max;
+    }
+
+    set max(value:string) {
+      this.input.max = value;
+    }
+
+    get min() {
+      return this.input.min;
+    }
+
+    set min(value:string) {
+      this.input.min = value;
+    }
+
+    get step() {
+      return this.input.step;
+    }
+
+    set step(value:string) {
+      this.input.step = value;
     }
 
   }

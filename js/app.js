@@ -56,7 +56,15 @@ var form = new ui.Form(formPanel);
 var fieldset = form.fieldset('Inputs');
 
 var group = fieldset.group();
-group.label('', 'Label');
+  group.text('text', 'Text Input');
+group = fieldset.group();
+  group.number('number', 'Number Input');
+group = fieldset.group();
+  group.color('color', 'Color Input');
+group = fieldset.group();
+  group.date('date', 'Date Input');
+group = fieldset.group();
+    group.submit('Submit');
 
 new ui.HorizontalRule(app);
 

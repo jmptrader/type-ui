@@ -532,11 +532,17 @@ var ui;
             configurable: true
         });
         Button.prototype.createElement = function () {
-            var element = document.createElement('a');
-            element.href = "#";
+            var element = document.createElement('button');
             element.addEventListener('click', this._onElementClick.bind(this));
             return element;
         };
+        Object.defineProperty(Button.prototype, "button", {
+            get: function () {
+                return this.element;
+            },
+            enumerable: true,
+            configurable: true
+        });
         Button.prototype.createText = function (value) {
             var text = document.createTextNode(value);
             this.element.appendChild(text);
@@ -545,6 +551,16 @@ var ui;
         Button.prototype.createIcon = function (iconName) {
             return null;
         };
+        Object.defineProperty(Button.prototype, "type", {
+            get: function () {
+                return this.button.type;
+            },
+            set: function (value) {
+                this.button.type = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
         Object.defineProperty(Button.prototype, "text", {
             get: function () {
                 return this._text.nodeValue;
@@ -638,6 +654,144 @@ var ui;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/// <reference path="./Widget.ts" />
+var ui;
+(function (ui) {
+    var Input = (function (_super) {
+        __extends(Input, _super);
+        function Input(parent, name) {
+            _super.call(this, parent);
+            this.name = name;
+            this.classList.add('ui-cell-sm-8');
+        }
+        Input.prototype.createElement = function () {
+            var element = document.createElement('input');
+            element.type = this.type;
+            element.classList.add("ui-input-" + this.type);
+            return element;
+        };
+        Object.defineProperty(Input.prototype, "input", {
+            get: function () {
+                return this.element;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Input.prototype, "type", {
+            get: function () {
+                return null;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Input.prototype, "className", {
+            get: function () {
+                return 'ui-input';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Input.prototype, "name", {
+            get: function () {
+                return this.input.name;
+            },
+            set: function (value) {
+                this.input.name = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Input.prototype, "value", {
+            get: function () {
+                return this.input.value;
+            },
+            set: function (value) {
+                this.input.value = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return Input;
+    })(ui.Widget);
+    ui.Input = Input;
+})(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// <reference path="./Input.ts" />
+var ui;
+(function (ui) {
+    var ColorInput = (function (_super) {
+        __extends(ColorInput, _super);
+        function ColorInput() {
+            _super.apply(this, arguments);
+        }
+        Object.defineProperty(ColorInput.prototype, "type", {
+            get: function () {
+                return 'color';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return ColorInput;
+    })(ui.Input);
+    ui.ColorInput = ColorInput;
+})(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// <reference path="./Input.ts" />
+var ui;
+(function (ui) {
+    var DateInput = (function (_super) {
+        __extends(DateInput, _super);
+        function DateInput() {
+            _super.apply(this, arguments);
+        }
+        Object.defineProperty(DateInput.prototype, "type", {
+            get: function () {
+                return 'date';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return DateInput;
+    })(ui.Input);
+    ui.DateInput = DateInput;
+})(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 /// <reference path="./Form.ts" />
 var ui;
 (function (ui) {
@@ -647,6 +801,7 @@ var ui;
             _super.call(this, parent);
             this.text = text;
             this.htmlFor = forInput;
+            this.classList.add('ui-cell-sm-4');
         }
         Object.defineProperty(Label.prototype, "label", {
             get: function () {
@@ -703,6 +858,120 @@ var ui;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/// <reference path="./Container.ts" />
+var ui;
+(function (ui) {
+    var FormDummy = (function (_super) {
+        __extends(FormDummy, _super);
+        function FormDummy() {
+            _super.apply(this, arguments);
+        }
+        FormDummy.prototype.createElement = function () {
+            return document.createElement('div');
+        };
+        Object.defineProperty(FormDummy.prototype, "className", {
+            get: function () {
+                return 'ui-cell-sm-4';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return FormDummy;
+    })(ui.Container);
+    var FormButtonGroup = (function (_super) {
+        __extends(FormButtonGroup, _super);
+        function FormButtonGroup() {
+            _super.apply(this, arguments);
+        }
+        FormButtonGroup.prototype.createElement = function () {
+            return document.createElement('div');
+        };
+        Object.defineProperty(FormButtonGroup.prototype, "className", {
+            get: function () {
+                return 'ui-cell-sm-8';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return FormButtonGroup;
+    })(ui.Container);
+    var InputContainer = (function (_super) {
+        __extends(InputContainer, _super);
+        function InputContainer() {
+            _super.apply(this, arguments);
+        }
+        InputContainer.prototype.addLabel = function (forInput, text) {
+            var label = new ui.Label(this, forInput, text);
+            return label;
+        };
+        InputContainer.prototype.label = function (forInput, text) {
+            return this.addLabel(forInput, text);
+        };
+        InputContainer.prototype.addInput = function (name, type) {
+            if (type === void 0) { type = 'text'; }
+            switch (type) {
+                case 'date': return new ui.DateInput(this, name);
+                case 'color': return new ui.ColorInput(this, name);
+                case 'number': return new ui.NumberInput(this, name);
+                case 'text': return new ui.TextInput(this, name);
+                default: return new ui.TextInput(this, name);
+            }
+        };
+        InputContainer.prototype.input = function (name, type) {
+            if (type === void 0) { type = 'text'; }
+            return this.addInput(name, type);
+        };
+        InputContainer.prototype.addPair = function (name, label, type) {
+            if (type === void 0) { type = 'text'; }
+            this.addLabel(name, label);
+            return this.addInput(name, type);
+        };
+        InputContainer.prototype.pair = function (name, label, type) {
+            if (type === void 0) { type = 'text'; }
+            return this.addPair(name, label, type);
+        };
+        InputContainer.prototype.text = function (name, label) {
+            return this.addPair(name, label, 'text');
+        };
+        InputContainer.prototype.number = function (name, label) {
+            return this.addPair(name, label, 'number');
+        };
+        InputContainer.prototype.date = function (name, label) {
+            return this.addPair(name, label, 'date');
+        };
+        InputContainer.prototype.color = function (name, label) {
+            return this.addPair(name, label, 'color');
+        };
+        InputContainer.prototype.submit = function (submit, reset) {
+            if (reset === void 0) { reset = null; }
+            var d = new FormDummy(this);
+            var g = new FormButtonGroup(this);
+            var btn = new ui.Button(g, submit);
+            btn.type = 'submit';
+            if (reset !== null) {
+                var rst = new ui.Button(g, reset);
+                rst.type = 'reset';
+            }
+            return btn;
+        };
+        return InputContainer;
+    })(ui.Container);
+    ui.InputContainer = InputContainer;
+})(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// <reference path="./InputContainer.ts" />
 var ui;
 (function (ui) {
     var FormGroup = (function (_super) {
@@ -712,6 +981,7 @@ var ui;
         }
         FormGroup.prototype.createElement = function () {
             var group = document.createElement('div');
+            group.classList.add('ui-row');
             return group;
         };
         Object.defineProperty(FormGroup.prototype, "className", {
@@ -721,15 +991,8 @@ var ui;
             enumerable: true,
             configurable: true
         });
-        FormGroup.prototype.addLabel = function (forInput, text) {
-            var label = new ui.Label(this, forInput, text);
-            return label;
-        };
-        FormGroup.prototype.label = function (forInput, text) {
-            return this.addLabel(forInput, text);
-        };
         return FormGroup;
-    })(ui.Container);
+    })(ui.InputContainer);
     ui.FormGroup = FormGroup;
 })(ui || (ui = {}));
 /*
@@ -1016,67 +1279,6 @@ var ui;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/// <reference path="./Widget.ts" />
-var ui;
-(function (ui) {
-    var Input = (function (_super) {
-        __extends(Input, _super);
-        function Input() {
-            _super.apply(this, arguments);
-        }
-        Input.prototype.createElement = function () {
-            var element = document.createElement('input');
-            element.type = this.type;
-            return element;
-        };
-        Object.defineProperty(Input.prototype, "input", {
-            get: function () {
-                return this.element;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(Input.prototype, "type", {
-            get: function () {
-                return null;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(Input.prototype, "className", {
-            get: function () {
-                return 'ui-input';
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(Input.prototype, "value", {
-            get: function () {
-                return this.input.value;
-            },
-            set: function (value) {
-                this.input.value = value;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        return Input;
-    })(ui.Widget);
-    ui.Input = Input;
-})(ui || (ui = {}));
-/*
- * Copyright 2015 Ramiro Rojo
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *    http://www.apache.org/licenses/LICENSE-2.0
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 /// <reference path="./Container.ts" />
 var ui;
 (function (ui) {
@@ -1142,6 +1344,68 @@ var ui;
         return List;
     })(ui.Container);
     ui.List = List;
+})(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// <reference path="./Input.ts" />
+var ui;
+(function (ui) {
+    var NumberInput = (function (_super) {
+        __extends(NumberInput, _super);
+        function NumberInput() {
+            _super.apply(this, arguments);
+        }
+        Object.defineProperty(NumberInput.prototype, "type", {
+            get: function () {
+                return 'number';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(NumberInput.prototype, "max", {
+            get: function () {
+                return this.input.max;
+            },
+            set: function (value) {
+                this.input.max = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(NumberInput.prototype, "min", {
+            get: function () {
+                return this.input.min;
+            },
+            set: function (value) {
+                this.input.min = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(NumberInput.prototype, "step", {
+            get: function () {
+                return this.input.step;
+            },
+            set: function (value) {
+                this.input.step = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return NumberInput;
+    })(ui.Input);
+    ui.NumberInput = NumberInput;
 })(ui || (ui = {}));
 /*
  * Copyright 2015 Ramiro Rojo
@@ -1887,6 +2151,38 @@ var ui;
         return Tab;
     })(ui.Container);
     ui.Tab = Tab;
+})(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// <reference path="./Input.ts" />
+var ui;
+(function (ui) {
+    var TextInput = (function (_super) {
+        __extends(TextInput, _super);
+        function TextInput() {
+            _super.apply(this, arguments);
+        }
+        Object.defineProperty(TextInput.prototype, "type", {
+            get: function () {
+                return 'text';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return TextInput;
+    })(ui.Input);
+    ui.TextInput = TextInput;
 })(ui || (ui = {}));
 /*
  * Copyright 2015 Ramiro Rojo

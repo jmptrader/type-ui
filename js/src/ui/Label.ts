@@ -21,6 +21,7 @@ module ui {
       super(parent);
       this.text = text;
       this.htmlFor = forInput;
+      this.classList.add('ui-cell-sm-4');
     }
 
     get label() {

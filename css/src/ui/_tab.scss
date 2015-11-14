@@ -44,7 +44,6 @@
 .ui-tab-body {
   margin:0;
   padding:15px;
-  box-shadow:-1px 1px 1px rgba(0,0,0,0.15);
   background:  $active-bg-color;
   color:     $active-txt-color;
 }
@@ -73,7 +72,7 @@
 }
 
 .ui-tab-head:hover {
-  background: $active-bg-color;
+  background: $hover-bg-color;
   color:      $active-txt-color;
   text-decoration:none;
 }

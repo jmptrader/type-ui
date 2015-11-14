@@ -16,9 +16,16 @@ module ui {
 
   export class Input extends Widget {
 
+    constructor(parent:Container, name:string) {
+      super(parent);
+      this.name = name;
+      this.classList.add('ui-cell-sm-8');
+    }
+
     protected createElement(): HTMLElement {
       var element = document.createElement('input');
       element.type = this.type;
+      element.classList.add(`ui-input-${this.type}`);
       return element;
     }
 
@@ -32,6 +39,14 @@ module ui {
 
     protected get className() {
       return 'ui-input';
+    }
+
+    get name() {
+      return this.input.name;
+    }
+
+    set name(value: string) {
+      this.input.name = value;
     }
 
     get value() {

@@ -11,22 +11,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/// <reference path="./InputContainer.ts" />
+/// <reference path="./Input.ts" />
 module ui {
 
-  export class FormGroup extends InputContainer {
-
-
-    protected createElement(): HTMLElement {
-      let group = document.createElement('div');
-      group.classList.add('ui-row');
-      return group;
+  export class DateInput extends Input {
+    get type(): string {
+      return 'date';
     }
-
-    protected get className() {
-      return 'ui-form-group';
-    }
-
   }
 
 }

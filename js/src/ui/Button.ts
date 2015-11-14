@@ -31,10 +31,13 @@ module ui {
     }
 
     createElement() {
-      var element = document.createElement('a');
-      element.href = "#";
+      var element = document.createElement('button');
       element.addEventListener('click', this._onElementClick.bind(this));
       return element;
+    }
+
+    get button() {
+      return <HTMLButtonElement>this.element;
     }
 
     protected createText(value:string): Text {
@@ -45,6 +48,14 @@ module ui {
 
     protected createIcon(iconName:string): HTMLElement {
       return null;
+    }
+
+    get type(): string {
+      return this.button.type;
+    }
+
+    set type(value:string) {
+      this.button.type = value;
     }
 
     get text(): string {
