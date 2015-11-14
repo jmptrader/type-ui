@@ -36,13 +36,6 @@ sp2.panel2.addText("Split 2-B");
 
 new ui.HorizontalRule(app);
 
-var panel = new ui.Panel(app);
-
-var btn1 = new ui.Button(panel, "Click me!");
-btn1.on('click', function () { alert('How you date to click me!'); });
-
-new ui.HorizontalRule(app);
-
 var formGrid = new ui.Grid(app);
 
 var formRow = formGrid.row();
