@@ -35,7 +35,26 @@ var ui;
             this.classList.add('ui');
             this.classList.add(this.className);
             this._events = {};
+            this._setupCommonEvents();
         }
+        Widget.prototype._setupCommonEvents = function () {
+            this.element.addEventListener('focus', this._onFocus.bind(this));
+            this.element.addEventListener('blur', this._onBlur.bind(this));
+            this.element.addEventListener('keydown', this._onKeydown.bind(this));
+            this.element.addEventListener('keyup', this._onKeyup.bind(this));
+        };
+        Widget.prototype._onFocus = function (event) {
+            this.fire('focus', event);
+        };
+        Widget.prototype._onBlur = function (event) {
+            this.fire('blur', event);
+        };
+        Widget.prototype._onKeydown = function (event) {
+            this.fire('keydown', event);
+        };
+        Widget.prototype._onKeyup = function (event) {
+            this.fire('keyup', event);
+        };
         Object.defineProperty(Widget.prototype, "id", {
             get: function () {
                 return this.element.id;
@@ -668,7 +687,11 @@ var ui;
             var element = document.createElement('input');
             element.type = this.type;
             element.classList.add("ui-input-" + this.type);
+            element.addEventListener('change', this._onChange.bind(this));
             return element;
+        };
+        Input.prototype._onChange = function (event) {
+            this.fire('change', event);
         };
         Object.defineProperty(Input.prototype, "input", {
             get: function () {

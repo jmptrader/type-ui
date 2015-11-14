@@ -26,7 +26,12 @@ module ui {
       var element = document.createElement('input');
       element.type = this.type;
       element.classList.add(`ui-input-${this.type}`);
+      element.addEventListener('change', this._onChange.bind(this));
       return element;
+    }
+
+    protected _onChange(event:Event) {
+      this.fire('change', event);
     }
 
     get input(): HTMLInputElement {

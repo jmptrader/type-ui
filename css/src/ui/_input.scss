@@ -7,3 +7,12 @@
   height: 100%;
   min-height: 2em;
 }
+
+::-webkit-color-swatch-wrapper {
+    padding: 5px;
+}
+::-webkit-color-swatch {
+    border: 1px solid black;
+    height: 100%;
+    min-height: 15px;
+}

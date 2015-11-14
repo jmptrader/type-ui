@@ -26,6 +26,30 @@ module ui {
       this.classList.add('ui');
       this.classList.add(this.className);
       this._events = {};
+      this._setupCommonEvents();
+    }
+
+    protected _setupCommonEvents() {
+      this.element.addEventListener('focus', this._onFocus.bind(this));
+      this.element.addEventListener('blur', this._onBlur.bind(this));
+      this.element.addEventListener('keydown', this._onKeydown.bind(this));
+      this.element.addEventListener('keyup', this._onKeyup.bind(this));
+    }
+
+    protected _onFocus(event:Event) {
+      this.fire('focus', event);
+    }
+
+    protected _onBlur(event:Event) {
+      this.fire('blur', event);
+    }
+
+    protected _onKeydown(event:Event) {
+      this.fire('keydown', event);
+    }
+
+    protected _onKeyup(event:Event) {
+      this.fire('keyup', event);
     }
 
     get id(): string {
