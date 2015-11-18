@@ -93,6 +93,15 @@ module ui {
       return this.items.length;
     }
 
+    addSeparator(): MenuSeparator {
+      var item = new ui.MenuSeparator(this);
+      return item;
+    }
+
+    separator(): MenuSeparator {
+      return this.addSeparator();
+    }
+
   }
 
 }

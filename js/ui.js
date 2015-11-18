@@ -1731,6 +1731,13 @@ var ui;
             enumerable: true,
             configurable: true
         });
+        SubMenu.prototype.addSeparator = function () {
+            var item = new ui.MenuSeparator(this);
+            return item;
+        };
+        SubMenu.prototype.separator = function () {
+            return this.addSeparator();
+        };
         return SubMenu;
     })(ui.MenuItem);
     ui.SubMenu = SubMenu;
@@ -1904,9 +1911,42 @@ var ui;
         Menu.prototype.subMenu = function (text) {
             return this.addSubMenu(text);
         };
+        Menu.prototype.addSeparator = function () {
+            var item = new ui.MenuSeparator(this);
+            return item;
+        };
+        Menu.prototype.separator = function () {
+            return this.addSeparator();
+        };
         return Menu;
     })(ui.Widget);
     ui.Menu = Menu;
+})(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// <reference path="./MenuItem.ts"/>
+var ui;
+(function (ui) {
+    var MenuSeparator = (function (_super) {
+        __extends(MenuSeparator, _super);
+        function MenuSeparator(menu) {
+            _super.call(this, menu, '');
+            this.element.classList.add('separator');
+        }
+        return MenuSeparator;
+    })(ui.MenuItem);
+    ui.MenuSeparator = MenuSeparator;
 })(ui || (ui = {}));
 /*
  * Copyright 2015 Ramiro Rojo

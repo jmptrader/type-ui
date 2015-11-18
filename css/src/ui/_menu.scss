@@ -16,6 +16,31 @@
   @include clearfix();
 }
 
+.ui-menu .separator,
+.ui-menu .separator a,
+.ui-menu .separator:hover {
+  min-width: 4px;
+  max-width: 4px;
+  min-height: 26px;
+  overflow: hidden;
+  background: $primary-border-color;
+  border: 0px solid;
+}
+
+.ui-menu ul li ul .separator,
+.ui-menu ul li ul .separator a,
+.ui-menu ul li ul .separator:hover {
+  min-height: 4px;
+  max-height: 4px;
+  min-width: 100%;
+  max-height: 100%;
+  overflow: hidden;
+  background: $primary-border-color;
+  border: 0px solid;
+  margin: 0;
+  padding: 0;
+}
+
 .ui-menu ul li {
 float:left;
 display: inline-block;

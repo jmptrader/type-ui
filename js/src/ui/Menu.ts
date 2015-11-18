@@ -169,6 +169,15 @@ module ui {
       return this.addSubMenu(text);
     }
 
+    addSeparator(): MenuSeparator {
+      var item = new ui.MenuSeparator(this);
+      return item;
+    }
+
+    separator(): MenuSeparator {
+      return this.addSeparator();
+    }
+
   }
 
 }

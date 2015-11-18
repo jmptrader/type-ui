@@ -15,28 +15,14 @@
 
 module ui {
 
-  export interface HandleSubMenu {
-    addElement(item: MenuItem);
+  export class MenuSeparator extends MenuItem {
 
-    contains(item: MenuItem):boolean;
+    constructor(menu:HandleSubMenu) {
+      super(menu, '');
+      this.element.classList.add('separator');
+    }
 
-    indexOf(item: MenuItem);
 
-    remove(item: MenuItem);
-
-    removeAt(index:number);
-
-    addItem(text:string): MenuItem;
-
-    item(text:string): MenuItem;
-
-    addSubMenu(text:string): SubMenu;
-
-    subMenu(text:string): SubMenu;
-
-    addSeparator(): MenuSeparator;
-
-    separator(): MenuSeparator;
 
   }
 
