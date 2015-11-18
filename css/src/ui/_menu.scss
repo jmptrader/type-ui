@@ -1,0 +1,44 @@
+.ui-menu {
+  width: 15em;
+  right: -15em;
+  position: absolute;
+  overflow: hidden;
+  display: block;
+  height: 10000%;
+  background-color: #000;
+
+  .wrapper {
+    @include transform(translate(-15em, 0) scale(1, 1));
+  }
+
+  li {
+    display: block; //los elementos van uno debajo de otro
+  }
+
+ a {
+   color: white;
+   text-decoration: none;
+ }
+
+ a:hover {
+   color: #00fcfc;
+   text-decoration: none;
+ }
+
+}
+
+@media only screen and (min-width: $sm-max-size){
+  .ui-menu {
+    max-height: inherit;
+    position: relative;
+    right: inherit;
+    width: auto;
+    background: transparent;
+
+    li {
+      display: inline-block; //los elementos van en línea
+    }
+
+  }
+
+}

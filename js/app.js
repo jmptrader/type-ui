@@ -1,5 +1,8 @@
 var app = new ui.Application();
 
+var menu = new ui.Menu(app);
+  var i1 = menu.item('Item 1');
+
 var r1  = app.grid().row();
 var cx1 = r1.cell({md: 3});
 var cx2 = r1.cell({md: 6});

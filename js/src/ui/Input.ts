@@ -26,7 +26,6 @@ module ui {
       var element = document.createElement('input');
       element.type = this.type;
       element.classList.add(`ui-input-${this.type}`);
-      element.addEventListener('change', this._onChange.bind(this));
       return element;
     }
 
@@ -60,6 +59,15 @@ module ui {
 
     set value(value: string) {
       this.input.value = value;
+    }
+
+    protected _setupCommonEvents() {
+      super._setupCommonEvents();
+      this._setupInputEvents();
+    }
+
+    protected _setupInputEvents() {
+      this.input.addEventListener('change', this._onChange.bind(this));
     }
 
   }

@@ -41,35 +41,71 @@ var ui;
  */
 var ui;
 (function (ui) {
-    var Widget = (function () {
+    var EventManager = (function () {
+        function EventManager() {
+            this._events = {};
+        }
+        EventManager.prototype.on = function (name, callback) {
+            if (!this._events[name]) {
+                this._events[name] = [];
+            }
+            this._events[name].push(callback);
+        };
+        EventManager.prototype.fire = function (name, event) {
+            var events = this._events[name];
+            if (events) {
+                events.forEach(function (i) { return i(event); });
+            }
+        };
+        EventManager.prototype.off = function (name, callback) {
+            if (callback === void 0) { callback = null; }
+            if (callback !== null && this._events[name]) {
+                var i = this._events[name].indexOf(callback);
+                while (i !== -1) {
+                    this._events[name].splice(i, 1);
+                    i = this._events[name].indexOf(callback);
+                }
+                return;
+            }
+            this._events[name] = [];
+        };
+        return EventManager;
+    })();
+    ui.EventManager = EventManager;
+})(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// <reference path="./EventManager.ts"/>
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var ui;
+(function (ui) {
+    var Widget = (function (_super) {
+        __extends(Widget, _super);
         function Widget(parent) {
             if (parent === void 0) { parent = null; }
+            _super.call(this);
             this._element = this.createElement();
             this._parent = parent;
             this.addElementParent();
             this.classList.add('ui');
             this.classList.add(this.className);
-            this._events = {};
             this._setupCommonEvents();
         }
-        Widget.prototype._setupCommonEvents = function () {
-            this.element.addEventListener('focus', this._onFocus.bind(this));
-            this.element.addEventListener('blur', this._onBlur.bind(this));
-            this.element.addEventListener('keydown', this._onKeydown.bind(this));
-            this.element.addEventListener('keyup', this._onKeyup.bind(this));
-        };
-        Widget.prototype._onFocus = function (event) {
-            this.fire('focus', event);
-        };
-        Widget.prototype._onBlur = function (event) {
-            this.fire('blur', event);
-        };
-        Widget.prototype._onKeydown = function (event) {
-            this.fire('keydown', event);
-        };
-        Widget.prototype._onKeyup = function (event) {
-            this.fire('keyup', event);
-        };
         Object.defineProperty(Widget.prototype, "id", {
             get: function () {
                 return this.element.id;
@@ -147,39 +183,28 @@ var ui;
             enumerable: true,
             configurable: true
         });
-        Widget.prototype.on = function (name, callback) {
-            if (!this._events[name]) {
-                this._events[name] = [];
-            }
-            this._events[name].push(callback);
+        Widget.prototype._setupCommonEvents = function () {
+            this.element.addEventListener('focus', this._onFocus.bind(this));
+            this.element.addEventListener('blur', this._onBlur.bind(this));
+            this.element.addEventListener('keydown', this._onKeydown.bind(this));
+            this.element.addEventListener('keyup', this._onKeyup.bind(this));
         };
-        Widget.prototype.fire = function (name, event) {
-            var events = this._events[name];
-            if (events) {
-                events.forEach(function (i) { return i(event); });
-            }
+        Widget.prototype._onFocus = function (event) {
+            this.fire('focus', event);
         };
-        Widget.prototype.off = function (name, callback) {
-            if (callback === void 0) { callback = null; }
-            if (callback !== null && this._events[name]) {
-                var i = this._events[name].indexOf(callback);
-                while (i !== -1) {
-                    this._events[name].splice(i, 1);
-                    i = this._events[name].indexOf(callback);
-                }
-                return;
-            }
-            this._events[name] = [];
+        Widget.prototype._onBlur = function (event) {
+            this.fire('blur', event);
+        };
+        Widget.prototype._onKeydown = function (event) {
+            this.fire('keydown', event);
+        };
+        Widget.prototype._onKeyup = function (event) {
+            this.fire('keyup', event);
         };
         return Widget;
-    })();
+    })(ui.EventManager);
     ui.Widget = Widget;
 })(ui || (ui = {}));
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
 /*
  * Copyright 2015 Ramiro Rojo
  *
@@ -207,7 +232,6 @@ var ui;
             var element = document.createElement('input');
             element.type = this.type;
             element.classList.add("ui-input-" + this.type);
-            element.addEventListener('change', this._onChange.bind(this));
             return element;
         };
         Input.prototype._onChange = function (event) {
@@ -254,6 +278,13 @@ var ui;
             enumerable: true,
             configurable: true
         });
+        Input.prototype._setupCommonEvents = function () {
+            _super.prototype._setupCommonEvents.call(this);
+            this._setupInputEvents();
+        };
+        Input.prototype._setupInputEvents = function () {
+            this.input.addEventListener('change', this._onChange.bind(this));
+        };
         return Input;
     })(ui.Widget);
     ui.Input = Input;
@@ -1491,6 +1522,271 @@ var ui;
         return List;
     })(ui.Container);
     ui.List = List;
+})(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// <reference path="./Widget.ts" />
+/// <reference path="./EventManager.ts"/>
+var ui;
+(function (ui) {
+    var MenuItem = (function (_super) {
+        __extends(MenuItem, _super);
+        function MenuItem(menu, text) {
+            if (text === void 0) { text = ''; }
+            _super.call(this);
+            this._menu = menu;
+            this._element = this._createListItem();
+            this._link = this._createLink(text);
+            menu.addElement(this);
+            this._setupCommonEvents();
+        }
+        Object.defineProperty(MenuItem.prototype, "menu", {
+            get: function () {
+                return this._menu;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(MenuItem.prototype, "element", {
+            get: function () {
+                return this._element;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(MenuItem.prototype, "link", {
+            get: function () {
+                return this._link;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        MenuItem.prototype._createListItem = function () {
+            var li = document.createElement('li');
+            return li;
+        };
+        MenuItem.prototype._createLink = function (text) {
+            var a = document.createElement('a');
+            var txt = document.createTextNode(text);
+            a.appendChild(txt);
+            a.href = '#';
+            this._text = txt;
+            this.element.appendChild(a);
+            return a;
+        };
+        Object.defineProperty(MenuItem.prototype, "text", {
+            get: function () {
+                return this._text.nodeValue;
+            },
+            set: function (value) {
+                this._text.nodeValue = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        MenuItem.prototype._setupCommonEvents = function () {
+            this._setupElementEvents();
+            this._setupLinkEvents();
+        };
+        MenuItem.prototype._setupElementEvents = function () {
+            this.element.addEventListener('focus', this._onFocus.bind(this));
+            this.element.addEventListener('blur', this._onBlur.bind(this));
+            this.element.addEventListener('keydown', this._onKeydown.bind(this));
+            this.element.addEventListener('keyup', this._onKeyup.bind(this));
+        };
+        MenuItem.prototype._setupLinkEvents = function () {
+            this.link.addEventListener('click', this._onClick.bind(this));
+        };
+        MenuItem.prototype._onFocus = function (event) {
+            this.fire('focus', event);
+        };
+        MenuItem.prototype._onBlur = function (event) {
+            this.fire('blur', event);
+        };
+        MenuItem.prototype._onKeydown = function (event) {
+            this.fire('keydown', event);
+        };
+        MenuItem.prototype._onKeyup = function (event) {
+            this.fire('keyup', event);
+        };
+        MenuItem.prototype._onClick = function (event) {
+            this.fire('click', event);
+        };
+        return MenuItem;
+    })(ui.EventManager);
+    ui.MenuItem = MenuItem;
+    var SubMenu = (function (_super) {
+        __extends(SubMenu, _super);
+        function SubMenu(menu, text) {
+            if (text === void 0) { text = ''; }
+            _super.call(this, menu, text);
+        }
+        return SubMenu;
+    })(MenuItem);
+    ui.SubMenu = SubMenu;
+    var Menu = (function (_super) {
+        __extends(Menu, _super);
+        function Menu(parent) {
+            _super.call(this, parent);
+            this._wrapper = this._createWrapper();
+            this._list = this._createList();
+            this._toggle = this._createToggle();
+            this._items = [];
+            this._open = false;
+        }
+        Menu.prototype.createElement = function () {
+            var element = document.createElement('nav');
+            return element;
+        };
+        Object.defineProperty(Menu.prototype, "className", {
+            get: function () {
+                return 'ui-menu';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Menu.prototype, "wrapper", {
+            get: function () {
+                return this._wrapper;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Menu.prototype, "list", {
+            get: function () {
+                return this._list;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Menu.prototype._createWrapper = function () {
+            var div = document.createElement('div');
+            this.element.appendChild(div);
+            div.classList.add('wrapper');
+            return div;
+        };
+        Menu.prototype._createList = function () {
+            var ul = document.createElement('ul');
+            this.wrapper.appendChild(ul);
+            return ul;
+        };
+        Menu.prototype._createToggle = function () {
+            var a = document.createElement('a');
+            a.href = '#';
+            this.parent.element.appendChild(a);
+            a.addEventListener('click', this.toggle.bind(this));
+            return a;
+        };
+        Object.defineProperty(Menu.prototype, "open", {
+            get: function () {
+                return this._open;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Menu.prototype, "closed", {
+            get: function () {
+                return !this.open;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Menu.prototype.show = function () {
+            if (this.closed) {
+                var event = document.createEvent('show');
+                this.fire('show', event);
+                if (!event.defaultPrevented) {
+                    document.body.classList.add('ui-menu-show');
+                }
+            }
+        };
+        Menu.prototype.hide = function () {
+            if (this.open) {
+                var event = document.createEvent('hide');
+                this.fire('hide', event);
+                if (!event.defaultPrevented) {
+                    document.body.classList.remove('ui-menu-show');
+                }
+            }
+        };
+        Menu.prototype.toggle = function () {
+            var event = document.createEvent('toggle');
+            this.fire('toggle', event);
+            if (!event.defaultPrevented) {
+                if (this.open) {
+                    this.hide();
+                    return;
+                }
+                this.show();
+            }
+        };
+        Object.defineProperty(Menu.prototype, "items", {
+            get: function () {
+                return this._items.slice(0);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Menu.prototype, "length", {
+            get: function () {
+                return this.items.length;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Menu.prototype.addElement = function (item) {
+            if (!this.contains(item)) {
+                this.list.appendChild(item.element);
+                this._items.push(item);
+            }
+        };
+        Menu.prototype.contains = function (item) {
+            return this.indexOf(item) !== -1;
+        };
+        Menu.prototype.indexOf = function (item) {
+            return this.items.indexOf(item);
+        };
+        Menu.prototype.remove = function (item) {
+            var index = this.indexOf(item);
+            if (index >= 0) {
+                this.removeAt(index);
+            }
+        };
+        Menu.prototype.removeAt = function (index) {
+            if (index >= 0 && index <= this.length) {
+                var item = this.items[index];
+                this.element.removeChild(item.element);
+                this._items.splice(index, 1);
+            }
+        };
+        Menu.prototype.addItem = function (text) {
+            var item = new ui.MenuItem(this, text);
+            return item;
+        };
+        Menu.prototype.item = function (text) {
+            return this.addItem(text);
+        };
+        Menu.prototype.addSubMenu = function (text) {
+            var item = new ui.SubMenu(this, text);
+            return item;
+        };
+        Menu.prototype.sumMenu = function (text) {
+            return this.addSubMenu(text);
+        };
+        return Menu;
+    })(ui.Widget);
+    ui.Menu = Menu;
 })(ui || (ui = {}));
 /*
  * Copyright 2015 Ramiro Rojo

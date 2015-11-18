@@ -753,4 +753,37 @@ html, body {
 .ace_editor {
   border: 2px solid black; }
 
+.ui-menu {
+  width: 15em;
+  right: -15em;
+  position: absolute;
+  overflow: hidden;
+  display: block;
+  height: 10000%;
+  background-color: #000; }
+  .ui-menu .wrapper {
+    -webkit-transform: translate(-15em, 0) scale(1, 1);
+    -moz-transform: translate(-15em, 0) scale(1, 1);
+    -ms-transform: translate(-15em, 0) scale(1, 1);
+    -o-transform: translate(-15em, 0) scale(1, 1);
+    transform: translate(-15em, 0) scale(1, 1); }
+  .ui-menu li {
+    display: block; }
+  .ui-menu a {
+    color: white;
+    text-decoration: none; }
+  .ui-menu a:hover {
+    color: #00fcfc;
+    text-decoration: none; }
+
+@media only screen and (min-width: 992px) {
+  .ui-menu {
+    max-height: inherit;
+    position: relative;
+    right: inherit;
+    width: auto;
+    background: transparent; }
+    .ui-menu li {
+      display: inline-block; } }
+
 /*# sourceMappingURL=ui.css.map */

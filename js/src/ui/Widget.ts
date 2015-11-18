@@ -11,46 +11,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/// <reference path="./EventManager.ts"/>
+
 module ui {
 
-  export class Widget {
+  export class Widget extends EventManager {
 
     private _element: HTMLElement;
     private _parent: Container;
-    private _events: { [s: string]: Array<(Event) =>  any> };
+
 
     constructor(parent:Container=null) {
+      super();
       this._element = this.createElement();
       this._parent = parent;
       this.addElementParent();
       this.classList.add('ui');
       this.classList.add(this.className);
-      this._events = {};
       this._setupCommonEvents();
     }
 
-    protected _setupCommonEvents() {
-      this.element.addEventListener('focus', this._onFocus.bind(this));
-      this.element.addEventListener('blur', this._onBlur.bind(this));
-      this.element.addEventListener('keydown', this._onKeydown.bind(this));
-      this.element.addEventListener('keyup', this._onKeyup.bind(this));
-    }
-
-    protected _onFocus(event:Event) {
-      this.fire('focus', event);
-    }
-
-    protected _onBlur(event:Event) {
-      this.fire('blur', event);
-    }
-
-    protected _onKeydown(event:Event) {
-      this.fire('keydown', event);
-    }
-
-    protected _onKeyup(event:Event) {
-      this.fire('keyup', event);
-    }
 
     get id(): string {
       return this.element.id;
@@ -116,30 +96,27 @@ module ui {
       this.element.style = value;
     }
 
-    on(name: string, callback: (Event) => any ) {
-      if (!this._events[name]) {
-        this._events[name] = [];
-      }
-      this._events[name].push(callback);
+    protected _setupCommonEvents() {
+      this.element.addEventListener('focus', this._onFocus.bind(this));
+      this.element.addEventListener('blur', this._onBlur.bind(this));
+      this.element.addEventListener('keydown', this._onKeydown.bind(this));
+      this.element.addEventListener('keyup', this._onKeyup.bind(this));
     }
 
-    fire(name: string, event: Event) {
-      let events = this._events[name];
-      if (events) {
-        events.forEach( (i) => i(event) );
-      }
+    protected _onFocus(event:Event) {
+      this.fire('focus', event);
     }
 
-    off(name: string, callback: (Event) => any = null) {
-      if (callback !== null && this._events[name]) {
-        let i = this._events[name].indexOf(callback);
-        while ( i !== -1) {
-          this._events[name].splice(i, 1);
-          i = this._events[name].indexOf(callback);
-        }
-        return;
-      }
-      this._events[name] = [];
+    protected _onBlur(event:Event) {
+      this.fire('blur', event);
+    }
+
+    protected _onKeydown(event:Event) {
+      this.fire('keydown', event);
+    }
+
+    protected _onKeyup(event:Event) {
+      this.fire('keyup', event);
     }
 
   }
