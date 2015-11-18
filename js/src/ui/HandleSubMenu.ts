@@ -32,7 +32,7 @@ module ui {
 
     addSubMenu(text:string): SubMenu;
 
-    sumMenu(text:string): SubMenu;
+    subMenu(text:string): SubMenu;
 
   }
 

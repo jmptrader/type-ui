@@ -165,7 +165,7 @@ module ui {
       return item;
     }
 
-    sumMenu(text:string): SubMenu {
+    subMenu(text:string): SubMenu {
       return this.addSubMenu(text);
     }
 

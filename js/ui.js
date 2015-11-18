@@ -1664,7 +1664,13 @@ var ui;
             if (text === void 0) { text = ''; }
             _super.call(this, menu, text);
             this._items = [];
+            this._list = this._createList();
         }
+        SubMenu.prototype._createList = function () {
+            var ul = document.createElement('ul');
+            this.element.appendChild(ul);
+            return ul;
+        };
         SubMenu.prototype.addElement = function (item) {
             if (!this.contains(item)) {
                 this.list.appendChild(item.element);
@@ -1701,7 +1707,7 @@ var ui;
             var item = new ui.SubMenu(this, text);
             return item;
         };
-        SubMenu.prototype.sumMenu = function (text) {
+        SubMenu.prototype.subMenu = function (text) {
             return this.addSubMenu(text);
         };
         Object.defineProperty(SubMenu.prototype, "list", {
@@ -1895,7 +1901,7 @@ var ui;
             var item = new ui.SubMenu(this, text);
             return item;
         };
-        Menu.prototype.sumMenu = function (text) {
+        Menu.prototype.subMenu = function (text) {
             return this.addSubMenu(text);
         };
         return Menu;

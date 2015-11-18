@@ -24,6 +24,13 @@ module ui {
     constructor(menu:HandleSubMenu, text:string='') {
       super(menu, text);
       this._items = [];
+      this._list = this._createList();
+    }
+
+    protected _createList(): HTMLUListElement {
+      var ul = document.createElement('ul');
+      this.element.appendChild(ul);
+      return ul;
     }
 
     addElement(item: MenuItem) {
@@ -70,7 +77,7 @@ module ui {
       return item;
     }
 
-    sumMenu(text:string): SubMenu {
+    subMenu(text:string): SubMenu {
       return this.addSubMenu(text);
     }
 

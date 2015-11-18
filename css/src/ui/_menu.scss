@@ -1,85 +1,67 @@
 
 .ui-menu {
-  width: 15em;
-  right: -15em;
-  position: absolute;
-  overflow: hidden;
-  display: block;
-  height: 10000%;
-  background-color: $primary-bg-color;
-
-  ul {
-    margin: 0;
-    padding: 0;
-  }
-
-  li {
-    padding: 15px;
-    display: block; //los elementos van uno debajo de otro
-    border-top: 4px solid $primary-bg-color;
-    padding-top: 11px;
-  }
-
-  li:hover {
-    border-top: 4px solid $primary-border-color;
-  }
-
- a {
-   font-weight: bold;
-   color: $base-txt-color;
-   text-decoration: none;
- }
-
- a:hover {
-   color: $hover-txt-color;
-   text-decoration: none;
- }
-
+  background: $primary-bg-color;
 }
 
-.ui-menu-toggle {
-  width: 50px;
-  height: 50px;
-  position: absolute;
-  top: 10px;
-  right: 0px;
-  background: black;
-
-  a {
-    color: white;
-    text-decoration: none;
-  }
-
-  a:hover {
-    color: #00fcfc;
-    text-decoration: none;
-  }
-
+.ui-menu ul {
+  list-style:none;
+  text-decoration:none;
+  margin:0;
+  padding:0;
+  background: $primary-bg-color;
 }
 
-@media only screen and (max-width: $sm-max-size){
-
-  .ui-menu-show .wrapper {
-    @include transform(translate(-15em, 0) scale(1, 1));
-  }
-
+.ui-menu:before,
+.ui-menu:after {
+  @include clearfix();
 }
-@media only screen and (min-width: $sm-max-size){
-  .ui-menu {
-    max-height: inherit;
-    position: relative;
-    right: inherit; //anulamos su posición fuera de la pantalla
-    width: auto; //le damos todo el ancho que necesite
 
-    li {
-      display: inline-block; //los elementos van en línea
-    }
+.ui-menu ul li {
+float:left;
+display: inline-block;
+border-top: 4px solid $primary-bg-color;
+}
+.ui-menu ul li ul li {
+  display:block;
+  float: none;
+}
 
-  }
+.ui-menu li a {
+color: $base-txt-color;
+display:block;
+padding:10px 12px;
+text-decoration: none;
+}
 
-  .ui-menu-toggle {
-    width: 0;
-    height: 0;
-  }
+.ui-menu li:hover {
+  border-top: 4px solid $primary-border-color;
+  background:$hover-bg-color;
+}
 
+.ui-menu li ul li:hover {
+  border-top: 4px solid $hover-bg-color;
+}
+
+.ui-menu li a:hover {
+  color: $hover-txt-color;
+  text-decoration: none;
+}
+
+.ui-menu li ul {
+display:none;
+position:absolute;
+min-width:140px;
+}
+
+.ui-menu li:hover > ul {
+display:block;
+}
+
+.ui-menu li ul li {
+position:relative;
+}
+
+.ui-menu li ul li ul {
+right:-140px;
+top:0;
 }
