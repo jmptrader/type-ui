@@ -13,113 +13,18 @@
  */
 /// <reference path="./Widget.ts" />
 /// <reference path="./EventManager.ts"/>
+/// <reference path="./HandleSubMenu.ts"/>
+/// <reference path="./MenuItem.ts"/>
+/// <reference path="./SubMenu.ts"/>
 
 module ui {
 
-  export class MenuItem extends EventManager {
-
-    private _menu: Menu;
-    private _element: HTMLLIElement;
-    private _link: HTMLAnchorElement;
-    private _text : Text;
-
-    constructor(menu:Menu, text:string='') {
-      super();
-      this._menu = menu;
-      this._element = this._createListItem();
-      this._link = this._createLink(text);
-      menu.addElement(this);
-      this._setupCommonEvents();
-    }
-
-    get menu() {
-      return this._menu;
-    }
-
-    get element() {
-      return this._element;
-    }
-
-    protected get link() {
-      return this._link;
-    }
-
-    _createListItem() {
-      var li = document.createElement('li');
-      return li;
-    }
-
-    _createLink(text:string):HTMLAnchorElement {
-      var a = document.createElement('a');
-      var txt = document.createTextNode(text);
-      a.appendChild(txt);
-      a.href = '#';
-      this._text = txt;
-      this.element.appendChild(a);
-      return a;
-    }
-
-    get text(): string {
-      return this._text.nodeValue;
-    }
-
-    set text(value:string) {
-      this._text.nodeValue = value;
-    }
-
-    protected _setupCommonEvents() {
-      this._setupElementEvents();
-      this._setupLinkEvents();
-    }
-
-    protected _setupElementEvents() {
-      this.element.addEventListener('focus', this._onFocus.bind(this));
-      this.element.addEventListener('blur', this._onBlur.bind(this));
-      this.element.addEventListener('keydown', this._onKeydown.bind(this));
-      this.element.addEventListener('keyup', this._onKeyup.bind(this));
-    }
-
-    protected _setupLinkEvents() {
-      this.link.addEventListener('click', this._onClick.bind(this));
-    }
-
-    protected _onFocus(event:Event) {
-      this.fire('focus', event);
-    }
-
-    protected _onBlur(event:Event) {
-      this.fire('blur', event);
-    }
-
-    protected _onKeydown(event:Event) {
-      this.fire('keydown', event);
-    }
-
-    protected _onKeyup(event:Event) {
-      this.fire('keyup', event);
-    }
-
-    protected _onClick(event:Event) {
-      this.fire('click', event);
-    }
-
-  }
-
-  export class SubMenu extends MenuItem {
-
-    constructor(menu:Menu, text:string='') {
-      super(menu, text);
-    }
-
-  }
-
-  export class Menu extends Widget {
+  export class Menu extends Widget implements HandleSubMenu {
 
     private _wrapper: HTMLDivElement;
     private _list: HTMLUListElement;
     private _items: Array<MenuItem>;
     private _toggle: HTMLAnchorElement;
-    private _open: boolean;
 
     constructor(parent:Container) {
       super(parent);
@@ -127,7 +32,6 @@ module ui {
       this._list = this._createList();
       this._toggle = this._createToggle();
       this._items = [];
-      this._open = false;
     }
 
     protected createElement(): HTMLElement {
@@ -164,12 +68,13 @@ module ui {
       var a = document.createElement('a');
       a.href = '#';
       this.parent.element.appendChild(a);
+      a.classList.add('ui-menu-toggle');
       a.addEventListener('click', this.toggle.bind(this));
       return a;
     }
 
     get open() {
-      return this._open;
+      return this.classList.contains('ui-menu-show');
     }
 
     get closed() {
@@ -178,26 +83,26 @@ module ui {
 
     show() {
       if (this.closed) {
-        var event = document.createEvent('show');
+        var event = new Event('show');
         this.fire('show', event);
         if (!event.defaultPrevented) {
-          document.body.classList.add('ui-menu-show');
+          this.classList.add('ui-menu-show');
         }
       }
     }
 
     hide() {
       if (this.open) {
-        var event = document.createEvent('hide');
+        var event = new Event('hide');
         this.fire('hide', event);
         if (!event.defaultPrevented) {
-          document.body.classList.remove('ui-menu-show');
+          this.classList.remove('ui-menu-show');
         }
       }
     }
 
     toggle() {
-      var event = document.createEvent('toggle');
+      var event = new Event('toggle');
       this.fire('toggle', event);
       if (!event.defaultPrevented) {
         if (this.open) {

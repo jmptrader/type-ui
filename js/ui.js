@@ -1421,6 +1421,124 @@ var ui;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/// <reference path="./EventManager.ts"/>
+/// <reference path="./HandleSubMenu.ts"/>
+var ui;
+(function (ui) {
+    var MenuItem = (function (_super) {
+        __extends(MenuItem, _super);
+        function MenuItem(menu, text) {
+            if (text === void 0) { text = ''; }
+            _super.call(this);
+            this._menu = menu;
+            this._element = this._createListItem();
+            this._link = this._createLink(text);
+            menu.addElement(this);
+            this._setupCommonEvents();
+        }
+        Object.defineProperty(MenuItem.prototype, "menu", {
+            get: function () {
+                return this._menu;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(MenuItem.prototype, "element", {
+            get: function () {
+                return this._element;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(MenuItem.prototype, "link", {
+            get: function () {
+                return this._link;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        MenuItem.prototype._createListItem = function () {
+            var li = document.createElement('li');
+            return li;
+        };
+        MenuItem.prototype._createLink = function (text) {
+            var a = document.createElement('a');
+            var txt = document.createTextNode(text);
+            a.appendChild(txt);
+            a.href = '#';
+            this._text = txt;
+            this.element.appendChild(a);
+            return a;
+        };
+        Object.defineProperty(MenuItem.prototype, "text", {
+            get: function () {
+                return this._text.nodeValue;
+            },
+            set: function (value) {
+                this._text.nodeValue = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        MenuItem.prototype._setupCommonEvents = function () {
+            this._setupElementEvents();
+            this._setupLinkEvents();
+        };
+        MenuItem.prototype._setupElementEvents = function () {
+            this.element.addEventListener('focus', this._onFocus.bind(this));
+            this.element.addEventListener('blur', this._onBlur.bind(this));
+            this.element.addEventListener('keydown', this._onKeydown.bind(this));
+            this.element.addEventListener('keyup', this._onKeyup.bind(this));
+        };
+        MenuItem.prototype._setupLinkEvents = function () {
+            this.link.addEventListener('click', this._onClick.bind(this));
+        };
+        MenuItem.prototype._onFocus = function (event) {
+            this.fire('focus', event);
+        };
+        MenuItem.prototype._onBlur = function (event) {
+            this.fire('blur', event);
+        };
+        MenuItem.prototype._onKeydown = function (event) {
+            this.fire('keydown', event);
+        };
+        MenuItem.prototype._onKeyup = function (event) {
+            this.fire('keyup', event);
+        };
+        MenuItem.prototype._onClick = function (event) {
+            this.fire('click', event);
+        };
+        return MenuItem;
+    })(ui.EventManager);
+    ui.MenuItem = MenuItem;
+})(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// <reference path="./MenuItem.ts"/>
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 /// <reference path="./Widget.ts" />
 var ui;
 (function (ui) {
@@ -1536,105 +1654,101 @@ var ui;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/// <reference path="./Widget.ts" />
-/// <reference path="./EventManager.ts"/>
+/// <reference path="./HandleSubMenu.ts"/>
+/// <reference path="./MenuItem.ts"/>
 var ui;
 (function (ui) {
-    var MenuItem = (function (_super) {
-        __extends(MenuItem, _super);
-        function MenuItem(menu, text) {
-            if (text === void 0) { text = ''; }
-            _super.call(this);
-            this._menu = menu;
-            this._element = this._createListItem();
-            this._link = this._createLink(text);
-            menu.addElement(this);
-            this._setupCommonEvents();
-        }
-        Object.defineProperty(MenuItem.prototype, "menu", {
-            get: function () {
-                return this._menu;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(MenuItem.prototype, "element", {
-            get: function () {
-                return this._element;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(MenuItem.prototype, "link", {
-            get: function () {
-                return this._link;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        MenuItem.prototype._createListItem = function () {
-            var li = document.createElement('li');
-            return li;
-        };
-        MenuItem.prototype._createLink = function (text) {
-            var a = document.createElement('a');
-            var txt = document.createTextNode(text);
-            a.appendChild(txt);
-            a.href = '#';
-            this._text = txt;
-            this.element.appendChild(a);
-            return a;
-        };
-        Object.defineProperty(MenuItem.prototype, "text", {
-            get: function () {
-                return this._text.nodeValue;
-            },
-            set: function (value) {
-                this._text.nodeValue = value;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        MenuItem.prototype._setupCommonEvents = function () {
-            this._setupElementEvents();
-            this._setupLinkEvents();
-        };
-        MenuItem.prototype._setupElementEvents = function () {
-            this.element.addEventListener('focus', this._onFocus.bind(this));
-            this.element.addEventListener('blur', this._onBlur.bind(this));
-            this.element.addEventListener('keydown', this._onKeydown.bind(this));
-            this.element.addEventListener('keyup', this._onKeyup.bind(this));
-        };
-        MenuItem.prototype._setupLinkEvents = function () {
-            this.link.addEventListener('click', this._onClick.bind(this));
-        };
-        MenuItem.prototype._onFocus = function (event) {
-            this.fire('focus', event);
-        };
-        MenuItem.prototype._onBlur = function (event) {
-            this.fire('blur', event);
-        };
-        MenuItem.prototype._onKeydown = function (event) {
-            this.fire('keydown', event);
-        };
-        MenuItem.prototype._onKeyup = function (event) {
-            this.fire('keyup', event);
-        };
-        MenuItem.prototype._onClick = function (event) {
-            this.fire('click', event);
-        };
-        return MenuItem;
-    })(ui.EventManager);
-    ui.MenuItem = MenuItem;
     var SubMenu = (function (_super) {
         __extends(SubMenu, _super);
         function SubMenu(menu, text) {
             if (text === void 0) { text = ''; }
             _super.call(this, menu, text);
+            this._items = [];
         }
+        SubMenu.prototype.addElement = function (item) {
+            if (!this.contains(item)) {
+                this.list.appendChild(item.element);
+                this._items.push(item);
+            }
+        };
+        SubMenu.prototype.contains = function (item) {
+            return this.indexOf(item) !== -1;
+        };
+        SubMenu.prototype.indexOf = function (item) {
+            return this.items.indexOf(item);
+        };
+        SubMenu.prototype.remove = function (item) {
+            var index = this.indexOf(item);
+            if (index >= 0) {
+                this.removeAt(index);
+            }
+        };
+        SubMenu.prototype.removeAt = function (index) {
+            if (index >= 0 && index <= this.length) {
+                var item = this.items[index];
+                this.element.removeChild(item.element);
+                this._items.splice(index, 1);
+            }
+        };
+        SubMenu.prototype.addItem = function (text) {
+            var item = new ui.MenuItem(this, text);
+            return item;
+        };
+        SubMenu.prototype.item = function (text) {
+            return this.addItem(text);
+        };
+        SubMenu.prototype.addSubMenu = function (text) {
+            var item = new ui.SubMenu(this, text);
+            return item;
+        };
+        SubMenu.prototype.sumMenu = function (text) {
+            return this.addSubMenu(text);
+        };
+        Object.defineProperty(SubMenu.prototype, "list", {
+            get: function () {
+                return this._list;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(SubMenu.prototype, "items", {
+            get: function () {
+                return this._items.slice(0);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(SubMenu.prototype, "length", {
+            get: function () {
+                return this.items.length;
+            },
+            enumerable: true,
+            configurable: true
+        });
         return SubMenu;
-    })(MenuItem);
+    })(ui.MenuItem);
     ui.SubMenu = SubMenu;
+})(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// <reference path="./Widget.ts" />
+/// <reference path="./EventManager.ts"/>
+/// <reference path="./HandleSubMenu.ts"/>
+/// <reference path="./MenuItem.ts"/>
+/// <reference path="./SubMenu.ts"/>
+var ui;
+(function (ui) {
     var Menu = (function (_super) {
         __extends(Menu, _super);
         function Menu(parent) {
@@ -1643,7 +1757,6 @@ var ui;
             this._list = this._createList();
             this._toggle = this._createToggle();
             this._items = [];
-            this._open = false;
         }
         Menu.prototype.createElement = function () {
             var element = document.createElement('nav');
@@ -1685,12 +1798,13 @@ var ui;
             var a = document.createElement('a');
             a.href = '#';
             this.parent.element.appendChild(a);
+            a.classList.add('ui-menu-toggle');
             a.addEventListener('click', this.toggle.bind(this));
             return a;
         };
         Object.defineProperty(Menu.prototype, "open", {
             get: function () {
-                return this._open;
+                return this.classList.contains('ui-menu-show');
             },
             enumerable: true,
             configurable: true
@@ -1704,24 +1818,24 @@ var ui;
         });
         Menu.prototype.show = function () {
             if (this.closed) {
-                var event = document.createEvent('show');
+                var event = new Event('show');
                 this.fire('show', event);
                 if (!event.defaultPrevented) {
-                    document.body.classList.add('ui-menu-show');
+                    this.classList.add('ui-menu-show');
                 }
             }
         };
         Menu.prototype.hide = function () {
             if (this.open) {
-                var event = document.createEvent('hide');
+                var event = new Event('hide');
                 this.fire('hide', event);
                 if (!event.defaultPrevented) {
-                    document.body.classList.remove('ui-menu-show');
+                    this.classList.remove('ui-menu-show');
                 }
             }
         };
         Menu.prototype.toggle = function () {
-            var event = document.createEvent('toggle');
+            var event = new Event('toggle');
             this.fire('toggle', event);
             if (!event.defaultPrevented) {
                 if (this.open) {

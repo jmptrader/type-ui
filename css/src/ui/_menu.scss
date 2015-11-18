@@ -1,3 +1,4 @@
+
 .ui-menu {
   width: 15em;
   right: -15em;
@@ -5,40 +6,80 @@
   overflow: hidden;
   display: block;
   height: 10000%;
-  background-color: #000;
+  background-color: $primary-bg-color;
 
-  .wrapper {
-    @include transform(translate(-15em, 0) scale(1, 1));
+  ul {
+    margin: 0;
+    padding: 0;
   }
 
   li {
+    padding: 15px;
     display: block; //los elementos van uno debajo de otro
+    border-top: 4px solid $primary-bg-color;
+    padding-top: 11px;
+  }
+
+  li:hover {
+    border-top: 4px solid $primary-border-color;
   }
 
  a {
-   color: white;
+   font-weight: bold;
+   color: $base-txt-color;
    text-decoration: none;
  }
 
  a:hover {
-   color: #00fcfc;
+   color: $hover-txt-color;
    text-decoration: none;
  }
 
 }
 
+.ui-menu-toggle {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 10px;
+  right: 0px;
+  background: black;
+
+  a {
+    color: white;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: #00fcfc;
+    text-decoration: none;
+  }
+
+}
+
+@media only screen and (max-width: $sm-max-size){
+
+  .ui-menu-show .wrapper {
+    @include transform(translate(-15em, 0) scale(1, 1));
+  }
+
+}
 @media only screen and (min-width: $sm-max-size){
   .ui-menu {
     max-height: inherit;
     position: relative;
-    right: inherit;
-    width: auto;
-    background: transparent;
+    right: inherit; //anulamos su posición fuera de la pantalla
+    width: auto; //le damos todo el ancho que necesite
 
     li {
       display: inline-block; //los elementos van en línea
     }
 
+  }
+
+  .ui-menu-toggle {
+    width: 0;
+    height: 0;
   }
 
 }
