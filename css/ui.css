@@ -750,4 +750,7 @@ html, body {
   height: 100%;
   min-height: 15px; }
 
+.ace_editor {
+  border: 2px solid black; }
+
 /*# sourceMappingURL=ui.css.map */

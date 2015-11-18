@@ -11,6 +11,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+var ui;
+(function (ui) {
+    function S4() {
+        return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+    }
+    ;
+    function randomId() {
+        var id = (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+        if (document.getElementById(id)) {
+            return randomId();
+        }
+        return id;
+    }
+    ui.randomId = randomId;
+})(ui || (ui = {}));
 /*
  * Copyright 2015 Ramiro Rojo
  *
@@ -160,6 +175,11 @@ var ui;
     })();
     ui.Widget = Widget;
 })(ui || (ui = {}));
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 /*
  * Copyright 2015 Ramiro Rojo
  *
@@ -174,11 +194,193 @@ var ui;
  * limitations under the License.
  */
 /// <reference path="./Widget.ts" />
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var ui;
+(function (ui) {
+    var Input = (function (_super) {
+        __extends(Input, _super);
+        function Input(parent, name) {
+            _super.call(this, parent);
+            this.name = name;
+            this.classList.add('ui-cell-sm-8');
+        }
+        Input.prototype.createElement = function () {
+            var element = document.createElement('input');
+            element.type = this.type;
+            element.classList.add("ui-input-" + this.type);
+            element.addEventListener('change', this._onChange.bind(this));
+            return element;
+        };
+        Input.prototype._onChange = function (event) {
+            this.fire('change', event);
+        };
+        Object.defineProperty(Input.prototype, "input", {
+            get: function () {
+                return this.element;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Input.prototype, "type", {
+            get: function () {
+                return null;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Input.prototype, "className", {
+            get: function () {
+                return 'ui-input';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Input.prototype, "name", {
+            get: function () {
+                return this.input.name;
+            },
+            set: function (value) {
+                this.input.name = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Input.prototype, "value", {
+            get: function () {
+                return this.input.value;
+            },
+            set: function (value) {
+                this.input.value = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return Input;
+    })(ui.Widget);
+    ui.Input = Input;
+})(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// <reference path="./Input.ts" />
+var ui;
+(function (ui) {
+    var AceEditor = (function (_super) {
+        __extends(AceEditor, _super);
+        function AceEditor(parent, name, mode) {
+            if (mode === void 0) { mode = 'ace/mode/javascript'; }
+            _super.call(this, parent, name);
+            this._editorDiv = this._createEditorDiv();
+            this.parent.element.appendChild(this._editorDiv);
+            this._editor = this._createEditor(this._editorDiv, this._editorDiv.id, mode);
+        }
+        AceEditor.prototype._createEditorDiv = function () {
+            var div = document.createElement('div');
+            div.id = ui.randomId();
+            div.style.margin = div.style.top = div.style.bottom = div.style.left = div.style.right = '0';
+            div.style.width = '100%';
+            div.style.minHeight = '200px';
+            div.style.height = '100%';
+            return div;
+        };
+        AceEditor.prototype._createEditor = function (container, id, mode) {
+            var editor = ace.edit(id);
+            editor.on("change", this._onAceChange.bind(this));
+            editor.setTheme(this.defaultTheme);
+            editor.session.setMode(mode);
+            editor.$blockScrolling = Infinity;
+            editor.setOptions({
+                enableBasicAutocompletion: true
+            });
+            editor.setAutoScrollEditorIntoView(true);
+            editor.setOption("minLines", 10);
+            return editor;
+        };
+        AceEditor.prototype._onAceChange = function (event) {
+            this.fire('change', event);
+            if (!event.defaultPrevented) {
+                this.input.value = this.value;
+            }
+        };
+        Object.defineProperty(AceEditor.prototype, "defaultTheme", {
+            get: function () {
+                return "ace/theme/monokai";
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(AceEditor.prototype, "type", {
+            get: function () {
+                return 'hidden';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(AceEditor.prototype, "className", {
+            get: function () {
+                return 'ui-ace-editor';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(AceEditor.prototype, "mode", {
+            get: function () {
+                return this._editor.session.getMode();
+            },
+            set: function (value) {
+                this._editor.session.setMode(value);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(AceEditor.prototype, "theme", {
+            get: function () {
+                return this._editor.getTheme();
+            },
+            set: function (value) {
+                this._editor.setTheme(value);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(AceEditor.prototype, "value", {
+            get: function () {
+                return this._editor.getValue();
+            },
+            set: function (value) {
+                this._editor.setValue(value);
+                this.input.value = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return AceEditor;
+    })(ui.Input);
+    ui.AceEditor = AceEditor;
+})(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// <reference path="./Widget.ts" />
 var ui;
 (function (ui) {
     var Container = (function (_super) {
@@ -659,84 +861,6 @@ var ui;
         return Canvas;
     })(ui.Widget);
     ui.Canvas = Canvas;
-})(ui || (ui = {}));
-/*
- * Copyright 2015 Ramiro Rojo
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *    http://www.apache.org/licenses/LICENSE-2.0
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/// <reference path="./Widget.ts" />
-var ui;
-(function (ui) {
-    var Input = (function (_super) {
-        __extends(Input, _super);
-        function Input(parent, name) {
-            _super.call(this, parent);
-            this.name = name;
-            this.classList.add('ui-cell-sm-8');
-        }
-        Input.prototype.createElement = function () {
-            var element = document.createElement('input');
-            element.type = this.type;
-            element.classList.add("ui-input-" + this.type);
-            element.addEventListener('change', this._onChange.bind(this));
-            return element;
-        };
-        Input.prototype._onChange = function (event) {
-            this.fire('change', event);
-        };
-        Object.defineProperty(Input.prototype, "input", {
-            get: function () {
-                return this.element;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(Input.prototype, "type", {
-            get: function () {
-                return null;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(Input.prototype, "className", {
-            get: function () {
-                return 'ui-input';
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(Input.prototype, "name", {
-            get: function () {
-                return this.input.name;
-            },
-            set: function (value) {
-                this.input.name = value;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(Input.prototype, "value", {
-            get: function () {
-                return this.input.value;
-            },
-            set: function (value) {
-                this.input.value = value;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        return Input;
-    })(ui.Widget);
-    ui.Input = Input;
 })(ui || (ui = {}));
 /*
  * Copyright 2015 Ramiro Rojo

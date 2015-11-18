@@ -11,3 +11,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+module ui {
+  function S4() {
+     return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+  };
+
+  export function randomId():string {
+    let id = (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+    if (document.getElementById(id)) {
+      return randomId();
+    }
+    return id;
+}
+
+}

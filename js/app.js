@@ -87,12 +87,15 @@ quote2.quote = 'This is another blockquote, but it doesn\'t have a footer';
 
 new ui.HorizontalRule(app);
 
-var ol = new ui.OrderedList();
+var ol = new ui.OrderedList(app);
   ol.item().addText("Item 1");
   ol.item().addText("Item 2");
   ol.item().addText("Item 3");
 
-var ul = new ui.UnorderedList();
+var ul = new ui.UnorderedList(app);
   ul.item().addText("Item 1");
   ul.item().addText("Item 2");
   ul.item().addText("Item 3");
+
+var editor = new ui.AceEditor(app, 'editor');
+editor.value = 'function test() {}';
