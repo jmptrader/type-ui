@@ -21,7 +21,7 @@
 .ui-menu .separator:hover {
   min-width: 4px;
   max-width: 4px;
-  min-height: 26px;
+  min-height: 22px;
   overflow: hidden;
   background: $primary-border-color;
   border: 0px solid;
@@ -58,7 +58,10 @@ padding:10px 12px;
 text-decoration: none;
 }
 
-.ui-menu li:hover {
+.ui-menu li:hover,
+.ui-menu li:hover > a,
+.ui-menu ul li:hover > a,
+.ui-menu li:hover ul li:hover > a {
   color: $hover-txt-color;
   background: $hover-bg-color;
 }
@@ -76,7 +79,8 @@ text-decoration: none;
 .ui-menu li ul li:hover {
 }
 
-.ui-menu li a:hover {
+.ui-menu li a:hover,
+.ui-menu ul li:hover > a {
   color: $hover-txt-color;
   text-decoration: none;
 }

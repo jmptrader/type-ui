@@ -780,7 +780,7 @@ html, body {
 .ui-menu .separator:hover {
   min-width: 4px;
   max-width: 4px;
-  min-height: 26px;
+  min-height: 22px;
   overflow: hidden;
   background: #317DB1;
   border: 0px solid; }
@@ -812,7 +812,10 @@ html, body {
   padding: 10px 12px;
   text-decoration: none; }
 
-.ui-menu li:hover {
+.ui-menu li:hover,
+.ui-menu li:hover > a,
+.ui-menu ul li:hover > a,
+.ui-menu li:hover ul li:hover > a {
   color: #dedede;
   background: #053B59; }
 
@@ -823,7 +826,8 @@ html, body {
   background: #053B59;
   color: #dedede; }
 
-.ui-menu li a:hover {
+.ui-menu li a:hover,
+.ui-menu ul li:hover > a {
   color: #dedede;
   text-decoration: none; }
 
