@@ -18,7 +18,7 @@
 
 module ui {
 
-  export class FontAwesomeWidget extends Container {
+  export class FontAwesomeWidget extends Container implements Icon {
 
     get fixedWidth():boolean {
       return this.classList.contains('fa-fw');
