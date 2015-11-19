@@ -976,6 +976,107 @@ var ui;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/// <reference path="./Widget.ts" />
+var ui;
+(function (ui) {
+    var Checkbox = (function (_super) {
+        __extends(Checkbox, _super);
+        function Checkbox(parent, name, text) {
+            _super.call(this, parent);
+            this._input = this._createInput();
+            this._text = this._createText(text);
+            this.input.name = name;
+        }
+        Object.defineProperty(Checkbox.prototype, "name", {
+            get: function () {
+                return this.input.name;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Checkbox.prototype, "input", {
+            get: function () {
+                return this._input;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Checkbox.prototype, "type", {
+            get: function () {
+                return 'checkbox';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Checkbox.prototype._createText = function (text) {
+            var txt = document.createTextNode(text);
+            this.element.appendChild(txt);
+            return txt;
+        };
+        Checkbox.prototype._createInput = function () {
+            var input = document.createElement('input');
+            input.type = this.type;
+            this.element.appendChild(input);
+            return input;
+        };
+        Checkbox.prototype.createElement = function () {
+            var element = document.createElement('label');
+            return element;
+        };
+        Object.defineProperty(Checkbox.prototype, "className", {
+            get: function () {
+                return 'ui-checkbox';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Checkbox.prototype, "text", {
+            get: function () {
+                return this._text.textContent;
+            },
+            set: function (value) {
+                this._text.textContent = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Checkbox.prototype, "label", {
+            get: function () {
+                return this.text;
+            },
+            set: function (value) {
+                this.text = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Checkbox.prototype, "checked", {
+            get: function () {
+                return this.input.checked;
+            },
+            set: function (value) {
+                this.input.checked = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return Checkbox;
+    })(ui.Widget);
+    ui.Checkbox = Checkbox;
+})(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 /// <reference path="./Input.ts" />
 var ui;
 (function (ui) {
@@ -1162,6 +1263,8 @@ var ui;
                 case 'color': return new ui.ColorInput(this, name);
                 case 'number': return new ui.NumberInput(this, name);
                 case 'text': return new ui.TextInput(this, name);
+                case 'checkbox': return new ui.Checkbox(this, name, '');
+                case 'radioGroup': return new ui.RadioGroup(this, name);
                 default: return new ui.TextInput(this, name);
             }
         };
@@ -1189,6 +1292,14 @@ var ui;
         };
         InputContainer.prototype.color = function (name, label) {
             return this.addPair(name, label, 'color');
+        };
+        InputContainer.prototype.checkbox = function (name, label) {
+            var check = this.addPair(name, '', 'checkbox');
+            check.label = label;
+            return check;
+        };
+        InputContainer.prototype.radioGroup = function (name, label) {
+            return this.addPair(name, label, 'radioGroup');
         };
         InputContainer.prototype.submit = function (submit, reset) {
             if (reset === void 0) { reset = null; }
@@ -2594,6 +2705,112 @@ var ui;
         return Paragraph;
     })(ui.Widget);
     ui.Paragraph = Paragraph;
+})(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// <reference path="./Container.ts" />
+var ui;
+(function (ui) {
+    var RadioGroup = (function (_super) {
+        __extends(RadioGroup, _super);
+        function RadioGroup(parent, name) {
+            _super.call(this, parent);
+            this.name = name;
+        }
+        Object.defineProperty(RadioGroup.prototype, "radios", {
+            get: function () {
+                return this.children;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(RadioGroup.prototype, "name", {
+            get: function () {
+                return this._name;
+            },
+            set: function (value) {
+                this._name = value;
+                this.radios.forEach(function (i) { return i.input.name = value; });
+            },
+            enumerable: true,
+            configurable: true
+        });
+        RadioGroup.prototype.createElement = function () {
+            var element = document.createElement('div');
+            return element;
+        };
+        Object.defineProperty(RadioGroup.prototype, "className", {
+            get: function () {
+                return 'ui-radio-group';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        RadioGroup.prototype.addRadio = function (text) {
+            return new ui.RadioInput(this, text);
+        };
+        RadioGroup.prototype.radio = function (text) {
+            return this.addRadio(text);
+        };
+        RadioGroup.prototype.addCheckbox = function (name, label) {
+            return new ui.Checkbox(this, name, label);
+        };
+        RadioGroup.prototype.checkbox = function (name, label) {
+            return this.addCheckbox(name, label);
+        };
+        return RadioGroup;
+    })(ui.Container);
+    ui.RadioGroup = RadioGroup;
+})(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// <reference path="./Checkbox.ts" />
+var ui;
+(function (ui) {
+    var RadioInput = (function (_super) {
+        __extends(RadioInput, _super);
+        function RadioInput(parent, text) {
+            _super.call(this, parent, parent.name, text);
+        }
+        Object.defineProperty(RadioInput.prototype, "type", {
+            get: function () {
+                return 'radio';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(RadioInput.prototype, "className", {
+            get: function () {
+                return 'ui-radio-button';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return RadioInput;
+    })(ui.Checkbox);
+    ui.RadioInput = RadioInput;
 })(ui || (ui = {}));
 /// <reference path="./Container.ts" />
 var ui;

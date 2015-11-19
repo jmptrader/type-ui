@@ -48,12 +48,14 @@ module ui {
       return this.addLabel(forInput, text);
     }
 
-    addInput(name:string, type:string='text') {
+    addInput(name:string, type:string='text'):Widget {
       switch (type) {
         case 'date':   return new DateInput(this, name);
         case 'color':  return new ColorInput(this, name);
         case 'number': return new NumberInput(this, name);
         case 'text':   return new TextInput(this, name);
+        case 'checkbox': return new Checkbox(this, name, '');
+        case 'radioGroup':  return new RadioGroup(this, name);
         default:       return new TextInput(this, name);
       }
     }
@@ -68,23 +70,33 @@ module ui {
     }
 
     pair(name:string, label:string, type:string='text') {
-      return this.addPair(name, label, type);
+      return <Input>this.addPair(name, label, type);
     }
 
     text(name:string, label:string) {
-      return this.addPair(name, label, 'text');
+      return <Input>this.addPair(name, label, 'text');
     }
 
     number(name:string, label:string) {
-      return this.addPair(name, label, 'number');
+      return <Input>this.addPair(name, label, 'number');
     }
 
     date(name:string, label:string) {
-      return this.addPair(name, label, 'date');
+      return <Input>this.addPair(name, label, 'date');
     }
 
     color(name:string, label:string) {
-      return this.addPair(name, label, 'color');
+      return <Input>this.addPair(name, label, 'color');
+    }
+
+    checkbox(name:string, label:string) {
+      var check = <Checkbox>this.addPair(name, '', 'checkbox');
+      check.label = label;
+      return check;
+    }
+
+    radioGroup(name:string, label:string) {
+      return <RadioGroup>this.addPair(name, label, 'radioGroup');
     }
 
     submit(submit:string,reset:string=null) {

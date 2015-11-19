@@ -71,7 +71,19 @@ group = fieldset.group();
 group = fieldset.group();
   group.date('date', 'Date Input');
 group = fieldset.group();
+  group.checkbox('check', 'Do something cool');
+group = fieldset.group('radio');
+  var rg = group.radioGroup('radio', 'Do something cool');
+    var r1 = rg.radio('Yes'); r1.checked = true;
+    var r2 = rg.radio('No');
+group = fieldset.group();
+  rg = group.radioGroup('opts', 'Options');
+  var ch1 = rg.checkbox('o1', 'An option'); ch1.checked = true;
+  rg.checkbox('o2', 'Another option');
+group = fieldset.group();
     group.submit('Submit');
+
+
 
 new ui.HorizontalRule(app);
 

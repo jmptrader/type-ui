@@ -780,6 +780,14 @@ html, body {
   height: 100%;
   min-height: 2em; }
 
+.ui-radio-button,
+.ui-checkbox {
+  display: block;
+  font-weight: bold; }
+
+.ui-radio-group {
+  display: inline-block; }
+
 ::-webkit-color-swatch-wrapper {
   padding: 5px; }
 
