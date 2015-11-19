@@ -12,6 +12,7 @@
  * limitations under the License.
  */
 /// <reference path="./Input.ts" />
+/// <reference path="./HandleOptions.ts"/>
 
 module ui {
 
