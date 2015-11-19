@@ -47,8 +47,8 @@
   border-radius: 50%; }
 
 .ui-close:hover {
-  color: #373b96;
-  background: #f6fafc; }
+  color: #dedede;
+  background: #053B59; }
 
 /*
  * Copyright 2015 Ramiro Rojo
@@ -551,14 +551,14 @@ html, body {
   color: #0e0f26; }
 
 .ui-tab-head:hover {
-  background: #f6fafc;
-  color: #292c71;
+  background: #053B59;
+  color: #dedede;
   text-decoration: none; }
 
 .ui-tab-head a:hover,
 .ui-tab-head:hover a {
   text-decoration: none;
-  color: #292c71; }
+  color: #dedede; }
 
 .ui-tab-head.active,
 .ui-tab-head.active:hover {
@@ -567,6 +567,11 @@ html, body {
   background: #cee3f1;
   color: #292c71;
   border-top: 4px solid #70aed8; }
+
+.ui-tab-head.active:hover a,
+.ui-tab-head.active:hover a:hover {
+  background: #cee3f1;
+  color: #292c71; }
 
 .ui-tab-head.disabled,
 .ui-tab-head.disabled:hover {
@@ -645,8 +650,8 @@ html, body {
 
 .ui-button:hover {
   border: 2px solid #98c4e3;
-  background: #f6fafc;
-  color: #373b96;
+  background: #053B59;
+  color: #dedede;
   text-decoration: none; }
 
 .ui-button:checked,
@@ -794,8 +799,7 @@ html, body {
 
 .ui-menu ul li {
   float: left;
-  display: inline-block;
-  border-top: 4px solid #7FB5DA; }
+  display: inline-block; }
 
 .ui-menu ul li ul li {
   display: block;
@@ -808,20 +812,25 @@ html, body {
   text-decoration: none; }
 
 .ui-menu li:hover {
-  border-top: 4px solid #317DB1;
-  background: #f6fafc; }
+  color: #dedede;
+  background: #053B59; }
 
-.ui-menu li ul li:hover {
-  border-top: 4px solid #f6fafc; }
+.ui-menu li:hover ul li a {
+  color: #0e0f26; }
+
+.ui-menu li:hover ul li a:hover {
+  background: #053B59;
+  color: #dedede; }
 
 .ui-menu li a:hover {
-  color: #373b96;
+  color: #dedede;
   text-decoration: none; }
 
 .ui-menu li ul {
   display: none;
   position: absolute;
-  min-width: 140px; }
+  min-width: 140px;
+  border: 2px solid #317DB1; }
 
 .ui-menu li:hover > ul {
   display: block; }

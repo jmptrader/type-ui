@@ -44,8 +44,8 @@
 .ui-menu ul li {
 float:left;
 display: inline-block;
-border-top: 4px solid $primary-bg-color;
 }
+
 .ui-menu ul li ul li {
   display:block;
   float: none;
@@ -59,12 +59,21 @@ text-decoration: none;
 }
 
 .ui-menu li:hover {
-  border-top: 4px solid $primary-border-color;
-  background:$hover-bg-color;
+  color: $hover-txt-color;
+  background: $hover-bg-color;
 }
 
+.ui-menu li:hover ul li a {
+  color: $base-txt-color;
+}
+
+.ui-menu li:hover ul li a:hover {
+  background: $hover-bg-color;
+  color: $hover-txt-color;
+}
+
+
 .ui-menu li ul li:hover {
-  border-top: 4px solid $hover-bg-color;
 }
 
 .ui-menu li a:hover {
@@ -76,6 +85,7 @@ text-decoration: none;
 display:none;
 position:absolute;
 min-width:140px;
+border: 2px solid $primary-border-color;
 }
 
 .ui-menu li:hover > ul {

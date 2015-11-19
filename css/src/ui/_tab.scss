@@ -73,14 +73,14 @@
 
 .ui-tab-head:hover {
   background: $hover-bg-color;
-  color:      $active-txt-color;
+  color:      $hover-txt-color;
   text-decoration:none;
 }
 
 .ui-tab-head a:hover,
 .ui-tab-head:hover a {
   text-decoration:none;
-  color:     $active-txt-color;
+  color:     $hover-txt-color;
 }
 
 .ui-tab-head.active,
@@ -90,6 +90,12 @@
     background: $active-bg-color;
     color:      $active-txt-color;
     border-top: 4px solid $active-border-color;
+}
+
+.ui-tab-head.active:hover a,
+.ui-tab-head.active:hover a:hover {
+  background: $active-bg-color;
+  color:      $active-txt-color;
 }
 
 .ui-tab-head.disabled,

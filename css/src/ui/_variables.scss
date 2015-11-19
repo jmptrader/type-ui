@@ -20,7 +20,7 @@ $primary-bg-color:    #7FB5DA;
 $secondary-bg-color:  darken($primary-bg-color, 10%);
 $disabled-bg-color:   darken($primary-bg-color, 50%);
 $active-bg-color:     lighten($primary-bg-color, 20%);
-$hover-bg-color:      lighten($primary-bg-color, 30%);
+$hover-bg-color:      #053B59;
 $pressed-bg-color:    darken($primary-bg-color, 20%);
 
 $primary-border-color:    #317DB1;
@@ -34,7 +34,7 @@ $base-txt-color:     #0e0f26;
 $secondary-txt-color: lighten($base-txt-color, 10%);
 $disabled-txt-color: lighten($base-txt-color, 50%);
 $active-txt-color:    lighten($base-txt-color, 20%);
-$hover-txt-color:    lighten($base-txt-color, 30%);
+$hover-txt-color:    #dedede;
 $pressed-txt-color:  darken($base-txt-color, 20%);
 
 $xs-max-size: 767px;
