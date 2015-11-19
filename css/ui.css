@@ -679,7 +679,8 @@ html, body {
   background: #cee3f1;
   color: #0e0f26;
   padding: 10px;
-  text-decoration: none; }
+  text-decoration: none;
+  cursor: pointer; }
 
 .ui-button:hover {
   border: 2px solid #98c4e3;
@@ -795,6 +796,14 @@ html, body {
   border: 1px solid black;
   height: 100%;
   min-height: 15px; }
+
+.ui-input,
+.ui-input input,
+.ui-radio-button,
+.ui-radio-button input,
+.ui-checkbox,
+.ui-checkbox input {
+  cursor: pointer; }
 
 .ace_editor {
   border: 2px solid black; }

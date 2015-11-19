@@ -26,3 +26,12 @@
     height: 100%;
     min-height: 15px;
 }
+
+.ui-input,
+.ui-input input,
+.ui-radio-button,
+.ui-radio-button input,
+.ui-checkbox,
+.ui-checkbox input {
+  cursor: pointer;
+}
