@@ -56,6 +56,7 @@ module ui {
         case 'text':   return new TextInput(this, name);
         case 'checkbox': return new Checkbox(this, name, '');
         case 'radioGroup':  return new RadioGroup(this, name);
+        case 'select': return new SelectInput(this, name);
         default:       return new TextInput(this, name);
       }
     }
@@ -97,6 +98,10 @@ module ui {
 
     radioGroup(name:string, label:string) {
       return <RadioGroup>this.addPair(name, label, 'radioGroup');
+    }
+
+    select(name:string, label:string) {
+      return <SelectInput>this.addPair(name, label, 'select');
     }
 
     submit(submit:string,reset:string=null) {

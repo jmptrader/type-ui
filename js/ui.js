@@ -1265,6 +1265,7 @@ var ui;
                 case 'text': return new ui.TextInput(this, name);
                 case 'checkbox': return new ui.Checkbox(this, name, '');
                 case 'radioGroup': return new ui.RadioGroup(this, name);
+                case 'select': return new ui.SelectInput(this, name);
                 default: return new ui.TextInput(this, name);
             }
         };
@@ -1300,6 +1301,9 @@ var ui;
         };
         InputContainer.prototype.radioGroup = function (name, label) {
             return this.addPair(name, label, 'radioGroup');
+        };
+        InputContainer.prototype.select = function (name, label) {
+            return this.addPair(name, label, 'select');
         };
         InputContainer.prototype.submit = function (submit, reset) {
             if (reset === void 0) { reset = null; }
@@ -2581,6 +2585,176 @@ var ui;
     })(ui.Input);
     ui.NumberInput = NumberInput;
 })(ui || (ui = {}));
+var ui;
+(function (ui) {
+    var Option = (function () {
+        function Option(parent, value, text) {
+            this._element = this._createElement(value, text);
+            parent.addOption(this);
+            this._parent = parent;
+        }
+        Object.defineProperty(Option.prototype, "value", {
+            get: function () {
+                return this.element.value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Option.prototype, "text", {
+            get: function () {
+                return this.element.text;
+            },
+            set: function (value) {
+                this.element.text = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Option.prototype, "element", {
+            get: function () {
+                return this._element;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Option.prototype, "parent", {
+            get: function () {
+                return this._parent;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Option.prototype._createElement = function (value, text) {
+            var e = document.createElement('option');
+            e.value = value;
+            e.text = text;
+            return e;
+        };
+        Option.prototype.select = function () {
+            this.parent.value = this.value;
+        };
+        return Option;
+    })();
+    ui.Option = Option;
+})(ui || (ui = {}));
+var ui;
+(function (ui) {
+    var OptionGroup = (function () {
+        function OptionGroup(parent, text) {
+            this._options = [];
+            this._element = this.createElement(text);
+            parent.addOption(this);
+            this._parent = parent;
+        }
+        Object.defineProperty(OptionGroup.prototype, "parent", {
+            get: function () {
+                return this._parent;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        OptionGroup.prototype.createElement = function (text) {
+            var element = document.createElement('optgroup');
+            element.label = text;
+            return element;
+        };
+        Object.defineProperty(OptionGroup.prototype, "element", {
+            get: function () {
+                return this._element;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(OptionGroup.prototype, "type", {
+            get: function () {
+                return 'select';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(OptionGroup.prototype, "className", {
+            get: function () {
+                return 'ui-select';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        OptionGroup.prototype.add = function (value, name) {
+            var opt = new ui.Option(this, value, name);
+            return opt;
+        };
+        OptionGroup.prototype.addOption = function (opt) {
+            this._options.push(opt);
+            this.element.appendChild(opt.element);
+        };
+        OptionGroup.prototype.remove = function (opt) {
+            this.removeAt(this.indexOf(opt));
+        };
+        OptionGroup.prototype.option = function (value) {
+            var options = this.options;
+            var length = options.length;
+            for (var i = 0; i < length; ++i) {
+                if (options[i].value === value) {
+                    return options[i];
+                }
+            }
+            return null;
+        };
+        OptionGroup.prototype.removeValue = function (value) {
+            this.remove(this.option(value));
+        };
+        OptionGroup.prototype.removeAt = function (index) {
+            if (index >= 0 && index <= -1) {
+                this._options.splice(index, 1);
+            }
+        };
+        OptionGroup.prototype.indexOf = function (opt) {
+            return this.options.indexOf(opt);
+        };
+        OptionGroup.prototype.contains = function (opt) {
+            return this.indexOf(opt) !== -1;
+        };
+        Object.defineProperty(OptionGroup.prototype, "options", {
+            get: function () {
+                return this._options.slice(0);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(OptionGroup.prototype, "text", {
+            get: function () {
+                return this.element.label;
+            },
+            set: function (value) {
+                this.element.label = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(OptionGroup.prototype, "label", {
+            get: function () {
+                return this.text;
+            },
+            set: function (value) {
+                this.text = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(OptionGroup.prototype, "value", {
+            get: function () {
+                return this.parent.value;
+            },
+            set: function (value) {
+                this.parent.value = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return OptionGroup;
+    })();
+    ui.OptionGroup = OptionGroup;
+})(ui || (ui = {}));
 /*
  * Copyright 2015 Ramiro Rojo
  *
@@ -2811,6 +2985,111 @@ var ui;
         return RadioInput;
     })(ui.Checkbox);
     ui.RadioInput = RadioInput;
+})(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// <reference path="./Input.ts" />
+var ui;
+(function (ui) {
+    var SelectInput = (function (_super) {
+        __extends(SelectInput, _super);
+        function SelectInput(parent, name) {
+            _super.call(this, parent, name);
+            this._options = [];
+        }
+        SelectInput.prototype.createElement = function () {
+            var element = document.createElement('select');
+            element.classList.add(this.className);
+            return element;
+        };
+        Object.defineProperty(SelectInput.prototype, "type", {
+            get: function () {
+                return 'select';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(SelectInput.prototype, "className", {
+            get: function () {
+                return 'ui-select';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        SelectInput.prototype.add = function (value, name) {
+            var opt = new ui.Option(this, value, name);
+            return opt;
+        };
+        SelectInput.prototype.addOption = function (opt) {
+            this._options.push(opt);
+            this.element.appendChild(opt.element);
+        };
+        SelectInput.prototype.addGroup = function (text) {
+            var g = new ui.OptionGroup(this, text);
+            return g;
+        };
+        SelectInput.prototype.group = function (text) {
+            return this.addGroup(text);
+        };
+        SelectInput.prototype.remove = function (opt) {
+            this.removeAt(this.indexOf(opt));
+        };
+        SelectInput.prototype.option = function (value) {
+            var options = this.options;
+            var length = options.length;
+            for (var i = 0; i < length; ++i) {
+                if (!(options[i] instanceof ui.Option)) {
+                    continue;
+                }
+                var option = options[i];
+                if (option.value === value) {
+                    return option;
+                }
+            }
+            return null;
+        };
+        SelectInput.prototype.removeValue = function (value) {
+            this.remove(this.option(value));
+        };
+        SelectInput.prototype.removeAt = function (index) {
+            if (index >= 0 && index <= -1) {
+                this._options.splice(index, 1);
+            }
+        };
+        SelectInput.prototype.indexOf = function (opt) {
+            return this.options.indexOf(opt);
+        };
+        SelectInput.prototype.contains = function (opt) {
+            return this.indexOf(opt) !== -1;
+        };
+        Object.defineProperty(SelectInput.prototype, "options", {
+            get: function () {
+                return this._options.slice(0);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(SelectInput.prototype, "selectableOptions", {
+            get: function () {
+                return this.options.filter(function (i) { return i instanceof ui.Option; });
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return SelectInput;
+    })(ui.Input);
+    ui.SelectInput = SelectInput;
 })(ui || (ui = {}));
 /// <reference path="./Container.ts" />
 var ui;

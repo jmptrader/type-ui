@@ -80,10 +80,16 @@ group = fieldset.group();
   rg = group.radioGroup('opts', 'Options');
   var ch1 = rg.checkbox('o1', 'An option'); ch1.checked = true;
   rg.checkbox('o2', 'Another option');
+  group = fieldset.group();
+    var sel = group.select('select', 'A selection');
+      sel.add('s1', 'This <Is a selection>');
+      sel.add('s2', 'Selection 2');
+      var sg1 = sel.group('Grouping 1');
+        sg1.add('s3', 'Selection Group 1');
+        sg1.add('s4', 'Selection Group 2');
+
 group = fieldset.group();
     group.submit('Submit');
-
-
 
 new ui.HorizontalRule(app);
 
