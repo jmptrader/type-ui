@@ -344,7 +344,7 @@ var ui;
         };
         Object.defineProperty(AceEditor.prototype, "defaultTheme", {
             get: function () {
-                return "ace/theme/monokai";
+                return "ace/theme/chrome";
             },
             enumerable: true,
             configurable: true

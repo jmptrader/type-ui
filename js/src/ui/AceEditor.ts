@@ -61,7 +61,7 @@ module ui {
     }
 
     protected get defaultTheme() {
-      return "ace/theme/monokai";
+      return "ace/theme/chrome";
     }
 
     get type(): string {
