@@ -1314,6 +1314,388 @@ var ui;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+var ui;
+(function (ui) {
+    (function (FontAwesomeTransform) {
+        FontAwesomeTransform[FontAwesomeTransform["NONE"] = 0] = "NONE";
+        FontAwesomeTransform[FontAwesomeTransform["ROTATE90"] = 1] = "ROTATE90";
+        FontAwesomeTransform[FontAwesomeTransform["ROTATE180"] = 2] = "ROTATE180";
+        FontAwesomeTransform[FontAwesomeTransform["ROTATE270"] = 3] = "ROTATE270";
+        FontAwesomeTransform[FontAwesomeTransform["FLIP_HORIZONTAL"] = 4] = "FLIP_HORIZONTAL";
+        FontAwesomeTransform[FontAwesomeTransform["FLIP_VERTICAL"] = 5] = "FLIP_VERTICAL";
+    })(ui.FontAwesomeTransform || (ui.FontAwesomeTransform = {}));
+    var FontAwesomeTransform = ui.FontAwesomeTransform;
+    ;
+})(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+var ui;
+(function (ui) {
+    (function (FontAwesomeSize) {
+        FontAwesomeSize[FontAwesomeSize["NORMAL"] = 0] = "NORMAL";
+        FontAwesomeSize[FontAwesomeSize["LARGE"] = 1] = "LARGE";
+        FontAwesomeSize[FontAwesomeSize["X2"] = 2] = "X2";
+        FontAwesomeSize[FontAwesomeSize["X3"] = 3] = "X3";
+        FontAwesomeSize[FontAwesomeSize["X4"] = 4] = "X4";
+        FontAwesomeSize[FontAwesomeSize["X5"] = 5] = "X5";
+    })(ui.FontAwesomeSize || (ui.FontAwesomeSize = {}));
+    var FontAwesomeSize = ui.FontAwesomeSize;
+    ;
+})(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// <reference path="./Container.ts" />
+/// <reference path="./FontAwesomeTransform.ts" />
+/// <reference path="./FontAwesomeSize.ts" />
+var ui;
+(function (ui) {
+    var FontAwesomeWidget = (function (_super) {
+        __extends(FontAwesomeWidget, _super);
+        function FontAwesomeWidget() {
+            _super.apply(this, arguments);
+        }
+        Object.defineProperty(FontAwesomeWidget.prototype, "fixedWidth", {
+            get: function () {
+                return this.classList.contains('fa-fw');
+            },
+            set: function (value) {
+                if (value !== this.spin) {
+                    if (value) {
+                        this.classList.add('fa-fw');
+                    }
+                    else {
+                        this.classList.remove('fa-fw');
+                    }
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(FontAwesomeWidget.prototype, "border", {
+            get: function () {
+                return this.classList.contains('fa-border');
+            },
+            set: function (value) {
+                if (value !== this.spin) {
+                    if (value) {
+                        this.classList.add('fa-border');
+                    }
+                    else {
+                        this.classList.remove('fa-border');
+                    }
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(FontAwesomeWidget.prototype, "inverse", {
+            get: function () {
+                return this.classList.contains('fa-inverse');
+            },
+            set: function (value) {
+                if (value !== this.spin) {
+                    if (value) {
+                        this.classList.add('fa-inverse');
+                    }
+                    else {
+                        this.classList.remove('fa-inverse');
+                    }
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(FontAwesomeWidget.prototype, "spin", {
+            get: function () {
+                return this.classList.contains('fa-spin');
+            },
+            set: function (value) {
+                if (value !== this.spin) {
+                    if (value) {
+                        this.classList.remove('fa-pulse');
+                        this.classList.add('fa-spin');
+                    }
+                    else {
+                        this.classList.remove('fa-spin');
+                    }
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(FontAwesomeWidget.prototype, "pulse", {
+            get: function () {
+                return this.classList.contains('fa-pulse');
+            },
+            set: function (value) {
+                if (value !== this.pulse) {
+                    if (value) {
+                        this.classList.remove('fa-spin');
+                        this.classList.add('fa-pulse');
+                    }
+                    else {
+                        this.classList.remove('fa-pulse');
+                    }
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(FontAwesomeWidget.prototype, "transform", {
+            get: function () {
+                if (this.classList.contains('fa-rotate-90')) {
+                    return ui.FontAwesomeTransform.ROTATE90;
+                }
+                if (this.classList.contains('fa-rotate-180')) {
+                    return ui.FontAwesomeTransform.ROTATE180;
+                }
+                if (this.classList.contains('fa-rotate-270')) {
+                    return ui.FontAwesomeTransform.ROTATE270;
+                }
+                if (this.classList.contains('fa-flip-horizontal')) {
+                    return ui.FontAwesomeTransform.FLIP_HORIZONTAL;
+                }
+                if (this.classList.contains('fa-flip-vertical')) {
+                    return ui.FontAwesomeTransform.FLIP_VERTICAL;
+                }
+                return ui.FontAwesomeTransform.NONE;
+            },
+            set: function (type) {
+                this._removeTransform();
+                switch (type) {
+                    case ui.FontAwesomeTransform.ROTATE90:
+                        this.classList.add('fa-rotate-90');
+                        break;
+                    case ui.FontAwesomeTransform.ROTATE180:
+                        this.classList.add('fa-rotate-180');
+                        break;
+                    case ui.FontAwesomeTransform.ROTATE270:
+                        this.classList.add('fa-rotate-270');
+                        break;
+                    case ui.FontAwesomeTransform.FLIP_HORIZONTAL:
+                        this.classList.add('fa-flip-horizontal');
+                        break;
+                    case ui.FontAwesomeTransform.FLIP_VERTICAL:
+                        this.classList.add('fa-flip-vertical');
+                        break;
+                    default:
+                        break;
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(FontAwesomeWidget.prototype, "size", {
+            get: function () {
+                if (this.classList.contains('fa-lg')) {
+                    return ui.FontAwesomeSize.LARGE;
+                }
+                if (this.classList.contains('fa-2x')) {
+                    return ui.FontAwesomeSize.X2;
+                }
+                if (this.classList.contains('fa-3x')) {
+                    return ui.FontAwesomeSize.X3;
+                }
+                if (this.classList.contains('fa-4x')) {
+                    return ui.FontAwesomeSize.X4;
+                }
+                if (this.classList.contains('fa-5x')) {
+                    return ui.FontAwesomeSize.X5;
+                }
+                return ui.FontAwesomeSize.NORMAL;
+            },
+            set: function (value) {
+                this._removeSize();
+                switch (value) {
+                    case ui.FontAwesomeSize.LARGE:
+                        this.classList.add('fa-lg');
+                        break;
+                    case ui.FontAwesomeSize.X2:
+                        this.classList.add('fa-2x');
+                        break;
+                    case ui.FontAwesomeSize.X3:
+                        this.classList.add('fa-3x');
+                        break;
+                    case ui.FontAwesomeSize.X4:
+                        this.classList.add('fa-4x');
+                        break;
+                    case ui.FontAwesomeSize.X5:
+                        this.classList.add('fa-5x');
+                        break;
+                    default:
+                        break;
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
+        FontAwesomeWidget.prototype._removeTransform = function () {
+            this.classList.remove('fa-rotate-90');
+            this.classList.remove('fa-rotate-180');
+            this.classList.remove('fa-rotate-270');
+            this.classList.remove('fa-rotate-180');
+            this.classList.remove('fa-flip-horizontal');
+            this.classList.remove('fa-flip-vertical');
+        };
+        FontAwesomeWidget.prototype._removeSize = function () {
+            this.classList.remove('fa-lg');
+            this.classList.remove('fa-2x');
+            this.classList.remove('fa-3x');
+            this.classList.remove('fa-4x');
+            this.classList.remove('fa-5x');
+        };
+        return FontAwesomeWidget;
+    })(ui.Container);
+    ui.FontAwesomeWidget = FontAwesomeWidget;
+})(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// <reference path="./FontAwesomeWidget.ts" />
+var ui;
+(function (ui) {
+    var FontAwesomeIcon = (function (_super) {
+        __extends(FontAwesomeIcon, _super);
+        function FontAwesomeIcon(parent, icon) {
+            _super.call(this, parent);
+            this.classList.add('fa-' + icon);
+            this._icon = icon;
+        }
+        FontAwesomeIcon.prototype.createElement = function () {
+            var element = document.createElement('i');
+            return element;
+        };
+        Object.defineProperty(FontAwesomeIcon.prototype, "className", {
+            get: function () {
+                return 'fa';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(FontAwesomeIcon.prototype, "icon", {
+            get: function () {
+                return this._icon;
+            },
+            set: function (value) {
+                if (value && value !== this.icon) {
+                    this.classList.remove('fa-' + this.icon);
+                    this.classList.add('fa-' + value);
+                    this._icon = value;
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return FontAwesomeIcon;
+    })(ui.FontAwesomeWidget);
+    ui.FontAwesomeIcon = FontAwesomeIcon;
+})(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// <reference path="./FontAwesomeWidget.ts" />
+var ui;
+(function (ui) {
+    (function (FontAwesomeStackOrder) {
+        FontAwesomeStackOrder[FontAwesomeStackOrder["NORMAL"] = 0] = "NORMAL";
+        FontAwesomeStackOrder[FontAwesomeStackOrder["INVERSE"] = 1] = "INVERSE";
+    })(ui.FontAwesomeStackOrder || (ui.FontAwesomeStackOrder = {}));
+    var FontAwesomeStackOrder = ui.FontAwesomeStackOrder;
+    var FontAwesomeStack = (function (_super) {
+        __extends(FontAwesomeStack, _super);
+        function FontAwesomeStack(parent, lower, upper, order) {
+            if (order === void 0) { order = FontAwesomeStackOrder.NORMAL; }
+            _super.call(this, parent);
+            var _a = order == FontAwesomeStackOrder.NORMAL ? ['1x', '2x'] : ['2x', '1x'], o1 = _a[0], o2 = _a[1];
+            this._lower = new ui.FontAwesomeIcon(this, lower);
+            this._lower.classList.add("fa-stack-" + o1);
+            this._upper = new ui.FontAwesomeIcon(this, upper);
+            this._upper.classList.add("fa-stack-" + o2);
+        }
+        FontAwesomeStack.prototype.createElement = function () {
+            var element = document.createElement('span');
+            return element;
+        };
+        Object.defineProperty(FontAwesomeStack.prototype, "className", {
+            get: function () {
+                return 'fa-stack';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(FontAwesomeStack.prototype, "lower", {
+            get: function () {
+                return this._lower;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(FontAwesomeStack.prototype, "upper", {
+            get: function () {
+                return this._upper;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return FontAwesomeStack;
+    })(ui.FontAwesomeWidget);
+    ui.FontAwesomeStack = FontAwesomeStack;
+})(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 /// <reference path="./Widget.ts" />
 /// <reference path="./SizeSet.ts" />
 var ui;

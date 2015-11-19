@@ -113,3 +113,14 @@ var ul = new ui.UnorderedList(app);
 
 var editor = new ui.AceEditor(app, 'editor');
 editor.value = 'function test() {}';
+
+var icon1 = new ui.FontAwesomeIcon(app, 'spinner');
+  icon1.spin = true;
+  icon1.size = ui.FontAwesomeSize.X5;
+var icon2 = new ui.FontAwesomeIcon(app, 'spinner');
+  icon2.pulse = true;
+  icon2.size  = ui.FontAwesomeSize.LARGE;
+var icon3 = new ui.FontAwesomeStack(app, 'circle', 'flag', ui.FontAwesomeStackOrder.INVERSE);
+icon3.upper.inverse = true;
+var icon4 = new ui.FontAwesomeStack(app, 'twitter', 'square-o');
+  icon4.size = ui.FontAwesomeSize.LARGE;
