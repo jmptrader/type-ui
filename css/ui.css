@@ -322,6 +322,7 @@ html, body {
   float: left;
   padding-right: 20px;
   height: 100%;
+  width: 100%;
   min-height: 1px; }
   .grid [class*='ui-cell-']:last-of-type {
     padding-right: 0; }
