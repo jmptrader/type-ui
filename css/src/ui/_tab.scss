@@ -69,6 +69,7 @@
 .ui-tab-head a {
   text-decoration:none;
   color:     $base-txt-color;
+  transition:all linear 0.15s;
 }
 
 .ui-tab-head:hover {
