@@ -3753,6 +3753,192 @@ var ui;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/// <reference path="./HandleSubMenu.ts"/>
+/// <reference path="./MenuItem.ts"/>
+var ui;
+(function (ui) {
+    var Table = (function (_super) {
+        __extends(Table, _super);
+        function Table(parent, model) {
+            _super.call(this, parent);
+            this._model = model;
+            this._head = this._createHead();
+            this._body = this._createBody();
+            this.refresh();
+        }
+        Table.prototype.createElement = function () {
+            var element = document.createElement('table');
+            return element;
+        };
+        Object.defineProperty(Table.prototype, "className", {
+            get: function () {
+                return 'ui-table';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Table.prototype._createHead = function () {
+            var e = document.createElement('thead');
+            this.element.appendChild(e);
+            return e;
+        };
+        Table.prototype._createBody = function () {
+            var e = document.createElement('tbody');
+            this.element.appendChild(e);
+            return e;
+        };
+        Table.prototype.refresh = function () {
+            var head = this._model.headers;
+            var cells = this._model.cells;
+            this._refreshHead(head);
+            this._refreshBody(cells);
+        };
+        Table.prototype._refreshHead = function (head) {
+            this._clearElement(this._head);
+            var row = this._generateRow(head, 'th');
+            this._head.appendChild(row);
+        };
+        Table.prototype._refreshBody = function (cells) {
+            var _this = this;
+            this._clearElement(this._body);
+            cells.forEach(function (i) { return _this._body.appendChild(_this._generateRow(i)); });
+        };
+        Table.prototype._clearElement = function (e) {
+            while (e.firstChild) {
+                e.removeChild(e.firstChild);
+            }
+        };
+        Table.prototype._generateRow = function (row, type) {
+            if (type === void 0) { type = 'td'; }
+            var tr = document.createElement('tr');
+            row.forEach(function (i) {
+                var td = document.createElement(type);
+                td.appendChild(i);
+                tr.appendChild(td);
+            });
+            return tr;
+        };
+        Table.prototype.sortBy = function (field, order) {
+            if (order === void 0) { order = ui.TableOrder.DEFAULT; }
+            this._model.sortBy(field, order);
+            this.refresh();
+        };
+        return Table;
+    })(ui.Widget);
+    ui.Table = Table;
+})(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+var ui;
+(function (ui) {
+    (function (TableOrder) {
+        TableOrder[TableOrder["DEFAULT"] = 0] = "DEFAULT";
+        TableOrder[TableOrder["INVERSE"] = 1] = "INVERSE";
+    })(ui.TableOrder || (ui.TableOrder = {}));
+    var TableOrder = ui.TableOrder;
+    var TableModel = (function () {
+        function TableModel(data) {
+            this._data = data;
+            this._order = null;
+            this._orderMode = TableOrder.DEFAULT;
+            this._cells = null;
+        }
+        Object.defineProperty(TableModel.prototype, "fields", {
+            get: function () {
+                return [];
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(TableModel.prototype, "fieldsByName", {
+            get: function () {
+                var fields = this.fields;
+                var result = {};
+                fields.forEach(function (f) { return result[f.name] = f; });
+                return result;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        TableModel.prototype.sortBy = function (key, dir) {
+            if (dir === void 0) { dir = TableOrder.DEFAULT; }
+            var field = this.fields[key];
+            if (!field) {
+                return;
+            }
+            this._order = key;
+            this._orderMode = dir;
+            this._cells = null;
+        };
+        Object.defineProperty(TableModel.prototype, "data", {
+            get: function () {
+                return this._data.slice(0);
+            },
+            set: function (data) {
+                this._data = data;
+                this._cells = null;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        TableModel.prototype._refresh = function () {
+            var _this = this;
+            var fields = this.fields;
+            if (this._order) {
+                var fn = this.fieldsByName;
+                var order = this._orderMode == TableOrder.DEFAULT ? 1 : -1;
+                this._data.sort(function (a, b) { return fn[_this._order].sort(a, b) * order; });
+            }
+            this._cells = this._data.map(function (row) { return _this._processData(fields, row); });
+        };
+        TableModel.prototype._processData = function (fields, row) {
+            return fields.map(function (field) { return field.format(row); });
+        };
+        Object.defineProperty(TableModel.prototype, "headers", {
+            get: function () {
+                return this.fields.map(function (f) { return f.header(); });
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(TableModel.prototype, "cells", {
+            get: function () {
+                if (!this._cells) {
+                    this._refresh();
+                }
+                return this._cells;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return TableModel;
+    })();
+    ui.TableModel = TableModel;
+})(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 /// <reference path="./Input.ts" />
 var ui;
 (function (ui) {
