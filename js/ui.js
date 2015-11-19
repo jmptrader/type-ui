@@ -313,7 +313,77 @@ var ui;
             this._editorDiv = this._createEditorDiv();
             this.parent.element.appendChild(this._editorDiv);
             this._editor = this._createEditor(this._editorDiv, this._editorDiv.id, mode);
+            this.tabSize = 2;
+            this.softTabs = true;
         }
+        Object.defineProperty(AceEditor.prototype, "tabSize", {
+            get: function () {
+                return this._editor.session.getTabSize();
+            },
+            set: function (value) {
+                this._editor.session.setTabSize(value);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(AceEditor.prototype, "softTabs", {
+            get: function () {
+                return this._editor.session.getUseSoftTabs();
+            },
+            set: function (value) {
+                this._editor.session.setUseSoftTabs(value);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(AceEditor.prototype, "wordWrapping", {
+            get: function () {
+                return this._editor.session.getUseWrapMode();
+            },
+            set: function (value) {
+                this._editor.session.setUseWrapMode(value);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(AceEditor.prototype, "highlightActiveLine", {
+            get: function () {
+                return this._editor.getHighlightActiveLine();
+            },
+            set: function (value) {
+                this._editor.setHighlightActiveLine(value);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(AceEditor.prototype, "readOnly", {
+            get: function () {
+                return this._editor.getReadOnly();
+            },
+            set: function (value) {
+                this._editor.setReadOnly(value);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        AceEditor.prototype.find = function (needle, options) {
+            this._editor.find(needle, options);
+        };
+        AceEditor.prototype.findNext = function () {
+            this._editor.findNext();
+        };
+        AceEditor.prototype.findPrevious = function () {
+            this._editor.findPrevious();
+        };
+        AceEditor.prototype.replace = function (value) {
+            this._editor.replace(value);
+        };
+        AceEditor.prototype.replaceAll = function (value) {
+            this._editor.replaceAll(value);
+        };
+        AceEditor.prototype.addCommand = function (command) {
+            this._editor.commands.addCommand(command);
+        };
         AceEditor.prototype._createEditorDiv = function () {
             var div = document.createElement('div');
             div.id = ui.randomId();

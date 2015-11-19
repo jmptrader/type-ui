@@ -27,6 +27,72 @@ module ui {
       this._editorDiv = this._createEditorDiv();
       this.parent.element.appendChild(this._editorDiv);
       this._editor = this._createEditor(this._editorDiv, this._editorDiv.id, mode);
+      this.tabSize = 2;
+      this.softTabs = true;
+    }
+
+    get tabSize():number {
+      return this._editor.session.getTabSize();
+    }
+
+    set tabSize(value:number) {
+      this._editor.session.setTabSize(value);
+    }
+
+    get softTabs():boolean {
+      return this._editor.session.getUseSoftTabs();
+    }
+
+    set softTabs(value:boolean) {
+      this._editor.session.setUseSoftTabs(value);
+    }
+
+    get wordWrapping():boolean {
+      return this._editor.session.getUseWrapMode();
+    }
+
+    set wordWrapping(value:boolean) {
+      this._editor.session.setUseWrapMode(value);
+    }
+
+    get highlightActiveLine():boolean {
+      return this._editor.getHighlightActiveLine();
+    }
+
+    set highlightActiveLine(value:boolean) {
+      this._editor.setHighlightActiveLine(value);
+    }
+
+    get readOnly():boolean {
+      return this._editor.getReadOnly();
+    }
+
+    set readOnly(value:boolean) {
+      this._editor.setReadOnly(value);
+    }
+
+    find(needle:string, options:any) {
+      this._editor.find(needle, options);
+    }
+
+    findNext() {
+      this._editor.findNext();
+    }
+
+    findPrevious() {
+      this._editor.findPrevious();
+    }
+
+    replace(value:string) {
+      this._editor.replace(value);
+    }
+
+    replaceAll(value:string) {
+      this._editor.replaceAll(value);
+    }
+
+    addCommand(command:any) {
+      this._editor.commands.addCommand(command);
     }
 
     protected _createEditorDiv(): HTMLDivElement {
