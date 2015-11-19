@@ -11,3 +11,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+$arrow-size: 5px;
+
+ .ui-arrow-up {
+  display: inline-block;
+ 	width: 0;
+ 	height: 0;
+ 	border-left: $arrow-size solid transparent;
+ 	border-right: $arrow-size solid transparent;
+
+ 	border-bottom: $arrow-size solid $base-txt-color;
+ }
+
+ .ui-arrow-down {
+  display: inline-block;
+ 	width: 0;
+ 	height: 0;
+ 	border-left: $arrow-size solid transparent;
+ 	border-right: $arrow-size solid transparent;
+
+ 	border-top: $arrow-size solid $base-txt-color;
+ }
+
+ .ui-arrow-right {
+      display: inline-block;
+ 	width: 0;
+ 	height: 0;
+ 	border-top: $arrow-size solid transparent;
+ 	border-bottom: $arrow-size solid transparent;
+
+ 	border-left: $arrow-size solid $base-txt-color;
+ }
+
+ .ui-arrow-left {
+       display: inline-block;
+ 	width: 0;
+ 	height: 0;
+ 	border-top: $arrow-size solid transparent;
+ 	border-bottom: $arrow-size solid transparent;
+
+ 	border-right:$arrow-size solid $base-txt-color;
+ }

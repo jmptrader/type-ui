@@ -1,6 +1,8 @@
 
 .ui-menu {
   background: $primary-bg-color;
+  border: 2px solid $primary-border-color;
+  transition:all linear 0.15s;
 }
 
 .ui-menu ul {
@@ -44,6 +46,7 @@
 .ui-menu ul li {
 float:left;
 display: inline-block;
+transition:all linear 0.15s;
 }
 
 .ui-menu ul li ul li {
@@ -103,4 +106,40 @@ position:relative;
 .ui-menu li ul li ul {
 right:-140px;
 top:0;
+}
+
+.ui-menu li:hover a > .ui-arrow-up,
+.ui-menu li:hover ul li:hover a > .ui-arrow-up {
+  border-bottom-color: $hover-txt-color;
+}
+
+.ui-menu li:hover ul li a > .ui-arrow-up {
+  border-bottom-color: $base-txt-color;
+}
+
+.ui-menu li:hover a > .ui-arrow-down,
+.ui-menu li:hover ul li:hover a > .ui-arrow-down {
+  border-top-color: $hover-txt-color;
+}
+
+.ui-menu li:hover ul li a > .ui-arrow-down {
+  border-top-color: $base-txt-color;
+}
+
+.ui-menu li:hover a > .ui-arrow-left,
+.ui-menu li:hover ul li:hover a > .ui-arrow-left {
+  border-right-color: $hover-txt-color;
+}
+
+.ui-menu li:hover ul li a > .ui-arrow-left {
+  border-right-color: $base-txt-color;
+}
+
+.ui-menu li:hover a > .ui-arrow-right,
+.ui-menu li:hover ul li:hover a > .ui-arrow-right {
+  border-left-color: $hover-txt-color;
+}
+
+.ui-menu li:hover ul li a > .ui-arrow-right {
+  border-left-color: $base-txt-color;
 }

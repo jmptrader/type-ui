@@ -1665,6 +1665,7 @@ var ui;
             _super.call(this, menu, text);
             this._items = [];
             this._list = this._createList();
+            this._addCaret();
         }
         SubMenu.prototype._createList = function () {
             var ul = document.createElement('ul');
@@ -1737,6 +1738,13 @@ var ui;
         };
         SubMenu.prototype.separator = function () {
             return this.addSeparator();
+        };
+        SubMenu.prototype._addCaret = function () {
+            var caret = document.createElement('span');
+            var c = this.menu instanceof SubMenu ? 'ui-arrow-right' : 'ui-arrow-down';
+            caret.style.marginLeft = '10px';
+            caret.classList.add(c);
+            this.link.appendChild(caret);
         };
         return SubMenu;
     })(ui.MenuItem);

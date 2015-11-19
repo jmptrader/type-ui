@@ -226,6 +226,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+.ui-arrow-up {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #0e0f26; }
+
+.ui-arrow-down {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #0e0f26; }
+
+.ui-arrow-right {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 5px solid #0e0f26; }
+
+.ui-arrow-left {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-right: 5px solid #0e0f26; }
+
 /*
  * Copyright 2015 Ramiro Rojo
  *
@@ -760,7 +792,9 @@ html, body {
   border: 2px solid black; }
 
 .ui-menu {
-  background: #7FB5DA; }
+  background: #7FB5DA;
+  border: 2px solid #317DB1;
+  transition: all linear 0.15s; }
 
 .ui-menu ul {
   list-style: none;
@@ -800,7 +834,8 @@ html, body {
 
 .ui-menu ul li {
   float: left;
-  display: inline-block; }
+  display: inline-block;
+  transition: all linear 0.15s; }
 
 .ui-menu ul li ul li {
   display: block;
@@ -846,5 +881,33 @@ html, body {
 .ui-menu li ul li ul {
   right: -140px;
   top: 0; }
+
+.ui-menu li:hover a > .ui-arrow-up,
+.ui-menu li:hover ul li:hover a > .ui-arrow-up {
+  border-bottom-color: #dedede; }
+
+.ui-menu li:hover ul li a > .ui-arrow-up {
+  border-bottom-color: #0e0f26; }
+
+.ui-menu li:hover a > .ui-arrow-down,
+.ui-menu li:hover ul li:hover a > .ui-arrow-down {
+  border-top-color: #dedede; }
+
+.ui-menu li:hover ul li a > .ui-arrow-down {
+  border-top-color: #0e0f26; }
+
+.ui-menu li:hover a > .ui-arrow-left,
+.ui-menu li:hover ul li:hover a > .ui-arrow-left {
+  border-right-color: #dedede; }
+
+.ui-menu li:hover ul li a > .ui-arrow-left {
+  border-right-color: #0e0f26; }
+
+.ui-menu li:hover a > .ui-arrow-right,
+.ui-menu li:hover ul li:hover a > .ui-arrow-right {
+  border-left-color: #dedede; }
+
+.ui-menu li:hover ul li a > .ui-arrow-right {
+  border-left-color: #0e0f26; }
 
 /*# sourceMappingURL=ui.css.map */

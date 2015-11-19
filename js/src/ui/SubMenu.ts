@@ -25,6 +25,7 @@ module ui {
       super(menu, text);
       this._items = [];
       this._list = this._createList();
+      this._addCaret();
     }
 
     protected _createList(): HTMLUListElement {
@@ -100,6 +101,14 @@ module ui {
 
     separator(): MenuSeparator {
       return this.addSeparator();
+    }
+
+    protected _addCaret() {
+      var caret = document.createElement('span');
+      var c = this.menu instanceof SubMenu ? 'ui-arrow-right' : 'ui-arrow-down';
+      caret.style.marginLeft = '10px';
+      caret.classList.add(c);
+      this.link.appendChild(caret);
     }
 
   }
