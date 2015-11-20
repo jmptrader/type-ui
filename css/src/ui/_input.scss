@@ -142,19 +142,6 @@
     display: none;
 }
 
-.ui-input-color:after {
-  content: '<>';
-  font: 16px "Consolas", monospace;
-  font-weight: bold;
-  color: $base-txt-color;
-  -webkit-transform: rotate(90deg);
-  -moz-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  transform: rotate(90deg);
-  right: 18px;
-  top: 0px;
-  padding: 0 4px 5px;
-  position: absolute;
-  pointer-events: none;
-  border-bottom: 2px solid $primary-border-color;
+.ui-input-color-wrapper .btn {
+  display:none;
 }

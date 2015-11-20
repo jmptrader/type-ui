@@ -1099,6 +1099,7 @@ var ui;
         __extends(ColorInput, _super);
         function ColorInput(parent, name) {
             _super.call(this, parent, name);
+            this._btn = this._createButton();
             jsColorPicker(this.input, {
                 customBG: '#222',
                 readOnly: true,
@@ -1116,6 +1117,13 @@ var ui;
             enumerable: true,
             configurable: true
         });
+        ColorInput.prototype._createButton = function () {
+            var btn = document.createElement('span');
+            btn.classList.add('btn');
+            btn.appendChild(document.createTextNode('<>'));
+            this.element.appendChild(btn);
+            return btn;
+        };
         ColorInput.prototype.createInput = function () {
             var element = document.createElement('input');
             element.type = 'text';

@@ -19,8 +19,11 @@ module ui {
 
   export class ColorInput extends Input {
 
+    private _btn: HTMLElement;
+
     constructor(parent:Container, name:string) {
       super(parent, name);
+      this._btn = this._createButton();
       jsColorPicker(this.input, {
               customBG: '#222',
               readOnly: true,
@@ -34,6 +37,14 @@ module ui {
 
     get type(): string {
       return 'color';
+    }
+
+    protected _createButton() {
+      var btn = document.createElement('span');
+      btn.classList.add('btn');
+      btn.appendChild(document.createTextNode('<>'));
+      this.element.appendChild(btn);
+      return btn;
     }
 
     protected createInput(): HTMLInputElement {
