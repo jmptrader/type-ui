@@ -3797,10 +3797,18 @@ var ui;
         function Table(parent, model) {
             _super.call(this, parent);
             this._model = model;
+            model.addTable(this);
             this._head = this._createHead();
             this._body = this._createBody();
             this.refresh();
         }
+        Object.defineProperty(Table.prototype, "model", {
+            get: function () {
+                return this.model;
+            },
+            enumerable: true,
+            configurable: true
+        });
         Table.prototype.createElement = function () {
             var element = document.createElement('table');
             return element;
@@ -3888,10 +3896,16 @@ var ui;
             this._order = null;
             this._orderMode = TableOrder.DEFAULT;
             this._cells = null;
+            this._tables = [];
+            this._fields = [];
         }
         Object.defineProperty(TableModel.prototype, "fields", {
             get: function () {
-                return [];
+                return this._fields.slice(0);
+            },
+            set: function (value) {
+                this._fields = value;
+                this._refresh();
             },
             enumerable: true,
             configurable: true
@@ -3922,7 +3936,7 @@ var ui;
             },
             set: function (data) {
                 this._data = data;
-                this._cells = null;
+                this._refresh();
             },
             enumerable: true,
             configurable: true
@@ -3936,6 +3950,7 @@ var ui;
                 this._data.sort(function (a, b) { return fn[_this._order].sort(a, b) * order; });
             }
             this._cells = this._data.map(function (row) { return _this._processData(fields, row); });
+            this._tables.forEach(function (i) { return i.refresh(); });
         };
         TableModel.prototype._processData = function (fields, row) {
             return fields.map(function (field) { return field.format(row); });
@@ -3957,6 +3972,9 @@ var ui;
             enumerable: true,
             configurable: true
         });
+        TableModel.prototype.addTable = function (table) {
+            this._tables.push(table);
+        };
         return TableModel;
     })();
     ui.TableModel = TableModel;

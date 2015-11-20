@@ -25,9 +25,14 @@ module ui {
     constructor(parent:Container, model:TableModel<T>) {
       super(parent);
       this._model = model;
+      model.addTable(this);
       this._head = this._createHead();
       this._body = this._createBody();
       this.refresh();
+    }
+
+    get model() {
+      return this.model;
     }
 
     protected createElement(): HTMLElement {

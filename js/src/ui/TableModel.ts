@@ -31,16 +31,25 @@ module ui {
     private _order: string;
     private _orderMode: TableOrder;
     private _cells: Array<Array<HTMLElement>>;
+    private _tables: Array<Table<T>>;
+    private _fields: Array<TableModeField<T>>;
 
     constructor(data:Array<any>) {
       this._data = data;
       this._order = null;
       this._orderMode = TableOrder.DEFAULT;
       this._cells = null;
+      this._tables = [];
+      this._fields = [];
     }
 
     get fields(): Array<TableModeField<T>> {
-      return [];
+      return this._fields.slice(0);
+    }
+
+    set fields(value: Array<TableModeField<T>>) {
+      this._fields = value;
+      this._refresh();
     }
 
     get fieldsByName() {
@@ -66,7 +75,7 @@ module ui {
 
     set data(data:Array<any>) {
       this._data = data;
-      this._cells = null;
+      this._refresh();
     }
 
     protected _refresh() {
@@ -77,6 +86,7 @@ module ui {
         this._data.sort( (a, b) => fn[this._order].sort(a, b) * order );
       }
       this._cells = this._data.map( (row) => this._processData(fields, row) );
+      this._tables.forEach((i) => i.refresh() );
     }
 
     protected _processData(fields: Array<TableModeField<T>>, row:T): Array<HTMLElement> {
@@ -92,6 +102,10 @@ module ui {
         this._refresh();
       }
       return this._cells;
+    }
+
+    addTable(table: Table<T>) {
+      this._tables.push(table);
     }
 
   }
