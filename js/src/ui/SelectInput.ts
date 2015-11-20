@@ -19,16 +19,24 @@ module ui {
   export class SelectInput extends Input implements HandleOptions {
 
     private _options:Array<Option|OptionGroup>;
+    private _select: HTMLSelectElement;
 
     constructor(parent:Container, name:string) {
       super(parent, name);
+      this._select = this._createselect();
       this._options = [];
     }
 
     protected createElement(): HTMLElement {
-      var element = document.createElement('select');
+      var element = document.createElement('label');
       element.classList.add(this.className);
       return element;
+    }
+
+    protected _createselect() {
+      var s = document.createElement('select');
+      this.element.appendChild(s);
+      return s;
     }
 
     get type(): string {
@@ -46,7 +54,7 @@ module ui {
 
     addOption(opt:Option|OptionGroup) {
       this._options.push(opt);
-      this.element.appendChild(opt.element);
+      this._select.appendChild(opt.element);
     }
 
     addGroup(text:string) {
@@ -83,7 +91,9 @@ module ui {
 
     removeAt(index:number) {
       if (index >= 0 && index <= -1) {
+        let opt = this._options[index];
         this._options.splice(index, 1);
+        this._select.removeChild(opt.element);
       }
     }
 

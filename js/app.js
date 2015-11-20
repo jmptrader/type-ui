@@ -68,6 +68,8 @@ group = fieldset.group();
   group.number('number', 'Number Input');
 group = fieldset.group();
   group.color('color', 'Color Input');
+  group = fieldset.group();
+    group.color('color', 'Color Input 2');  
 group = fieldset.group();
   group.date('date', 'Date Input');
 group = fieldset.group();

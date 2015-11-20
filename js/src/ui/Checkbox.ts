@@ -18,11 +18,15 @@ module ui {
   export class Checkbox extends Widget {
 
     private _input: HTMLInputElement;
+    private _label: HTMLLabelElement;
     private _text: Text;
+    private _uniqId: string;
 
     constructor(parent:Container, name:string, text:string) {
       super(parent);
-      this._input = this._createInput();
+      this._uniqId = ui.randomId();
+      this._input = this._createInput(name);
+      this._label = this._createLabel(name);
       this._text  = this._createText(text);
       this.input.name = name;
     }
@@ -39,22 +43,31 @@ module ui {
       return 'checkbox';
     }
 
+    protected createElement(): HTMLElement {
+      var element = document.createElement('div');
+      return element;
+    }
+
+    protected _createLabel(name:string) {
+      var l = document.createElement('label');
+      l.htmlFor = this._uniqId;
+      this.element.appendChild(l);
+      return l;
+    }
+
     protected _createText(text) {
       var txt = document.createTextNode(text);
-      this.element.appendChild(txt);
+      this._label.appendChild(txt);
       return txt;
     }
 
-    protected _createInput() {
+    protected _createInput(name:string) {
       var input = document.createElement('input');
       input.type = this.type;
+      input.id = this._uniqId;
+      input.name = name;
       this.element.appendChild(input);
       return input;
-    }
-
-    protected createElement(): HTMLElement {
-      var element = document.createElement('label');
-      return element;
     }
 
     protected get className() {

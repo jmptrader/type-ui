@@ -774,21 +774,83 @@ html, body {
 .ui-v-resize-panel:last-child {
   border-top: 2px solid #317DB1; }
 
+.ui-form-group {
+  padding: 2px 0; }
+
 .ui-label {
   font-weight: bold;
   font-size: 1em; }
 
 .ui-input {
   height: 100%;
-  min-height: 2em; }
+  min-height: 2em;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 2px solid #317DB1;
+  color: #0e0f26; }
+
+.ui-input-number,
+.ui-input-text {
+  border: 2px solid #317DB1;
+  background: #cee3f1;
+  color: #0e0f26; }
 
 .ui-radio-button,
 .ui-checkbox {
-  display: block;
-  font-weight: bold; }
+  display: block; }
 
 .ui-radio-group {
   display: inline-block; }
+
+.ui-radio-button label,
+.ui-checkbox label {
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+  padding-left: 25px;
+  margin-right: 15px;
+  font-size: 13px;
+  font-weight: bold;
+  transition: all 0.15s; }
+.ui-radio-button label:before,
+.ui-checkbox label:before {
+  border: 1px solid #317DB1;
+  transition: all 0.15s;
+  content: "";
+  display: inline-block;
+  text-align: center;
+  line-height: 15px;
+  width: 16px;
+  height: 16px;
+  color: #292c71;
+  margin-right: 10px;
+  position: absolute;
+  left: 0;
+  bottom: 1px;
+  background-color: #cee3f1;
+  box-shadow: inset 0px 2px 3px 0px rgba(0, 0, 0, 0.3), 0px 1px 0px 0px rgba(255, 255, 255, 0.8); }
+.ui-radio-button input,
+.ui-checkbox input {
+  display: none;
+  transition: all 0.15s; }
+
+.ui-radio-button label:before {
+  border-radius: 8px; }
+.ui-radio-button input:checked + label:before {
+  content: "\2022";
+  font-size: 30px;
+  text-align: center;
+  line-height: 17px; }
+
+.ui-checkbox label:before {
+  border-radius: 3px; }
+.ui-checkbox input:checked + label:before {
+  content: "\2713";
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+  font-size: 15px;
+  text-align: center;
+  line-height: 15px; }
 
 ::-webkit-color-swatch-wrapper {
   padding: 5px; }
@@ -805,6 +867,42 @@ html, body {
 .ui-checkbox,
 .ui-checkbox input {
   cursor: pointer; }
+
+.ui-select select {
+  padding: 3px;
+  margin: 0;
+  border: 2px solid #317DB1;
+  background: #cee3f1;
+  color: #0e0f26;
+  outline: none;
+  display: inline-block;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  width: 100%; }
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  .ui-select select {
+    padding-right: 26px; } }
+.ui-select {
+  position: relative; }
+
+.ui-select:after {
+  content: '<>';
+  font: 16px "Consolas", monospace;
+  font-weight: bold;
+  color: #0e0f26;
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+  right: 18px;
+  top: 0px;
+  padding: 0 4px 5px;
+  position: absolute;
+  pointer-events: none;
+  border-bottom: 2px solid #317DB1; }
 
 .ace_editor {
   border: 2px solid black; }

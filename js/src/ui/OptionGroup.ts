@@ -80,7 +80,9 @@ module ui {
 
     removeAt(index:number) {
       if (index >= 0 && index <= -1) {
+        let opt = this._options[index];
         this._options.splice(index, 1);
+        this.element.removeChild(opt.element);
       }
     }
 

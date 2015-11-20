@@ -12,12 +12,37 @@
  * limitations under the License.
  */
 /// <reference path="./Input.ts" />
+
+declare function jsColorPicker(item:any, opts:any): any;
+
 module ui {
 
   export class ColorInput extends Input {
+
+    constructor(parent:Container, name:string) {
+      super(parent, name);
+      jsColorPicker(this.input, {
+              customBG: '#222',
+              readOnly: true,
+              // patch: false,
+              init: function(elm, colors) { // colors is a different instance (not connected to colorPicker)
+                elm.style.backgroundColor = elm.value;
+                elm.style.color = colors.rgbaMixCustom.luminance > 0.22 ? '#222' : '#ddd';
+              }
+      })
+    }
+
     get type(): string {
       return 'color';
     }
+
+    protected createElement(): HTMLElement {
+      var element = document.createElement('input');
+      element.type = 'text';
+      element.classList.add(`ui-input-${this.type}`);
+      return element;
+    }
+
   }
 
 }

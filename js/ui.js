@@ -983,7 +983,9 @@ var ui;
         __extends(Checkbox, _super);
         function Checkbox(parent, name, text) {
             _super.call(this, parent);
-            this._input = this._createInput();
+            this._uniqId = ui.randomId();
+            this._input = this._createInput(name);
+            this._label = this._createLabel(name);
             this._text = this._createText(text);
             this.input.name = name;
         }
@@ -1008,20 +1010,28 @@ var ui;
             enumerable: true,
             configurable: true
         });
+        Checkbox.prototype.createElement = function () {
+            var element = document.createElement('div');
+            return element;
+        };
+        Checkbox.prototype._createLabel = function (name) {
+            var l = document.createElement('label');
+            l.htmlFor = this._uniqId;
+            this.element.appendChild(l);
+            return l;
+        };
         Checkbox.prototype._createText = function (text) {
             var txt = document.createTextNode(text);
-            this.element.appendChild(txt);
+            this._label.appendChild(txt);
             return txt;
         };
-        Checkbox.prototype._createInput = function () {
+        Checkbox.prototype._createInput = function (name) {
             var input = document.createElement('input');
             input.type = this.type;
+            input.id = this._uniqId;
+            input.name = name;
             this.element.appendChild(input);
             return input;
-        };
-        Checkbox.prototype.createElement = function () {
-            var element = document.createElement('label');
-            return element;
         };
         Object.defineProperty(Checkbox.prototype, "className", {
             get: function () {
@@ -1082,8 +1092,17 @@ var ui;
 (function (ui) {
     var ColorInput = (function (_super) {
         __extends(ColorInput, _super);
-        function ColorInput() {
-            _super.apply(this, arguments);
+        function ColorInput(parent, name) {
+            _super.call(this, parent, name);
+            jsColorPicker(this.input, {
+                customBG: '#222',
+                readOnly: true,
+                // patch: false,
+                init: function (elm, colors) {
+                    elm.style.backgroundColor = elm.value;
+                    elm.style.color = colors.rgbaMixCustom.luminance > 0.22 ? '#222' : '#ddd';
+                }
+            });
         }
         Object.defineProperty(ColorInput.prototype, "type", {
             get: function () {
@@ -1092,6 +1111,12 @@ var ui;
             enumerable: true,
             configurable: true
         });
+        ColorInput.prototype.createElement = function () {
+            var element = document.createElement('input');
+            element.type = 'text';
+            element.classList.add("ui-input-" + this.type);
+            return element;
+        };
         return ColorInput;
     })(ui.Input);
     ui.ColorInput = ColorInput;
@@ -2733,7 +2758,9 @@ var ui;
         };
         OptionGroup.prototype.removeAt = function (index) {
             if (index >= 0 && index <= -1) {
+                var opt = this._options[index];
                 this._options.splice(index, 1);
+                this.element.removeChild(opt.element);
             }
         };
         OptionGroup.prototype.indexOf = function (opt) {
@@ -3035,12 +3062,18 @@ var ui;
         __extends(SelectInput, _super);
         function SelectInput(parent, name) {
             _super.call(this, parent, name);
+            this._select = this._createselect();
             this._options = [];
         }
         SelectInput.prototype.createElement = function () {
-            var element = document.createElement('select');
+            var element = document.createElement('label');
             element.classList.add(this.className);
             return element;
+        };
+        SelectInput.prototype._createselect = function () {
+            var s = document.createElement('select');
+            this.element.appendChild(s);
+            return s;
         };
         Object.defineProperty(SelectInput.prototype, "type", {
             get: function () {
@@ -3062,7 +3095,7 @@ var ui;
         };
         SelectInput.prototype.addOption = function (opt) {
             this._options.push(opt);
-            this.element.appendChild(opt.element);
+            this._select.appendChild(opt.element);
         };
         SelectInput.prototype.addGroup = function (text) {
             var g = new ui.OptionGroup(this, text);
@@ -3093,7 +3126,9 @@ var ui;
         };
         SelectInput.prototype.removeAt = function (index) {
             if (index >= 0 && index <= -1) {
+                var opt = this._options[index];
                 this._options.splice(index, 1);
+                this._select.removeChild(opt.element);
             }
         };
         SelectInput.prototype.indexOf = function (opt) {
