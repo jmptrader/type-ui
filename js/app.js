@@ -69,11 +69,13 @@ group = fieldset.group();
 group = fieldset.group();
   group.color('color', 'Color Input');
   group = fieldset.group();
-    group.color('color', 'Color Input 2');  
+    group.color('color', 'Color Input 2');
 group = fieldset.group();
   group.date('date', 'Date Input');
 group = fieldset.group();
   group.checkbox('check', 'Do something cool');
+group = fieldset.group();
+  group.switch('switchie', 'Super awesome', 'YES', 'NO');  
 group = fieldset.group('radio');
   var rg = group.radioGroup('radio', 'Do something cool');
     var r1 = rg.radio('Yes'); r1.checked = true;
@@ -144,3 +146,5 @@ var icon3 = new ui.FontAwesomeStack(app, 'circle', 'flag', ui.FontAwesomeStackOr
 icon3.upper.inverse = true;
 var icon4 = new ui.FontAwesomeStack(app, 'twitter', 'square-o');
   icon4.size = ui.FontAwesomeSize.LARGE;
+
+var sw1 = new ui.Switch(app, 'switch1', 'ON', 'OFF');

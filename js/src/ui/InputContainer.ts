@@ -50,14 +50,15 @@ module ui {
 
     addInput(name:string, type:string='text'):Widget {
       switch (type) {
-        case 'date':   return new DateInput(this, name);
-        case 'color':  return new ColorInput(this, name);
-        case 'number': return new NumberInput(this, name);
-        case 'text':   return new TextInput(this, name);
-        case 'checkbox': return new Checkbox(this, name, '');
+        case 'date':        return new DateInput(this, name);
+        case 'color':       return new ColorInput(this, name);
+        case 'number':      return new NumberInput(this, name);
+        case 'text':        return new TextInput(this, name);
+        case 'checkbox':    return new Checkbox(this, name, '');
         case 'radioGroup':  return new RadioGroup(this, name);
-        case 'select': return new SelectInput(this, name);
-        default:       return new TextInput(this, name);
+        case 'select':      return new SelectInput(this, name);
+        case 'switch':      return new Switch(this, name);
+        default:            return new TextInput(this, name);
       }
     }
 
@@ -102,6 +103,13 @@ module ui {
 
     select(name:string, label:string) {
       return <SelectInput>this.addPair(name, label, 'select');
+    }
+
+    switch(name:string, label:string, onLabel:string='', offLabel:string='') {
+      var s = <Switch>this.addPair(name, label, 'switch');
+      s.onText = onLabel;
+      s.offText = offLabel;
+      return s;
     }
 
     submit(submit:string,reset:string=null) {

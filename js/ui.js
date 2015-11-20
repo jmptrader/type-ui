@@ -1291,6 +1291,7 @@ var ui;
                 case 'checkbox': return new ui.Checkbox(this, name, '');
                 case 'radioGroup': return new ui.RadioGroup(this, name);
                 case 'select': return new ui.SelectInput(this, name);
+                case 'switch': return new ui.Switch(this, name);
                 default: return new ui.TextInput(this, name);
             }
         };
@@ -1329,6 +1330,14 @@ var ui;
         };
         InputContainer.prototype.select = function (name, label) {
             return this.addPair(name, label, 'select');
+        };
+        InputContainer.prototype.switch = function (name, label, onLabel, offLabel) {
+            if (onLabel === void 0) { onLabel = ''; }
+            if (offLabel === void 0) { offLabel = ''; }
+            var s = this.addPair(name, label, 'switch');
+            s.onText = onLabel;
+            s.offText = offLabel;
+            return s;
         };
         InputContainer.prototype.submit = function (submit, reset) {
             if (reset === void 0) { reset = null; }
@@ -3244,6 +3253,148 @@ var ui;
         return SplitPane;
     })(ui.Container);
     ui.SplitPane = SplitPane;
+})(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// <reference path="./Widget.ts" />
+var ui;
+(function (ui) {
+    var Switch = (function (_super) {
+        __extends(Switch, _super);
+        function Switch(parent, name, onTxt, offTxt) {
+            if (onTxt === void 0) { onTxt = ''; }
+            if (offTxt === void 0) { offTxt = ''; }
+            _super.call(this, parent);
+            this._uniqId = ui.randomId();
+            this._input = this._createInput(name);
+            this._label = this._createLabel(name);
+            this._inner = this._createInner();
+            this._switch = this._createSwitch();
+            this._before = this._createBefore();
+            this._after = this._createAfter();
+            this._generateText(onTxt, offTxt);
+            this.input.name = name;
+        }
+        Object.defineProperty(Switch.prototype, "name", {
+            get: function () {
+                return this.input.name;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Switch.prototype, "input", {
+            get: function () {
+                return this._input;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Switch.prototype, "onText", {
+            get: function () {
+                return this._beforeTxt.nodeValue;
+            },
+            set: function (value) {
+                this._beforeTxt.nodeValue = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Switch.prototype, "offText", {
+            get: function () {
+                return this._afterTxt.nodeValue;
+            },
+            set: function (value) {
+                this._afterTxt.nodeValue = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Switch.prototype._generateText = function (onTxt, offTxt) {
+            this._beforeTxt = document.createTextNode(onTxt);
+            this._afterTxt = document.createTextNode(offTxt);
+            this._before.appendChild(this._beforeTxt);
+            this._after.appendChild(this._afterTxt);
+        };
+        Switch.prototype._createInner = function () {
+            var e = document.createElement('span');
+            e.classList.add('ui-switch-inner');
+            this._label.appendChild(e);
+            return e;
+        };
+        Switch.prototype._createBefore = function () {
+            var before = document.createElement('span');
+            before.classList.add('before');
+            this._inner.appendChild(before);
+            return before;
+        };
+        Switch.prototype._createAfter = function () {
+            var after = document.createElement('span');
+            after.classList.add('after');
+            this._inner.appendChild(after);
+            return after;
+        };
+        Switch.prototype._createSwitch = function () {
+            var e = document.createElement('span');
+            e.classList.add('ui-switch-switch');
+            this._label.appendChild(e);
+            return e;
+        };
+        Object.defineProperty(Switch.prototype, "type", {
+            get: function () {
+                return 'checkbox';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Switch.prototype.createElement = function () {
+            var element = document.createElement('div');
+            return element;
+        };
+        Switch.prototype._createLabel = function (name) {
+            var l = document.createElement('label');
+            l.htmlFor = this._uniqId;
+            this.element.appendChild(l);
+            return l;
+        };
+        Switch.prototype._createInput = function (name) {
+            var input = document.createElement('input');
+            input.type = this.type;
+            input.id = this._uniqId;
+            input.name = name;
+            this.element.appendChild(input);
+            return input;
+        };
+        Object.defineProperty(Switch.prototype, "className", {
+            get: function () {
+                return 'ui-switch';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Switch.prototype, "checked", {
+            get: function () {
+                return this.input.checked;
+            },
+            set: function (value) {
+                this.input.checked = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return Switch;
+    })(ui.Widget);
+    ui.Switch = Switch;
 })(ui || (ui = {}));
 /*
  * Copyright 2015 Ramiro Rojo
