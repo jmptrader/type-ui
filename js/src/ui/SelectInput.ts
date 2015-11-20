@@ -23,8 +23,9 @@ module ui {
 
     constructor(parent:Container, name:string) {
       super(parent, name);
-      this._select = this._createselect();
+      this._select = this._createSelect();
       this._options = [];
+      this._setupSelectEvents();
     }
 
     protected createElement(): HTMLElement {
@@ -33,10 +34,14 @@ module ui {
       return element;
     }
 
-    protected _createselect() {
+    protected createInput() {
       var s = document.createElement('select');
       this.element.appendChild(s);
-      return s;
+      return <HTMLInputElement><HTMLElement>s;
+    }
+
+    protected _createSelect() {
+      return <HTMLSelectElement><HTMLElement>this.input;
     }
 
     get type(): string {
@@ -111,6 +116,13 @@ module ui {
 
     get selectableOptions() {
       return this.options.filter((i) => i instanceof Option);
+    }
+
+    protected _setupInputEvents() {
+    }
+
+    protected _setupSelectEvents() {
+      this._select.addEventListener('change', this._onChange.bind(this));
     }
 
   }

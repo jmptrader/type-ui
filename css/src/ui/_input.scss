@@ -18,7 +18,11 @@
 }
 
 .ui-input-number,
-.ui-input-text {
+.ui-input-text,
+.ui-input-date,
+.ui-input-color {
+  display: inline-block;
+  width: 100%;
   border: 2px solid $primary-border-color;
   background: $active-bg-color;
   color: $base-txt-color;
@@ -116,6 +120,14 @@
     min-height: 15px;
 }
 
+.ui-input {
+  width: 100%;
+}
+
+.ui-input-wrapper {
+  display: inline-block;;
+}
+
 .ui-input,
 .ui-input input,
 .ui-radio-button,
@@ -125,31 +137,12 @@
   cursor: pointer;
 }
 
-.ui-select select {
-  padding:3px;
-  margin: 0;
-  border: 2px solid $primary-border-color;
-  background: $active-bg-color;
-  color: $base-txt-color;
-  outline:none;
-  display: inline-block;
-  -webkit-appearance:none;
-  -moz-appearance:none;
-  appearance:none;
-  cursor:pointer;
-
-
-      width: 100%;
-
+.ui-input-date::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    display: none;
 }
 
-@media screen and (-webkit-min-device-pixel-ratio:0) {
-    .ui-select select { padding-right: 26px; }
-}
-
-.ui-select { position: relative; }
-
-.ui-select:after {
+.ui-input-color:after {
   content: '<>';
   font: 16px "Consolas", monospace;
   font-weight: bold;

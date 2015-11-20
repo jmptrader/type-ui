@@ -1,0 +1,41 @@
+
+.ui-select select {
+  padding:3px;
+  margin: 0;
+  border: 2px solid $primary-border-color;
+  background: $active-bg-color;
+  color: $base-txt-color;
+  outline:none;
+  display: inline-block;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  appearance:none;
+  cursor:pointer;
+
+
+      width: 100%;
+
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    .ui-select select { padding-right: 26px; }
+}
+
+.ui-select { position: relative; }
+
+.ui-select:after {
+  content: '<>';
+  font: 16px "Consolas", monospace;
+  font-weight: bold;
+  color: $base-txt-color;
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+  right: 18px;
+  top: 0px;
+  padding: 0 4px 5px;
+  position: absolute;
+  pointer-events: none;
+  border-bottom: 2px solid $primary-border-color;
+}

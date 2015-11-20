@@ -225,13 +225,22 @@ var ui;
         __extends(Input, _super);
         function Input(parent, name) {
             _super.call(this, parent);
+            this._input = this.createInput();
+            this._setupInputEvents();
             this.name = name;
             this.classList.add('ui-cell-sm-8');
         }
         Input.prototype.createElement = function () {
+            var element = document.createElement('div');
+            element.classList.add("ui-input-" + this.type + "-wrapper");
+            return element;
+        };
+        Input.prototype.createInput = function () {
             var element = document.createElement('input');
             element.type = this.type;
+            element.classList.add("ui-input");
             element.classList.add("ui-input-" + this.type);
+            this.element.appendChild(element);
             return element;
         };
         Input.prototype._onChange = function (event) {
@@ -239,7 +248,7 @@ var ui;
         };
         Object.defineProperty(Input.prototype, "input", {
             get: function () {
-                return this.element;
+                return this._input;
             },
             enumerable: true,
             configurable: true
@@ -253,7 +262,7 @@ var ui;
         });
         Object.defineProperty(Input.prototype, "className", {
             get: function () {
-                return 'ui-input';
+                return 'ui-input-wrapper';
             },
             enumerable: true,
             configurable: true
@@ -278,10 +287,6 @@ var ui;
             enumerable: true,
             configurable: true
         });
-        Input.prototype._setupCommonEvents = function () {
-            _super.prototype._setupCommonEvents.call(this);
-            this._setupInputEvents();
-        };
         Input.prototype._setupInputEvents = function () {
             this.input.addEventListener('change', this._onChange.bind(this));
         };
@@ -1111,10 +1116,12 @@ var ui;
             enumerable: true,
             configurable: true
         });
-        ColorInput.prototype.createElement = function () {
+        ColorInput.prototype.createInput = function () {
             var element = document.createElement('input');
             element.type = 'text';
+            element.classList.add("ui-input");
             element.classList.add("ui-input-" + this.type);
+            this.element.appendChild(element);
             return element;
         };
         return ColorInput;
@@ -3071,18 +3078,22 @@ var ui;
         __extends(SelectInput, _super);
         function SelectInput(parent, name) {
             _super.call(this, parent, name);
-            this._select = this._createselect();
+            this._select = this._createSelect();
             this._options = [];
+            this._setupSelectEvents();
         }
         SelectInput.prototype.createElement = function () {
             var element = document.createElement('label');
             element.classList.add(this.className);
             return element;
         };
-        SelectInput.prototype._createselect = function () {
+        SelectInput.prototype.createInput = function () {
             var s = document.createElement('select');
             this.element.appendChild(s);
             return s;
+        };
+        SelectInput.prototype._createSelect = function () {
+            return this.input;
         };
         Object.defineProperty(SelectInput.prototype, "type", {
             get: function () {
@@ -3160,6 +3171,11 @@ var ui;
             enumerable: true,
             configurable: true
         });
+        SelectInput.prototype._setupInputEvents = function () {
+        };
+        SelectInput.prototype._setupSelectEvents = function () {
+            this._select.addEventListener('change', this._onChange.bind(this));
+        };
         return SelectInput;
     })(ui.Input);
     ui.SelectInput = SelectInput;

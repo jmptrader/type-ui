@@ -36,10 +36,12 @@ module ui {
       return 'color';
     }
 
-    protected createElement(): HTMLElement {
+    protected createInput(): HTMLInputElement {
       var element = document.createElement('input');
       element.type = 'text';
+      element.classList.add(`ui-input`);
       element.classList.add(`ui-input-${this.type}`);
+      this.element.appendChild(element);
       return element;
     }
 

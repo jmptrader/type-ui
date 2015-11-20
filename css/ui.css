@@ -791,7 +791,11 @@ html, body {
   color: #0e0f26; }
 
 .ui-input-number,
-.ui-input-text {
+.ui-input-text,
+.ui-input-date,
+.ui-input-color {
+  display: inline-block;
+  width: 100%;
   border: 2px solid #317DB1;
   background: #cee3f1;
   color: #0e0f26; }
@@ -866,6 +870,12 @@ html, body {
   height: 100%;
   min-height: 15px; }
 
+.ui-input {
+  width: 100%; }
+
+.ui-input-wrapper {
+  display: inline-block; }
+
 .ui-input,
 .ui-input input,
 .ui-radio-button,
@@ -874,27 +884,11 @@ html, body {
 .ui-checkbox input {
   cursor: pointer; }
 
-.ui-select select {
-  padding: 3px;
-  margin: 0;
-  border: 2px solid #317DB1;
-  background: #cee3f1;
-  color: #0e0f26;
-  outline: none;
-  display: inline-block;
+.ui-input-date::-webkit-inner-spin-button {
   -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  cursor: pointer;
-  width: 100%; }
+  display: none; }
 
-@media screen and (-webkit-min-device-pixel-ratio: 0) {
-  .ui-select select {
-    padding-right: 26px; } }
-.ui-select {
-  position: relative; }
-
-.ui-select:after {
+.ui-input-color:after {
   content: '<>';
   font: 16px "Consolas", monospace;
   font-weight: bold;
@@ -974,6 +968,42 @@ html, body {
   border: 2px solid #317DB1;
   border-radius: 0px;
   transition: all 0.3s ease-in 0s; }
+
+.ui-select select {
+  padding: 3px;
+  margin: 0;
+  border: 2px solid #317DB1;
+  background: #cee3f1;
+  color: #0e0f26;
+  outline: none;
+  display: inline-block;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  width: 100%; }
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  .ui-select select {
+    padding-right: 26px; } }
+.ui-select {
+  position: relative; }
+
+.ui-select:after {
+  content: '<>';
+  font: 16px "Consolas", monospace;
+  font-weight: bold;
+  color: #0e0f26;
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+  right: 18px;
+  top: 0px;
+  padding: 0 4px 5px;
+  position: absolute;
+  pointer-events: none;
+  border-bottom: 2px solid #317DB1; }
 
 .ace_editor {
   border: 2px solid black; }

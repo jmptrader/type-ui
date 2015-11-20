@@ -16,16 +16,28 @@ module ui {
 
   export class Input extends Widget {
 
+    private _input: HTMLInputElement;
+
     constructor(parent:Container, name:string) {
       super(parent);
+      this._input = this.createInput();
+      this._setupInputEvents();
       this.name = name;
       this.classList.add('ui-cell-sm-8');
     }
 
     protected createElement(): HTMLElement {
+      var element = document.createElement('div');
+      element.classList.add(`ui-input-${this.type}-wrapper`);
+      return element;
+    }
+
+    protected createInput(): HTMLInputElement {
       var element = document.createElement('input');
       element.type = this.type;
+      element.classList.add(`ui-input`);
       element.classList.add(`ui-input-${this.type}`);
+      this.element.appendChild(element);
       return element;
     }
 
@@ -34,7 +46,7 @@ module ui {
     }
 
     get input(): HTMLInputElement {
-      return <HTMLInputElement>this.element;
+      return <HTMLInputElement>this._input;
     }
 
     get type(): string {
@@ -42,7 +54,7 @@ module ui {
     }
 
     protected get className() {
-      return 'ui-input';
+      return 'ui-input-wrapper';
     }
 
     get name() {
@@ -59,11 +71,6 @@ module ui {
 
     set value(value: string) {
       this.input.value = value;
-    }
-
-    protected _setupCommonEvents() {
-      super._setupCommonEvents();
-      this._setupInputEvents();
     }
 
     protected _setupInputEvents() {
