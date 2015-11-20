@@ -803,37 +803,41 @@ html, body {
 .ui-radio-group {
   display: inline-block; }
 
-.ui-radio-button label,
-.ui-checkbox label {
-  display: inline-block;
-  cursor: pointer;
-  position: relative;
-  padding-left: 25px;
-  margin-right: 15px;
-  font-size: 13px;
-  font-weight: bold;
-  transition: all 0.15s; }
-.ui-radio-button label:before,
-.ui-checkbox label:before {
-  border: 1px solid #317DB1;
-  transition: all 0.15s;
-  content: "";
-  display: inline-block;
-  text-align: center;
-  line-height: 15px;
-  width: 16px;
-  height: 16px;
-  color: #292c71;
-  margin-right: 10px;
-  position: absolute;
-  left: 0;
-  bottom: 1px;
-  background-color: #cee3f1;
-  box-shadow: inset 0px 2px 3px 0px rgba(0, 0, 0, 0.3), 0px 1px 0px 0px rgba(255, 255, 255, 0.8); }
-.ui-radio-button input,
-.ui-checkbox input {
-  display: none;
-  transition: all 0.15s; }
+.ui-radio-button,
+.ui-checkbox {
+  font: normal 17px/1.5 Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif; }
+  .ui-radio-button label,
+  .ui-checkbox label {
+    font: normal 17px/1.5 Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+    display: inline-block;
+    cursor: pointer;
+    position: relative;
+    padding-left: 25px;
+    margin-right: 15px;
+    font-size: 13px;
+    font-weight: bold;
+    transition: all 0.15s; }
+  .ui-radio-button label:before,
+  .ui-checkbox label:before {
+    font: normal 17px/1.5 Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+    border: 1px solid #317DB1;
+    transition: all 0.15s;
+    content: "";
+    display: inline-block;
+    text-align: center;
+    line-height: 15px;
+    width: 16px;
+    height: 16px;
+    color: #292c71;
+    margin-right: 10px;
+    position: absolute;
+    left: 0;
+    bottom: 1px;
+    background-color: #cee3f1; }
+  .ui-radio-button input,
+  .ui-checkbox input {
+    display: none;
+    transition: all 0.15s; }
 
 .ui-radio-button label:before {
   border-radius: 8px; }
@@ -841,16 +845,18 @@ html, body {
   content: "\2022";
   font-size: 30px;
   text-align: center;
-  line-height: 17px; }
+  line-height: 15px;
+  text-align: left; }
 
 .ui-checkbox label:before {
   border-radius: 3px; }
 .ui-checkbox input:checked + label:before {
   content: "\2713";
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
-  font-size: 15px;
+  font-size: 18px;
   text-align: center;
-  line-height: 15px; }
+  line-height: 18px;
+  font-weight: bolder; }
 
 ::-webkit-color-swatch-wrapper {
   padding: 5px; }
