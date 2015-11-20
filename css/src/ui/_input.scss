@@ -13,7 +13,8 @@
   -webkit-appearance: none;
   -moz-appearance:    none;
   appearance:         none;
-  border: 2px solid $primary-border-color;
+  //border: 2px solid $primary-border-color;
+  border: 0px solid;
   color:  $base-txt-color;
 }
 
@@ -23,7 +24,8 @@
 .ui-input-color {
   display: inline-block;
   width: 100%;
-  border: 2px solid $primary-border-color;
+  //border: 2px solid $primary-border-color;
+  border: 0px solid;
   background: $active-bg-color;
   color: $base-txt-color;
 }
@@ -54,7 +56,8 @@
 
   label:before {
     font: normal 17px/1.5 Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
-    border: 1px solid $primary-border-color;
+    //border: 1px solid $primary-border-color;
+    border: 0px solid;
       transition: all 0.15s;
       content: "";
       display: inline-block;
@@ -115,7 +118,8 @@
     padding: 5px;
 }
 ::-webkit-color-swatch {
-    border: 1px solid black;
+    //border: 1px solid black;
+    border: 0px solid;
     height: 100%;
     min-height: 15px;
 }

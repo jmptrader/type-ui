@@ -9,7 +9,8 @@
 
     label {
         display: block; overflow: hidden; cursor: pointer;
-        border: 2px solid $primary-border-color; border-radius: 0px;
+        //border: 2px solid $primary-border-color; border-radius: 0px;
+        border: 0px solid;
     }
 
     input:checked + label .ui-switch-inner {
@@ -46,9 +47,10 @@
 .ui-switch-switch {
 
   display: block; width: 20px; margin: 0px;
-   background: $primary-bg-color;
+   background: lighten($hover-bg-color, 20%);
    position: absolute; top: 0; bottom: 0;
-   right: 66px;
-   border: 2px solid $primary-border-color; border-radius: 0px;
+   right: 70px;
+   //border: 2px solid $primary-border-color; border-radius: 0px;
+   border: 0px solid;
    transition: all 0.3s ease-in 0s;
 }

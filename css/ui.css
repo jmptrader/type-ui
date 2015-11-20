@@ -561,7 +561,10 @@ html, body {
   margin: 0;
   padding: 15px;
   background: #cee3f1;
-  color: #292c71; }
+  color: #292c71;
+  -webkit-box-shadow: 0px 12px 22px -4px rgba(0, 0, 0, 0.34);
+  -moz-box-shadow: 0px 12px 22px -4px rgba(0, 0, 0, 0.34);
+  box-shadow: 0px 12px 22px -4px rgba(0, 0, 0, 0.34); }
 
 .ui-tab-head:first-child {
   margin-left: 0; }
@@ -600,7 +603,10 @@ html, body {
   margin-top: 0;
   background: #cee3f1;
   color: #292c71;
-  border-top: 4px solid #70aed8; }
+  border-top: 4px solid #70aed8;
+  -webkit-box-shadow: 0px 12px 22px -4px rgba(0, 0, 0, 0.34);
+  -moz-box-shadow: 0px 12px 22px -4px rgba(0, 0, 0, 0.34);
+  box-shadow: 0px 12px 22px -4px rgba(0, 0, 0, 0.34); }
 
 .ui-tab-head.active:hover a,
 .ui-tab-head.active:hover a:hover {
@@ -651,16 +657,16 @@ html, body {
  */
 .ui-panel {
   background: #7FB5DA;
-  border: 2px solid #317DB1;
-  padding: 20px; }
+  padding: 20px;
+  -webkit-box-shadow: 0px 12px 22px -4px rgba(0, 0, 0, 0.34);
+  -moz-box-shadow: 0px 12px 22px -4px rgba(0, 0, 0, 0.34);
+  box-shadow: 0px 12px 22px -4px rgba(0, 0, 0, 0.34); }
 
 .ui-panel.secondary {
-  background: #579ecf;
-  border: 2px solid #266189; }
+  background: #579ecf; }
 
 .ui-panel.active {
-  background: #cee3f1;
-  border: 2px solid #70aed8; }
+  background: #cee3f1; }
 
 /*
  * Copyright 2015 Ramiro Rojo
@@ -742,12 +748,7 @@ html, body {
  * limitations under the License.
  */
 .ui-fieldset {
-  border: 2px solid #266189; }
-
-.ui-fieldset legend {
-  font-weight: bold;
-  font-size: 1.2em;
-  color: #1c1e4b; }
+  border: 2px solid #053B59; }
 
 .ui-split-pane {
   display: table; }
@@ -787,7 +788,7 @@ html, body {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  border: 2px solid #317DB1;
+  border: 0px solid;
   color: #0e0f26; }
 
 .ui-input-number,
@@ -796,7 +797,7 @@ html, body {
 .ui-input-color {
   display: inline-block;
   width: 100%;
-  border: 2px solid #317DB1;
+  border: 0px solid;
   background: #cee3f1;
   color: #0e0f26; }
 
@@ -824,7 +825,7 @@ html, body {
   .ui-radio-button label:before,
   .ui-checkbox label:before {
     font: normal 17px/1.5 Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
-    border: 1px solid #317DB1;
+    border: 0px solid;
     transition: all 0.15s;
     content: "";
     display: inline-block;
@@ -866,7 +867,7 @@ html, body {
   padding: 5px; }
 
 ::-webkit-color-swatch {
-  border: 1px solid black;
+  border: 0px solid;
   height: 100%;
   min-height: 15px; }
 
@@ -904,8 +905,7 @@ html, body {
     display: block;
     overflow: hidden;
     cursor: pointer;
-    border: 2px solid #317DB1;
-    border-radius: 0px; }
+    border: 0px solid; }
   .ui-switch input:checked + label .ui-switch-inner {
     margin-left: 0; }
   .ui-switch input:checked + label .ui-switch-switch {
@@ -947,19 +947,18 @@ html, body {
   display: block;
   width: 20px;
   margin: 0px;
-  background: #7FB5DA;
+  background: #0a7bba;
   position: absolute;
   top: 0;
   bottom: 0;
-  right: 66px;
-  border: 2px solid #317DB1;
-  border-radius: 0px;
+  right: 70px;
+  border: 0px solid;
   transition: all 0.3s ease-in 0s; }
 
 .ui-select select {
   padding: 3px;
   margin: 0;
-  border: 2px solid #317DB1;
+  border: 0px solid;
   background: #cee3f1;
   color: #0e0f26;
   outline: none;
@@ -989,16 +988,17 @@ html, body {
   top: 0px;
   padding: 0 4px 5px;
   position: absolute;
-  pointer-events: none;
-  border-bottom: 2px solid #317DB1; }
+  pointer-events: none; }
 
 .ace_editor {
-  border: 2px solid black; }
+  border: 0px solid; }
 
 .ui-menu {
   background: #7FB5DA;
-  border: 2px solid #317DB1;
-  transition: all linear 0.15s; }
+  transition: all linear 0.15s;
+  -webkit-box-shadow: 0px 12px 22px -4px rgba(0, 0, 0, 0.34);
+  -moz-box-shadow: 0px 12px 22px -4px rgba(0, 0, 0, 0.34);
+  box-shadow: 0px 12px 22px -4px rgba(0, 0, 0, 0.34); }
 
 .ui-menu ul {
   list-style: none;
@@ -1045,6 +1045,11 @@ html, body {
   display: block;
   float: none; }
 
+.ui-menu li ul {
+  -webkit-box-shadow: 0px 12px 22px -4px rgba(0, 0, 0, 0.34);
+  -moz-box-shadow: 0px 12px 22px -4px rgba(0, 0, 0, 0.34);
+  box-shadow: 0px 12px 22px -4px rgba(0, 0, 0, 0.34); }
+
 .ui-menu li a {
   color: #0e0f26;
   display: block;
@@ -1073,8 +1078,7 @@ html, body {
 .ui-menu li ul {
   display: none;
   position: absolute;
-  min-width: 140px;
-  border: 2px solid #317DB1; }
+  min-width: 140px; }
 
 .ui-menu li:hover > ul {
   display: block; }

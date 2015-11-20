@@ -46,6 +46,7 @@
   padding:15px;
   background:  $active-bg-color;
   color:     $active-txt-color;
+  @include shadow-element();
 }
 
 .ui-tab-head:first-child {
@@ -91,6 +92,7 @@
     background: $active-bg-color;
     color:      $active-txt-color;
     border-top: 4px solid $active-border-color;
+    @include shadow-element();
 }
 
 .ui-tab-head.active:hover a,
