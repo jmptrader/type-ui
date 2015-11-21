@@ -79,6 +79,13 @@
     transition: all 0.15s;
   }
 
+  input:disabled + label:before,
+  input:checked:disabled + label:before {
+    background: $disabled-bg-color;
+    color: $disabled-txt-color;
+    cursor: $cursor-disabled;
+  }
+
 }
 
 .ui-radio-button {
@@ -148,4 +155,12 @@
 
 .ui-input-color-wrapper .btn {
   display:none;
+}
+
+.ui-input:disabled,
+.ui-select select:disabled,
+.ui-select select:disabled:after {
+  background: $disabled-bg-color;
+  color: $disabled-txt-color;
+  cursor: $cursor-disabled;
 }

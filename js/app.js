@@ -64,6 +64,8 @@ var fieldset = form.fieldset('Inputs');
 
 var group = fieldset.group();
   group.text('text', 'Text Input');
+  group = fieldset.group();
+    group.text('text', 'Disabled Text Input').disabled = true;
 group = fieldset.group();
   group.number('number', 'Number Input');
 group = fieldset.group();
@@ -75,7 +77,7 @@ group = fieldset.group();
 group = fieldset.group();
   group.checkbox('check', 'Do something cool');
 group = fieldset.group();
-  group.switch('switchie', 'Super awesome', 'YES', 'NO');  
+  group.switch('switchie', 'Super awesome', 'YES', 'NO');
 group = fieldset.group('radio');
   var rg = group.radioGroup('radio', 'Do something cool');
     var r1 = rg.radio('Yes'); r1.checked = true;

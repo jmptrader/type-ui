@@ -21,6 +21,17 @@
       right: 0px;
     }
 
+    input:disabled + label .ui-switch-switch,
+    input:disabled + label .ui-switch-inner,
+    input:checked:disabled + label .ui-switch-switch,
+    input:checked:disabled + label .ui-switch-inner,
+    input:checked:disabled + label .ui-switch-inner .before,
+    input:checked:disabled + label .ui-switch-inner .after {
+      background: $disabled-bg-color;
+      color: $disabled-txt-color;
+      cursor: $cursor-disabled;
+    }
+
 }
 
 .ui-switch-inner {

@@ -843,6 +843,13 @@ html, body {
   .ui-checkbox input {
     display: none;
     transition: all 0.15s; }
+  .ui-radio-button input:disabled + label:before,
+  .ui-radio-button input:checked:disabled + label:before,
+  .ui-checkbox input:disabled + label:before,
+  .ui-checkbox input:checked:disabled + label:before {
+    background: #143246;
+    color: #6b6fc8;
+    cursor: not-allowed; }
 
 .ui-radio-button label:before {
   border-radius: 8px; }
@@ -892,6 +899,13 @@ html, body {
 .ui-input-color-wrapper .btn {
   display: none; }
 
+.ui-input:disabled,
+.ui-select select:disabled,
+.ui-select select:disabled:after {
+  background: #143246;
+  color: #6b6fc8;
+  cursor: not-allowed; }
+
 .ui-switch {
   position: relative;
   width: 90px;
@@ -910,6 +924,15 @@ html, body {
     margin-left: 0; }
   .ui-switch input:checked + label .ui-switch-switch {
     right: 0px; }
+  .ui-switch input:disabled + label .ui-switch-switch,
+  .ui-switch input:disabled + label .ui-switch-inner,
+  .ui-switch input:checked:disabled + label .ui-switch-switch,
+  .ui-switch input:checked:disabled + label .ui-switch-inner,
+  .ui-switch input:checked:disabled + label .ui-switch-inner .before,
+  .ui-switch input:checked:disabled + label .ui-switch-inner .after {
+    background: #143246;
+    color: #6b6fc8;
+    cursor: not-allowed; }
 
 .ui-switch-inner {
   display: block;

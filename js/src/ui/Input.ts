@@ -73,6 +73,38 @@ module ui {
       this.input.value = value;
     }
 
+    get placeholder() {
+      return this.input.placeholder;
+    }
+
+    set placeholder(value:string) {
+      this.input.placeholder = value;
+    }
+
+    get disabled() {
+      return this.input.disabled;
+    }
+
+    set disabled(value:boolean) {
+      this.input.disabled = value;
+    }
+
+    get enabled() {
+      return !this.disabled;
+    }
+
+    set enabled(value:boolean) {
+      this.disabled = !value;
+    }
+
+    get pattern() {
+      return this.input.pattern;
+    }
+
+    set pattern(value:string) {
+      this.input.pattern = value;
+    }
+
     protected _setupInputEvents() {
       this.input.addEventListener('change', this._onChange.bind(this));
     }

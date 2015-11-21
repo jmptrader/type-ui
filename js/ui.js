@@ -287,6 +287,46 @@ var ui;
             enumerable: true,
             configurable: true
         });
+        Object.defineProperty(Input.prototype, "placeholder", {
+            get: function () {
+                return this.input.placeholder;
+            },
+            set: function (value) {
+                this.input.placeholder = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Input.prototype, "disabled", {
+            get: function () {
+                return this.input.disabled;
+            },
+            set: function (value) {
+                this.input.disabled = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Input.prototype, "enabled", {
+            get: function () {
+                return !this.disabled;
+            },
+            set: function (value) {
+                this.disabled = !value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Input.prototype, "pattern", {
+            get: function () {
+                return this.input.pattern;
+            },
+            set: function (value) {
+                this.input.pattern = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
         Input.prototype._setupInputEvents = function () {
             this.input.addEventListener('change', this._onChange.bind(this));
         };
