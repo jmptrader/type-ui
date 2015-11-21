@@ -229,6 +229,9 @@ var ui;
             this._setupInputEvents();
             this.name = name;
             this.classList.add('ui-cell-sm-8');
+            this._validators = [];
+            this._errors = [];
+            this.doValidation = true;
         }
         Input.prototype.createElement = function () {
             var element = document.createElement('div');
@@ -245,6 +248,49 @@ var ui;
         };
         Input.prototype._onChange = function (event) {
             this.fire('change', event);
+            if (!event.defaultPrevented && this.doValidation) {
+                this.validate();
+            }
+        };
+        Object.defineProperty(Input.prototype, "validators", {
+            get: function () {
+                return this._validators;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Input.prototype.validate = function () {
+            this._errors = [];
+            var result = this.checkValidators();
+            this.setValidationClass(result);
+            this.setValidationErrors(this._errors);
+            return result;
+        };
+        Input.prototype.checkValidators = function () {
+            var result = true;
+            for (var _i = 0, _a = this.validators; _i < _a.length; _i++) {
+                var v = _a[_i];
+                if (!v.validate(this.value)) {
+                    this._errors.push(v.error(this.value));
+                    result = false;
+                }
+            }
+            return result;
+        };
+        Input.prototype.setValidationClass = function (ok) {
+            this.removeValidationClasses();
+            if (ok) {
+                this.input.classList.add('ok');
+            }
+            else {
+                this.input.classList.add('error');
+            }
+        };
+        Input.prototype.removeValidationClasses = function () {
+            this.input.classList.remove('error');
+            this.input.classList.remove('ok');
+        };
+        Input.prototype.setValidationErrors = function (errors) {
         };
         Object.defineProperty(Input.prototype, "input", {
             get: function () {

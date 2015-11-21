@@ -14,9 +14,17 @@
 /// <reference path="./Widget.ts" />
 module ui {
 
+  export interface InputValidator {
+    validate(value:string): boolean;
+    error(value:string): string;
+  }
+
   export class Input extends Widget {
 
     private _input: HTMLInputElement;
+    private _validators: Array<InputValidator>;
+    private _errors: Array<string>;
+    public doValidation: boolean;
 
     constructor(parent:Container, name:string) {
       super(parent);
@@ -24,6 +32,9 @@ module ui {
       this._setupInputEvents();
       this.name = name;
       this.classList.add('ui-cell-sm-8');
+      this._validators = [];
+      this._errors = [];
+      this.doValidation = true;
     }
 
     protected createElement(): HTMLElement {
@@ -43,6 +54,50 @@ module ui {
 
     protected _onChange(event:Event) {
       this.fire('change', event);
+      if (!event.defaultPrevented && this.doValidation) {
+        this.validate();
+      }
+    }
+
+    get validators() {
+      return this._validators;
+    }
+
+    validate() {
+      this._errors = [];
+      let result = this.checkValidators();
+      this.setValidationClass(result);
+      this.setValidationErrors(this._errors);
+      return result;
+    }
+
+    protected checkValidators() {
+      var result = true;
+      for (let v of this.validators) {
+        if (!v.validate(this.value)) {
+          this._errors.push(v.error(this.value));
+          result = false;
+        }
+      }
+      return result;
+    }
+
+    protected setValidationClass(ok:boolean) {
+      this.removeValidationClasses();
+      if (ok) {
+        this.input.classList.add('ok');
+      } else {
+        this.input.classList.add('error');
+      }
+    }
+
+    protected removeValidationClasses() {
+      this.input.classList.remove('error');
+      this.input.classList.remove('ok');
+    }
+
+    protected setValidationErrors(errors:Array<string>) {
+
     }
 
     get input(): HTMLInputElement {
