@@ -16,12 +16,27 @@
   //border: 2px solid $primary-border-color;
   border: 0px solid;
   color:  $base-txt-color;
+
+}
+
+.ui-input-wrapper {
+  [class*='fa-'] {
+    width: 24px;
+  }
+
+  [class*='fa-'] + input {
+    width: -webkit-calc(100% - 28px);
+    width: -moz-calc(100% - 28px);
+    width: calc(100% - 28px);
+  }
+
 }
 
 .ui-input-number,
 .ui-input-text,
 .ui-input-date,
 .ui-input-color {
+  padding: 2px;
   display: inline-block;
   width: 100%;
   //border: 2px solid $primary-border-color;
@@ -133,6 +148,10 @@
 
 .ui-input {
   width: 100%;
+  padding: 2px;
+  width: -webkit-calc(100% - 4px);
+  width: -moz-calc(100% - 4px);
+  width: calc(100% - 4px);
 }
 
 .ui-input-wrapper {

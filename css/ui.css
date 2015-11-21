@@ -791,10 +791,18 @@ html, body {
   border: 0px solid;
   color: #0e0f26; }
 
+.ui-input-wrapper [class*='fa-'] {
+  width: 24px; }
+.ui-input-wrapper [class*='fa-'] + input {
+  width: -webkit-calc(100% - 28px);
+  width: -moz-calc(100% - 28px);
+  width: calc(100% - 28px); }
+
 .ui-input-number,
 .ui-input-text,
 .ui-input-date,
 .ui-input-color {
+  padding: 2px;
   display: inline-block;
   width: 100%;
   border: 0px solid;
@@ -879,7 +887,11 @@ html, body {
   min-height: 15px; }
 
 .ui-input {
-  width: 100%; }
+  width: 100%;
+  padding: 2px;
+  width: -webkit-calc(100% - 4px);
+  width: -moz-calc(100% - 4px);
+  width: calc(100% - 4px); }
 
 .ui-input-wrapper {
   display: inline-block; }
@@ -997,6 +1009,12 @@ html, body {
     padding-right: 26px; } }
 .ui-select {
   position: relative; }
+  .ui-select [class*='fa-'] {
+    width: 24px; }
+  .ui-select [class*='fa-'] + select {
+    width: -webkit-calc(100% - 24px);
+    width: -moz-calc(100% - 24px);
+    width: calc(100% - 24px); }
 
 .ui-select:after {
   content: '<>';

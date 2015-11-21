@@ -22,19 +22,37 @@ module ui {
   export class Input extends Widget {
 
     private _input: HTMLInputElement;
+    private _iconName: string;
+    private _icon: HTMLElement;
     private _validators: Array<InputValidator>;
     private _errors: Array<string>;
     public doValidation: boolean;
 
     constructor(parent:Container, name:string) {
       super(parent);
+      this._icon  = this.createIcon();
       this._input = this.createInput();
+      this._iconName = null;
       this._setupInputEvents();
       this.name = name;
       this.classList.add('ui-cell-sm-8');
       this._validators = [];
       this._errors = [];
       this.doValidation = true;
+    }
+
+    get icon() {
+      return this._iconName;
+    }
+
+    set icon(value:string) {
+      if (value !== null && value.length > 0) {
+        this._iconName = value;
+        this._icon.className = 'fa fa-fw fa-' + value;
+      } else {
+        this._iconName = null;
+        this._icon.className = '';
+      }
     }
 
     protected createElement(): HTMLElement {
@@ -50,6 +68,12 @@ module ui {
       element.classList.add(`ui-input-${this.type}`);
       this.element.appendChild(element);
       return element;
+    }
+
+    protected createIcon() {
+      var i = document.createElement('i');
+      this.element.appendChild(i);
+      return i;
     }
 
     protected _onChange(event:Event) {
@@ -85,15 +109,15 @@ module ui {
     protected setValidationClass(ok:boolean) {
       this.removeValidationClasses();
       if (ok) {
-        this.input.classList.add('ok');
+        this.element.classList.add('ok');
       } else {
-        this.input.classList.add('error');
+        this.element.classList.add('error');
       }
     }
 
     protected removeValidationClasses() {
-      this.input.classList.remove('error');
-      this.input.classList.remove('ok');
+      this.element.classList.remove('error');
+      this.element.classList.remove('ok');
     }
 
     protected setValidationErrors(errors:Array<string>) {

@@ -225,7 +225,9 @@ var ui;
         __extends(Input, _super);
         function Input(parent, name) {
             _super.call(this, parent);
+            this._icon = this.createIcon();
             this._input = this.createInput();
+            this._iconName = null;
             this._setupInputEvents();
             this.name = name;
             this.classList.add('ui-cell-sm-8');
@@ -233,6 +235,23 @@ var ui;
             this._errors = [];
             this.doValidation = true;
         }
+        Object.defineProperty(Input.prototype, "icon", {
+            get: function () {
+                return this._iconName;
+            },
+            set: function (value) {
+                if (value !== null && value.length > 0) {
+                    this._iconName = value;
+                    this._icon.className = 'fa fa-fw fa-' + value;
+                }
+                else {
+                    this._iconName = null;
+                    this._icon.className = '';
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
         Input.prototype.createElement = function () {
             var element = document.createElement('div');
             element.classList.add("ui-input-" + this.type + "-wrapper");
@@ -245,6 +264,11 @@ var ui;
             element.classList.add("ui-input-" + this.type);
             this.element.appendChild(element);
             return element;
+        };
+        Input.prototype.createIcon = function () {
+            var i = document.createElement('i');
+            this.element.appendChild(i);
+            return i;
         };
         Input.prototype._onChange = function (event) {
             this.fire('change', event);
@@ -280,15 +304,15 @@ var ui;
         Input.prototype.setValidationClass = function (ok) {
             this.removeValidationClasses();
             if (ok) {
-                this.input.classList.add('ok');
+                this.element.classList.add('ok');
             }
             else {
-                this.input.classList.add('error');
+                this.element.classList.add('error');
             }
         };
         Input.prototype.removeValidationClasses = function () {
-            this.input.classList.remove('error');
-            this.input.classList.remove('ok');
+            this.element.classList.remove('error');
+            this.element.classList.remove('ok');
         };
         Input.prototype.setValidationErrors = function (errors) {
         };

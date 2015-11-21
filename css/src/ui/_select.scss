@@ -22,7 +22,20 @@
     .ui-select select { padding-right: 26px; }
 }
 
-.ui-select { position: relative; }
+.ui-select {
+  position: relative;
+
+  [class*='fa-'] {
+    width: 24px;
+  }
+
+  [class*='fa-'] + select {
+    width: -webkit-calc(100% - 24px);
+    width: -moz-calc(100% - 24px);
+    width: calc(100% - 24px);
+  }
+
+}
 
 .ui-select:after {
   content: '<>';
