@@ -4,6 +4,8 @@
   //border: 2px solid $primary-border-color;
   transition:all linear 0.15s;
   @include shadow-element();
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .ui-menu ul {

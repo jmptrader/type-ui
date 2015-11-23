@@ -17,6 +17,8 @@
    background: $primary-bg-color;
    //border: 2px solid $primary-border-color;
    transition:all linear 0.15s;
+   padding-left: 10px;
+   padding-right: 10px;
    @include shadow-element();
  }
 
