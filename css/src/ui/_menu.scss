@@ -48,11 +48,13 @@
 float:left;
 display: inline-block;
 transition:all linear 0.15s;
+z-index: 9999;
 }
 
 .ui-menu ul li ul li {
   display:block;
   float: none;
+  background: $active-bg-color;
 }
 
 .ui-menu li ul {
@@ -70,8 +72,8 @@ text-decoration: none;
 .ui-menu li:hover > a,
 .ui-menu ul li:hover > a,
 .ui-menu li:hover ul li:hover > a {
-  color: $hover-txt-color;
-  background: $hover-bg-color;
+  color: $active-txt-color;
+  background: $active-bg-color;
 }
 
 .ui-menu li:hover ul li a {
@@ -89,7 +91,7 @@ text-decoration: none;
 
 .ui-menu li a:hover,
 .ui-menu ul li:hover > a {
-  color: $hover-txt-color;
+  color: $active-txt-color;
   text-decoration: none;
 }
 

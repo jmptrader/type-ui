@@ -1093,11 +1093,13 @@ html, body {
 .ui-menu ul li {
   float: left;
   display: inline-block;
-  transition: all linear 0.15s; }
+  transition: all linear 0.15s;
+  z-index: 9999; }
 
 .ui-menu ul li ul li {
   display: block;
-  float: none; }
+  float: none;
+  background: #cee3f1; }
 
 .ui-menu li ul {
   -webkit-box-shadow: 0px 12px 22px -4px rgba(0, 0, 0, 0.34);
@@ -1114,8 +1116,8 @@ html, body {
 .ui-menu li:hover > a,
 .ui-menu ul li:hover > a,
 .ui-menu li:hover ul li:hover > a {
-  color: #dedede;
-  background: #053B59; }
+  color: #292c71;
+  background: #cee3f1; }
 
 .ui-menu li:hover ul li a {
   color: #0e0f26; }
@@ -1126,7 +1128,7 @@ html, body {
 
 .ui-menu li a:hover,
 .ui-menu ul li:hover > a {
-  color: #dedede;
+  color: #292c71;
   text-decoration: none; }
 
 .ui-menu li ul {
