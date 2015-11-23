@@ -72,6 +72,7 @@ group = fieldset.group();
 group = fieldset.group();
   t = group.color('color', 'Color Input');
   t.icon = 'user';
+  var $color = t;
   group = fieldset.group();
     group.color('color', 'Color Input 2');
 group = fieldset.group();

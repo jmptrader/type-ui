@@ -39,6 +39,17 @@ module ui {
       return 'color';
     }
 
+    get value() {
+      return this.input.value;
+    }
+
+    set value(value:string) {
+      this.input.value = value;
+      if (this.enabled) {
+        this.input.style.backgroundColor = value;
+      }
+    }
+
     protected _createButton() {
       var btn = document.createElement('span');
       btn.classList.add('btn');

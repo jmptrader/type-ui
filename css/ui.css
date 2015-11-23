@@ -1017,7 +1017,7 @@ html, body {
     width: calc(100% - 24px); }
 
 .ui-select:after {
-  content: '<>';
+  content: '>';
   font: 16px "Consolas", monospace;
   font-weight: bold;
   color: #0e0f26;
@@ -1025,7 +1025,7 @@ html, body {
   -moz-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
   transform: rotate(90deg);
-  right: 18px;
+  right: 21px;
   top: 0px;
   padding: 0 4px 5px;
   position: absolute;

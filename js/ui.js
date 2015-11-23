@@ -1227,6 +1227,19 @@ var ui;
             enumerable: true,
             configurable: true
         });
+        Object.defineProperty(ColorInput.prototype, "value", {
+            get: function () {
+                return this.input.value;
+            },
+            set: function (value) {
+                this.input.value = value;
+                if (this.enabled) {
+                    this.input.style.backgroundColor = value;
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
         ColorInput.prototype._createButton = function () {
             var btn = document.createElement('span');
             btn.classList.add('btn');
