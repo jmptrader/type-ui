@@ -2,17 +2,18 @@
 .ui-select select {
   padding:3px;
   margin: 0;
+  min-height: 2em;
   //border: 2px solid $primary-border-color;
   border: 0px solid;
   background: $active-bg-color;
   color: $base-txt-color;
   outline:none;
-  display: inline-block;
+  display: table-cell;
   -webkit-appearance:none;
   -moz-appearance:none;
   appearance:none;
   cursor:pointer;
-
+  box-sizing: border-box;
 
       width: 100%;
 
@@ -23,17 +24,26 @@
 }
 
 .ui-select {
+
+  display: inline-table;
   position: relative;
-
-  [class*='fa-'] {
-    width: 24px;
+  padding-right: 0;
+  box-sizing: border-box;
+  [class*="fa-"] {
+    padding-right: 5px;
   }
 
-  [class*='fa-'] + select {
-    width: -webkit-calc(100% - 24px);
-    width: -moz-calc(100% - 24px);
-    width: calc(100% - 24px);
+  .right {
+    padding-left: 10px;
   }
+
+  [class*="fa-"],
+  .right {
+    display: table-cell;
+    margin: auto;
+    vertical-align: middle;
+  }
+
 
 }
 
@@ -46,7 +56,7 @@
   -moz-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
   transform: rotate(90deg);
-  right: 21px;
+  right: 5px;
   top: 0px;
   padding: 0 4px 5px;
   position: absolute;

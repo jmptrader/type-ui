@@ -8,7 +8,7 @@
 }
 
 .ui-input {
-  height: 100%;
+  display: table-cell;
   min-height: 2em;
   -webkit-appearance: none;
   -moz-appearance:    none;
@@ -16,28 +16,38 @@
   //border: 2px solid $primary-border-color;
   border: 0px solid;
   color:  $base-txt-color;
-
+  box-sizing: border-box;
 }
 
 .ui-input-wrapper {
-  [class*='fa-'] {
-    width: 24px;
+  display: inline-table;
+  padding-right: 0;
+
+  [class*="fa-"] {
+    padding-right: 5px;
   }
 
-  [class*='fa-'] + input {
-    width: -webkit-calc(100% - 28px);
-    width: -moz-calc(100% - 28px);
-    width: calc(100% - 28px);
+  .right {
+    padding-left: 10px;
+  }
+
+  [class*="fa-"],
+  .right {
+    display: table-cell;
+    margin: auto;
+    vertical-align: middle;
   }
 
 }
 
+.ui-input,
 .ui-input-number,
 .ui-input-text,
 .ui-input-date,
-.ui-input-color {
+.ui-input-color,
+.ui-input-wrapper input[type="date" i] {
   padding: 2px;
-  display: inline-block;
+  display: table-cell;
   width: 100%;
   //border: 2px solid $primary-border-color;
   border: 0px solid;
@@ -146,24 +156,15 @@
     min-height: 15px;
 }
 
-.ui-input {
-  width: 100%;
-  padding: 2px;
-  width: -webkit-calc(100% - 4px);
-  width: -moz-calc(100% - 4px);
-  width: calc(100% - 4px);
-}
-
-.ui-input-wrapper {
-  display: inline-block;;
-}
-
 .ui-input,
 .ui-input input,
 .ui-radio-button,
 .ui-radio-button input,
 .ui-checkbox,
 .ui-checkbox input {
+  width: 100%;
+  min-height: 2em;
+  height: 2em;
   cursor: pointer;
 }
 
