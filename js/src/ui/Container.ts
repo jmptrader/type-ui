@@ -72,6 +72,15 @@ module ui {
       this.element.appendChild(document.createTextNode(text));
     }
 
+    protected createElement(): HTMLElement {
+      var element = document.createElement('div');
+      return element;
+    }
+
+    protected get className() {
+      return 'ui-container';
+    }
+
     addGrid() {
       return new ui.Grid(this);
     }

@@ -101,6 +101,7 @@ module ui {
       this.element.addEventListener('blur', this._onBlur.bind(this));
       this.element.addEventListener('keydown', this._onKeydown.bind(this));
       this.element.addEventListener('keyup', this._onKeyup.bind(this));
+      this.element.addEventListener('click', this._onClick.bind(this));
     }
 
     protected _onFocus(event:Event) {
@@ -117,6 +118,10 @@ module ui {
 
     protected _onKeyup(event:Event) {
       this.fire('keyup', event);
+    }
+
+    protected _onClick(event:Event) {
+      this.fire('click', event);
     }
 
   }

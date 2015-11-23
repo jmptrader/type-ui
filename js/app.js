@@ -14,6 +14,11 @@ var menu = new ui.Menu(app);
       sm1.item('Sub Item 1');
       sm1.item('Sub Item 2');
 
+var toolbar = new ui.Toolbar(app);
+toolbar.icon('user');
+toolbar.separator();
+toolbar.icon('delete');
+
 var r1  = app.grid().row();
 var cx1 = r1.cell({md: 3});
 var cx2 = r1.cell({md: 6});

@@ -188,6 +188,7 @@ var ui;
             this.element.addEventListener('blur', this._onBlur.bind(this));
             this.element.addEventListener('keydown', this._onKeydown.bind(this));
             this.element.addEventListener('keyup', this._onKeyup.bind(this));
+            this.element.addEventListener('click', this._onClick.bind(this));
         };
         Widget.prototype._onFocus = function (event) {
             this.fire('focus', event);
@@ -200,6 +201,9 @@ var ui;
         };
         Widget.prototype._onKeyup = function (event) {
             this.fire('keyup', event);
+        };
+        Widget.prototype._onClick = function (event) {
+            this.fire('click', event);
         };
         return Widget;
     })(ui.EventManager);
@@ -675,6 +679,17 @@ var ui;
         Container.prototype.addText = function (text) {
             this.element.appendChild(document.createTextNode(text));
         };
+        Container.prototype.createElement = function () {
+            var element = document.createElement('div');
+            return element;
+        };
+        Object.defineProperty(Container.prototype, "className", {
+            get: function () {
+                return 'ui-container';
+            },
+            enumerable: true,
+            configurable: true
+        });
         Container.prototype.addGrid = function () {
             return new ui.Grid(this);
         };
@@ -1027,6 +1042,26 @@ var ui;
             },
             set: function (value) {
                 this._text.nodeValue = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Button.prototype, "disabled", {
+            get: function () {
+                return this.element.disabled;
+            },
+            set: function (value) {
+                this.element.disabled = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Button.prototype, "enabled", {
+            get: function () {
+                return !this.disabled;
+            },
+            set: function (value) {
+                this.disabled = !value;
             },
             enumerable: true,
             configurable: true
@@ -4331,6 +4366,123 @@ var ui;
         return TextInput;
     })(ui.Input);
     ui.TextInput = TextInput;
+})(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// <reference path="./Container.ts" />
+var ui;
+(function (ui) {
+    var Toolbar = (function (_super) {
+        __extends(Toolbar, _super);
+        function Toolbar() {
+            _super.apply(this, arguments);
+        }
+        Toolbar.prototype.createElement = function () {
+            var element = document.createElement('div');
+            return element;
+        };
+        Object.defineProperty(Toolbar.prototype, "className", {
+            get: function () {
+                return 'ui-toolbar';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Toolbar.prototype.icon = function (name) {
+            var btn = new ui.ToolbarIcon(this);
+            var icon = new ui.FontAwesomeIcon(btn, name);
+            return btn;
+        };
+        Toolbar.prototype.separator = function () {
+            var sep = new ui.ToolbarSeparator(this);
+            return sep;
+        };
+        return Toolbar;
+    })(ui.Container);
+    ui.Toolbar = Toolbar;
+})(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// <reference path="./Container.ts" />
+var ui;
+(function (ui) {
+    var ToolbarIcon = (function (_super) {
+        __extends(ToolbarIcon, _super);
+        function ToolbarIcon() {
+            _super.apply(this, arguments);
+        }
+        ToolbarIcon.prototype.createElement = function () {
+            var element = document.createElement('button');
+            return element;
+        };
+        Object.defineProperty(ToolbarIcon.prototype, "className", {
+            get: function () {
+                return 'ui-toolbar-icon';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return ToolbarIcon;
+    })(ui.Container);
+    ui.ToolbarIcon = ToolbarIcon;
+})(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// <reference path="./Widget.ts" />
+var ui;
+(function (ui) {
+    var ToolbarSeparator = (function (_super) {
+        __extends(ToolbarSeparator, _super);
+        function ToolbarSeparator() {
+            _super.apply(this, arguments);
+        }
+        ToolbarSeparator.prototype.createElement = function () {
+            var element = document.createElement('span');
+            return element;
+        };
+        Object.defineProperty(ToolbarSeparator.prototype, "className", {
+            get: function () {
+                return 'separator';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return ToolbarSeparator;
+    })(ui.Widget);
+    ui.ToolbarSeparator = ToolbarSeparator;
 })(ui || (ui = {}));
 /*
  * Copyright 2015 Ramiro Rojo

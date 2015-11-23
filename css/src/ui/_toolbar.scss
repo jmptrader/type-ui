@@ -11,7 +11,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-.ui-button {
+
+ .ui-toolbar {
+   height: 42px;
+   background: $primary-bg-color;
+   //border: 2px solid $primary-border-color;
+   transition:all linear 0.15s;
+   @include shadow-element();
+ }
+
+ .ui-toolbar:before,
+ .ui-toolbar:after {
+   @include clearfix();
+ }
+
+ .ui-toolbar .separator:before {
+   display: inline-block;
+   content: " ";
+   min-width: 42px;
+   max-width: 42px;
+   min-height: 42px;
+   overflow: hidden;
+   border: 0px solid;
+ }
+
+.ui-toolbar-icon {
+  position: relative;
+  top: -16px;
+  width: 42px;
+  min-width: 42px;
   border: 2px solid $active-border-color;
   background: $active-bg-color;
   color: $base-txt-color;
@@ -20,23 +48,23 @@
   cursor: pointer;
 }
 
-.ui-button:hover {
+.ui-toolbar-icon:hover {
   border: 2px solid $hover-border-color;
   background: $hover-bg-color;
   color: $hover-txt-color;
   text-decoration: none;
 }
 
-.ui-button:checked,
-.ui-button:active {
+.ui-toolbar-icon:checked,
+.ui-toolbar-icon:active {
   border: 2px solid $pressed-border-color;
   background: $pressed-bg-color;
   color: $pressed-txt-color;
   text-decoration: none;
 }
 
-.ui-button:disabled,
-.ui-button:hover:disabled {
+.ui-toolbar-icon:disabled,
+.ui-toolbar-icon:hover:disabled {
   border: 2px solid $disabled-border-color;
   background: $disabled-bg-color;
   color: $disabled-txt-color;

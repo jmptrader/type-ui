@@ -62,6 +62,22 @@ module ui {
       return this._text.nodeValue;
     }
 
+    get disabled() {
+      return (<HTMLButtonElement>this.element).disabled;
+    }
+
+    set disabled(value:boolean) {
+      (<HTMLButtonElement>this.element).disabled = value;
+    }
+
+    get enabled() {
+      return !this.disabled;
+    }
+
+    set enabled(value:boolean) {
+      this.disabled = !value;
+    }
+
     set text(value:string) {
       this._text.nodeValue = value;
     }

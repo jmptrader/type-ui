@@ -702,7 +702,8 @@ html, body {
   color: black;
   text-decoration: none; }
 
-.ui-button.disabled {
+.ui-button:disabled,
+.ui-button:hover:disabled {
   border: 2px solid black;
   background: #143246;
   color: #6b6fc8;
@@ -1170,5 +1171,74 @@ html, body {
 
 .ui-menu li:hover ul li a > .ui-arrow-right {
   border-left-color: #0e0f26; }
+
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+.ui-toolbar {
+  height: 42px;
+  background: #7FB5DA;
+  transition: all linear 0.15s;
+  -webkit-box-shadow: 0px 12px 22px -4px rgba(0, 0, 0, 0.34);
+  -moz-box-shadow: 0px 12px 22px -4px rgba(0, 0, 0, 0.34);
+  box-shadow: 0px 12px 22px -4px rgba(0, 0, 0, 0.34); }
+
+.ui-toolbar:before,
+.ui-toolbar:after {
+  content: "";
+  display: table;
+  clear: both; }
+
+.ui-toolbar .separator:before {
+  display: inline-block;
+  content: " ";
+  min-width: 42px;
+  max-width: 42px;
+  min-height: 42px;
+  overflow: hidden;
+  border: 0px solid; }
+
+.ui-toolbar-icon {
+  position: relative;
+  top: -16px;
+  width: 42px;
+  min-width: 42px;
+  border: 2px solid #70aed8;
+  background: #cee3f1;
+  color: #0e0f26;
+  padding: 10px;
+  text-decoration: none;
+  cursor: pointer; }
+
+.ui-toolbar-icon:hover {
+  border: 2px solid #98c4e3;
+  background: #053B59;
+  color: #dedede;
+  text-decoration: none; }
+
+.ui-toolbar-icon:checked,
+.ui-toolbar-icon:active {
+  border: 2px solid #1b4561;
+  background: #3686bd;
+  color: black;
+  text-decoration: none; }
+
+.ui-toolbar-icon:disabled,
+.ui-toolbar-icon:hover:disabled {
+  border: 2px solid black;
+  background: #143246;
+  color: #6b6fc8;
+  text-decoration: none;
+  cursor: not-allowed; }
 
 /*# sourceMappingURL=ui.css.map */

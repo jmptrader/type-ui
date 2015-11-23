@@ -11,24 +11,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@import "./ui/_variables";
-@import "./ui/_helpers";
-@import "./ui/_scrollbar";
-@import "./ui/_fonts";
-@import "./ui/_mixins";
-@import "./ui/_functions";
-@import "./ui/_utils";
-@import "./ui/_app";
-@import "./ui/_cell";
-@import "./ui/_tab";
-@import "./ui/_panel";
-@import "./ui/_button";
-@import "./ui/_blockquote";
-@import "./ui/_fieldset";
-@import "./ui/_split-pane";
-@import "./ui/_input";
-@import "./ui/_switch";
-@import "./ui/_select";
-@import "./ui/_ace-editor";
-@import "./ui/_menu";
-@import "./ui/_toolbar";
+/// <reference path="./Widget.ts" />
+
+module ui {
+
+  export class ToolbarSeparator extends Widget {
+
+    protected createElement(): HTMLElement {
+      var element = document.createElement('span');
+      return element;
+    }
+
+    protected get className() {
+      return 'separator';
+    }
+
+  }
+}
