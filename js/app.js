@@ -19,7 +19,9 @@ toolbar.icon('user');
 toolbar.separator();
 toolbar.icon('delete');
 
-var r1  = app.grid().row();
+var $CON = new ui.Container(app);
+
+var r1  = $CON.grid().row();
 var cx1 = r1.cell({md: 3});
 var cx2 = r1.cell({md: 6});
 var cx3 = r1.cell({md: 3});
@@ -44,8 +46,8 @@ tab.addPage("Closeable tab", true);
 
 tab.index = 0;
 
-var sp1 = new ui.SplitPane(app, ui.SplitPane.HORIZONTAL);
-var sp2 = new ui.SplitPane(app, ui.SplitPane.VERTICAL);
+var sp1 = new ui.SplitPane($CON, ui.SplitPane.HORIZONTAL);
+var sp2 = new ui.SplitPane($CON, ui.SplitPane.VERTICAL);
 
 sp1.panel1.addText("Split 1-A");
 sp1.panel2.addText("Split 1-B");
@@ -53,9 +55,9 @@ sp1.panel2.addText("Split 1-B");
 sp2.panel1.addText("Split 2-A");
 sp2.panel2.addText("Split 2-B");
 
-new ui.HorizontalRule(app);
+new ui.HorizontalRule($CON);
 
-var formGrid = new ui.Grid(app);
+var formGrid = new ui.Grid($CON);
 
 var formRow = formGrid.row();
   formRow.cell({md: 3});
@@ -110,9 +112,9 @@ group = fieldset.group();
 group = fieldset.group();
     group.submit('Submit');
 
-new ui.HorizontalRule(app);
+new ui.HorizontalRule($CON);
 
-var grid = new ui.Grid(app);
+var grid = new ui.Grid($CON);
 var row = grid.row();
   var cell1 = row.cell({xs: 12, sm: 6, md: 4, lg: 3});
     cell1.addText('cell-1');
@@ -123,43 +125,43 @@ var row = grid.row();
   var cell4 = row.cell({xs: 12, sm: 6, md: 4, lg: 3});
     cell4.addText('cell-4');
 
-new ui.HorizontalRule(app);
+new ui.HorizontalRule($CON);
 
-var p = new ui.Paragraph(app, "This is a paragraph.");
+var p = new ui.Paragraph($CON, "This is a paragraph.");
 
-new ui.HorizontalRule(app);
+new ui.HorizontalRule($CON);
 
-var quote = new ui.Blockquote(app);
+var quote = new ui.Blockquote($CON);
 quote.quote = 'This is a blockquote';
 quote.footer = 'It was made by me';
 
-var quote2 = new ui.Blockquote(app);
+var quote2 = new ui.Blockquote($CON);
 quote2.quote = 'This is another blockquote, but it doesn\'t have a footer';
 
-new ui.HorizontalRule(app);
+new ui.HorizontalRule($CON);
 
-var ol = new ui.OrderedList(app);
+var ol = new ui.OrderedList($CON);
   ol.item().addText("Item 1");
   ol.item().addText("Item 2");
   ol.item().addText("Item 3");
 
-var ul = new ui.UnorderedList(app);
+var ul = new ui.UnorderedList($CON);
   ul.item().addText("Item 1");
   ul.item().addText("Item 2");
   ul.item().addText("Item 3");
 
-var editor = new ui.AceEditor(app, 'editor');
+var editor = new ui.AceEditor($CON, 'editor');
 editor.value = 'function test() {}';
 
-var icon1 = new ui.FontAwesomeIcon(app, 'spinner');
+var icon1 = new ui.FontAwesomeIcon($CON, 'spinner');
   icon1.spin = true;
   icon1.size = ui.FontAwesomeSize.X5;
-var icon2 = new ui.FontAwesomeIcon(app, 'spinner');
+var icon2 = new ui.FontAwesomeIcon($CON, 'spinner');
   icon2.pulse = true;
   icon2.size  = ui.FontAwesomeSize.LARGE;
-var icon3 = new ui.FontAwesomeStack(app, 'circle', 'flag', ui.FontAwesomeStackOrder.INVERSE);
+var icon3 = new ui.FontAwesomeStack($CON, 'circle', 'flag', ui.FontAwesomeStackOrder.INVERSE);
 icon3.upper.inverse = true;
-var icon4 = new ui.FontAwesomeStack(app, 'twitter', 'square-o');
+var icon4 = new ui.FontAwesomeStack($CON, 'twitter', 'square-o');
   icon4.size = ui.FontAwesomeSize.LARGE;
 
-var sw1 = new ui.Switch(app, 'switch1', 'ON', 'OFF');
+var sw1 = new ui.Switch($CON, 'switch1', 'ON', 'OFF');

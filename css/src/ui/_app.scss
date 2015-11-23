@@ -14,12 +14,20 @@
 html, body {
   background: $app-background;
   color: $base-txt-color;
+  margin: 0;
+  padding: 0;
+}
+
+.ui-container {
+  width: 100%;
+  max-width: $app-max-width;
+  margin: auto;
 }
 
 .ui-app {
   width: 100%;
-  max-width: $app-max-width;
-  margin: auto;
+  padding: 0;
+  margin: 0;
 }
 
 .ui {

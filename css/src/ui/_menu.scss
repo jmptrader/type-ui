@@ -98,12 +98,14 @@ text-decoration: none;
 .ui-menu li ul {
 display:none;
 position:absolute;
+width:140px;
 min-width:140px;
 //border: 2px solid $primary-border-color;
 }
 
 .ui-menu li:hover > ul {
-display:block;
+  min-width:140px;
+  display:block;
 }
 
 .ui-menu li ul li {
