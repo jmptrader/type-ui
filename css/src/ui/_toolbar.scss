@@ -35,21 +35,23 @@
    border: 0px solid;
  }
 
-.ui-toolbar-icon {
+.ui-toolbar-icon,
+.ui-toolbar-icon:focus {
   position: relative;
   top: -16px;
   width: 42px;
   min-width: 42px;
-  border: 2px solid $active-border-color;
-  background: $active-bg-color;
+  border: 0 solid;
+  background: $primary-bg-color;
   color: $base-txt-color;
   padding: 10px;
   text-decoration: none;
   cursor: pointer;
+  box-shadow: none;
 }
 
 .ui-toolbar-icon:hover {
-  border: 2px solid $hover-border-color;
+  border: 0px solid;
   background: $hover-bg-color;
   color: $hover-txt-color;
   text-decoration: none;
@@ -57,7 +59,6 @@
 
 .ui-toolbar-icon:checked,
 .ui-toolbar-icon:active {
-  border: 2px solid $pressed-border-color;
   background: $pressed-bg-color;
   color: $pressed-txt-color;
   text-decoration: none;
@@ -65,7 +66,6 @@
 
 .ui-toolbar-icon:disabled,
 .ui-toolbar-icon:hover:disabled {
-  border: 2px solid $disabled-border-color;
   background: $disabled-bg-color;
   color: $disabled-txt-color;
   text-decoration: none;

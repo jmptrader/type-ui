@@ -1210,34 +1210,34 @@ html, body {
   overflow: hidden;
   border: 0px solid; }
 
-.ui-toolbar-icon {
+.ui-toolbar-icon,
+.ui-toolbar-icon:focus {
   position: relative;
   top: -16px;
   width: 42px;
   min-width: 42px;
-  border: 2px solid #70aed8;
-  background: #cee3f1;
+  border: 0 solid;
+  background: #7FB5DA;
   color: #0e0f26;
   padding: 10px;
   text-decoration: none;
-  cursor: pointer; }
+  cursor: pointer;
+  box-shadow: none; }
 
 .ui-toolbar-icon:hover {
-  border: 2px solid #98c4e3;
+  border: 0px solid;
   background: #053B59;
   color: #dedede;
   text-decoration: none; }
 
 .ui-toolbar-icon:checked,
 .ui-toolbar-icon:active {
-  border: 2px solid #1b4561;
   background: #3686bd;
   color: black;
   text-decoration: none; }
 
 .ui-toolbar-icon:disabled,
 .ui-toolbar-icon:hover:disabled {
-  border: 2px solid black;
   background: #143246;
   color: #6b6fc8;
   text-decoration: none;
