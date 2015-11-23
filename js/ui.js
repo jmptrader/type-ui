@@ -227,6 +227,8 @@ var ui;
             _super.call(this, parent);
             this._icon = this.createIcon();
             this._input = this.createInput();
+            this._rightSpan = this.createRightSpan();
+            this._rightText = this.createRightText();
             this._iconName = null;
             this._setupInputEvents();
             this.name = name;
@@ -252,6 +254,17 @@ var ui;
             enumerable: true,
             configurable: true
         });
+        Input.prototype.createRightSpan = function () {
+            var e = document.createElement('span');
+            e.classList.add('right');
+            this.element.appendChild(e);
+            return e;
+        };
+        Input.prototype.createRightText = function () {
+            var e = document.createTextNode('');
+            this._rightSpan.appendChild(e);
+            return e;
+        };
         Input.prototype.createElement = function () {
             var element = document.createElement('div');
             element.classList.add("ui-input-" + this.type + "-wrapper");
@@ -326,6 +339,16 @@ var ui;
         Object.defineProperty(Input.prototype, "type", {
             get: function () {
                 return null;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Input.prototype, "rightText", {
+            get: function () {
+                return this._rightText.nodeValue;
+            },
+            set: function (value) {
+                this._rightText.nodeValue = value;
             },
             enumerable: true,
             configurable: true

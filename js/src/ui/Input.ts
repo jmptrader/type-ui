@@ -24,6 +24,8 @@ module ui {
     private _input: HTMLInputElement;
     private _iconName: string;
     private _icon: HTMLElement;
+    private _rightSpan : HTMLElement;
+    private _rightText : Text;
     private _validators: Array<InputValidator>;
     private _errors: Array<string>;
     public doValidation: boolean;
@@ -32,6 +34,8 @@ module ui {
       super(parent);
       this._icon  = this.createIcon();
       this._input = this.createInput();
+      this._rightSpan = this.createRightSpan();
+      this._rightText = this.createRightText();
       this._iconName = null;
       this._setupInputEvents();
       this.name = name;
@@ -53,6 +57,19 @@ module ui {
         this._iconName = null;
         this._icon.className = '';
       }
+    }
+
+    protected createRightSpan() {
+      var e = document.createElement('span');
+      e.classList.add('right');
+      this.element.appendChild(e);
+      return e;
+    }
+
+    protected createRightText() {
+      var e = document.createTextNode('');
+      this._rightSpan.appendChild(e);
+      return e;
     }
 
     protected createElement(): HTMLElement {
@@ -130,6 +147,14 @@ module ui {
 
     get type(): string {
       return null;
+    }
+
+    get rightText() {
+      return this._rightText.nodeValue;
+    }
+
+    set rightText(value:string) {
+      this._rightText.nodeValue = value;
     }
 
     protected get className() {
