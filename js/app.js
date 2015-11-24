@@ -165,3 +165,29 @@ var icon4 = new ui.FontAwesomeStack($CON, 'twitter', 'square-o');
   icon4.size = ui.FontAwesomeSize.LARGE;
 
 var sw1 = new ui.Switch($CON, 'switch1', 'ON', 'OFF');
+
+new ui.HorizontalRule($CON);
+
+function PropertyField(name, tag) {
+
+  this.format = function (o) {
+    return document.createTextNode(o[name]);
+  }
+
+  this.sort = function (a, b) {
+    return a[name] > b[name] ? 1 : (a[name] < b[name] ? -1 : 0);
+  }
+
+  this.header = function () {
+    return document.createTextNode(tag);
+  }
+
+}
+
+var tm = new ui.TableModel([{name: 'Name 1', desc: 'Desc 1'}, {name: 'Name 2', desc: 'Desc 2'}]);
+tm.fields = [new PropertyField('name', 'Name'), new PropertyField('desc', 'Description') ];
+var table = new ui.Table($CON, tm);
+
+new ui.HorizontalRule($CON);
+
+new ui.HorizontalRule($CON);
