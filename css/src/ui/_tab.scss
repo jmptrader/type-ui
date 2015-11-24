@@ -92,7 +92,6 @@
     background: $active-bg-color;
     color:      $active-txt-color;
     border-top: 4px solid $active-border-color;
-    @include shadow-element();
 }
 
 .ui-tab-head.active:hover a,
@@ -148,7 +147,7 @@
   .ui-tab-body {
     display: table-cell;
     width: 100%;
-    box-shadow: none;
+
   }
 
   .ui-tab-head {
@@ -161,7 +160,7 @@
     margin-right: 0px;
     border-left: 4px solid $primary-border-color;
     border-top: 0 solid;
-    box-shadow: none;
+    @include shadow-element();
   }
 
   .ui-tab-head:hover {

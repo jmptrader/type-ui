@@ -571,9 +571,9 @@ html, body {
   padding: 15px;
   background: #cee3f1;
   color: #292c71;
-  -webkit-box-shadow: 0px 12px 22px -4px rgba(0, 0, 0, 0.34);
-  -moz-box-shadow: 0px 12px 22px -4px rgba(0, 0, 0, 0.34);
-  box-shadow: 0px 12px 22px -4px rgba(0, 0, 0, 0.34); }
+  -webkit-box-shadow: 0 8px 6px -6px black;
+  -moz-box-shadow: 0 8px 6px -6px black;
+  box-shadow: 0 8px 6px -6px black; }
 
 .ui-tab-head:first-child {
   margin-left: 0; }
@@ -612,10 +612,7 @@ html, body {
   margin-top: 0;
   background: #cee3f1;
   color: #292c71;
-  border-top: 4px solid #70aed8;
-  -webkit-box-shadow: 0px 12px 22px -4px rgba(0, 0, 0, 0.34);
-  -moz-box-shadow: 0px 12px 22px -4px rgba(0, 0, 0, 0.34);
-  box-shadow: 0px 12px 22px -4px rgba(0, 0, 0, 0.34); }
+  border-top: 4px solid #70aed8; }
 
 .ui-tab-head.active:hover a,
 .ui-tab-head.active:hover a:hover {
@@ -659,8 +656,7 @@ html, body {
     overflow-x: hidden; }
   .ui-tab.vertical .ui-tab-body {
     display: table-cell;
-    width: 100%;
-    box-shadow: none; }
+    width: 100%; }
   .ui-tab.vertical .ui-tab-head {
     display: block;
     padding: 15px 15px;
@@ -671,7 +667,9 @@ html, body {
     margin-right: 0px;
     border-left: 4px solid #317DB1;
     border-top: 0 solid;
-    box-shadow: none; }
+    -webkit-box-shadow: 0 8px 6px -6px black;
+    -moz-box-shadow: 0 8px 6px -6px black;
+    box-shadow: 0 8px 6px -6px black; }
   .ui-tab.vertical .ui-tab-head:hover {
     padding: 15px 15px;
     margin-top: 0;
@@ -707,9 +705,9 @@ html, body {
 .ui-panel {
   background: #7FB5DA;
   padding: 20px;
-  -webkit-box-shadow: 0px 12px 22px -4px rgba(0, 0, 0, 0.34);
-  -moz-box-shadow: 0px 12px 22px -4px rgba(0, 0, 0, 0.34);
-  box-shadow: 0px 12px 22px -4px rgba(0, 0, 0, 0.34); }
+  -webkit-box-shadow: 0 8px 6px -6px black;
+  -moz-box-shadow: 0 8px 6px -6px black;
+  box-shadow: 0 8px 6px -6px black; }
 
 .ui-panel.secondary {
   background: #579ecf; }
@@ -1182,9 +1180,9 @@ html, body {
 .ui-menu {
   background: #7FB5DA;
   transition: all linear 0.15s;
-  -webkit-box-shadow: 0px 12px 22px -4px rgba(0, 0, 0, 0.34);
-  -moz-box-shadow: 0px 12px 22px -4px rgba(0, 0, 0, 0.34);
-  box-shadow: 0px 12px 22px -4px rgba(0, 0, 0, 0.34);
+  -webkit-box-shadow: 0 8px 6px -6px black;
+  -moz-box-shadow: 0 8px 6px -6px black;
+  box-shadow: 0 8px 6px -6px black;
   padding-left: 10px;
   padding-right: 10px; }
 
@@ -1236,9 +1234,9 @@ html, body {
   background: #cee3f1; }
 
 .ui-menu li ul {
-  -webkit-box-shadow: 0px 12px 22px -4px rgba(0, 0, 0, 0.34);
-  -moz-box-shadow: 0px 12px 22px -4px rgba(0, 0, 0, 0.34);
-  box-shadow: 0px 12px 22px -4px rgba(0, 0, 0, 0.34); }
+  -webkit-box-shadow: 0 8px 6px -6px black;
+  -moz-box-shadow: 0 8px 6px -6px black;
+  box-shadow: 0 8px 6px -6px black; }
 
 .ui-menu li a {
   color: #0e0f26;
@@ -1329,9 +1327,9 @@ html, body {
   transition: all linear 0.15s;
   padding-left: 10px;
   padding-right: 10px;
-  -webkit-box-shadow: 0px 12px 22px -4px rgba(0, 0, 0, 0.34);
-  -moz-box-shadow: 0px 12px 22px -4px rgba(0, 0, 0, 0.34);
-  box-shadow: 0px 12px 22px -4px rgba(0, 0, 0, 0.34); }
+  -webkit-box-shadow: 0 8px 6px -6px black;
+  -moz-box-shadow: 0 8px 6px -6px black;
+  box-shadow: 0 8px 6px -6px black; }
 
 .ui-toolbar:before,
 .ui-toolbar:after {
