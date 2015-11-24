@@ -484,6 +484,18 @@ module ui {
       return !!this._disabled[index];
     }
 
+    get vertical() {
+      return this.classList.contains('vertical');
+    }
+
+    set vertical(value:boolean) {
+      if (value) {
+        this.classList.add('vertical');
+      } else {
+        this.classList.remove('vertical');
+      }
+    }
+
   }
 
 }

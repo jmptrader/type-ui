@@ -48,6 +48,21 @@ tab.addPage("Closeable tab", true);
 
 tab.index = 0;
 
+new ui.HorizontalRule(cx2);
+
+tab = new ui.Tab(cx2);
+tab.vertical = true;
+page1 = tab.addPage("First Tab");
+page2 = tab.addPage("Second Tab");
+page3 = tab.addPage("Disabled Tab");
+
+page1.element.appendChild(document.createTextNode('Hello world'));
+page3.disable();
+
+tab.addPage("Closeable tab", true);
+
+tab.index = 0;
+
 var sp1 = new ui.SplitPane($CON, ui.SplitPane.HORIZONTAL);
 var sp2 = new ui.SplitPane($CON, ui.SplitPane.VERTICAL);
 

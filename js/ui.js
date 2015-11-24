@@ -4419,6 +4419,21 @@ var ui;
         Tab.prototype.isDisabled = function (index) {
             return !!this._disabled[index];
         };
+        Object.defineProperty(Tab.prototype, "vertical", {
+            get: function () {
+                return this.classList.contains('vertical');
+            },
+            set: function (value) {
+                if (value) {
+                    this.classList.add('vertical');
+                }
+                else {
+                    this.classList.remove('vertical');
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
         Tab.Header = TabHeader;
         Tab.Body = TabBody;
         Tab.Head = TabHead;
