@@ -1692,6 +1692,7 @@ var ui;
                 case 'radioGroup': return new ui.RadioGroup(this, name);
                 case 'select': return new ui.SelectInput(this, name);
                 case 'switch': return new ui.Switch(this, name);
+                case 'range': return new ui.RangeInput(this, name);
                 default: return new ui.TextInput(this, name);
             }
         };
@@ -1713,6 +1714,9 @@ var ui;
         };
         InputContainer.prototype.number = function (name, label) {
             return this.addPair(name, label, 'number');
+        };
+        InputContainer.prototype.range = function (name, label) {
+            return this.addPair(name, label, 'range');
         };
         InputContainer.prototype.date = function (name, label) {
             return this.addPair(name, label, 'date');
@@ -2908,30 +2912,30 @@ var ui;
         });
         Object.defineProperty(NumberInput.prototype, "max", {
             get: function () {
-                return this.input.max;
+                return Number(this.input.max || 0);
             },
             set: function (value) {
-                this.input.max = value;
+                this.input.max = value.toString();
             },
             enumerable: true,
             configurable: true
         });
         Object.defineProperty(NumberInput.prototype, "min", {
             get: function () {
-                return this.input.min;
+                return Number(this.input.min || 0);
             },
             set: function (value) {
-                this.input.min = value;
+                this.input.min = value.toString();
             },
             enumerable: true,
             configurable: true
         });
         Object.defineProperty(NumberInput.prototype, "step", {
             get: function () {
-                return this.input.step;
+                return Number(this.input.step || 0);
             },
             set: function (value) {
-                this.input.step = value;
+                this.input.step = value.toString();
             },
             enumerable: true,
             configurable: true
@@ -3541,6 +3545,41 @@ var ui;
         return RadioInput;
     })(ui.Checkbox);
     ui.RadioInput = RadioInput;
+})(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// <reference path="./NumberInput.ts" />
+var ui;
+(function (ui) {
+    var RangeInput = (function (_super) {
+        __extends(RangeInput, _super);
+        function RangeInput(parent, label) {
+            _super.call(this, parent, label);
+            this.min = 0;
+            this.max = 1;
+            this.step = 0.01;
+        }
+        Object.defineProperty(RangeInput.prototype, "type", {
+            get: function () {
+                return 'range';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return RangeInput;
+    })(ui.NumberInput);
+    ui.RangeInput = RangeInput;
 })(ui || (ui = {}));
 /*
  * Copyright 2015 Ramiro Rojo

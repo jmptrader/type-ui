@@ -58,6 +58,7 @@ module ui {
         case 'radioGroup':  return new RadioGroup(this, name);
         case 'select':      return new SelectInput(this, name);
         case 'switch':      return new Switch(this, name);
+        case 'range':       return new RangeInput(this, name);
         default:            return new TextInput(this, name);
       }
     }
@@ -81,6 +82,10 @@ module ui {
 
     number(name:string, label:string) {
       return <Input>this.addPair(name, label, 'number');
+    }
+
+    range(name:string, label:string) {
+      return <Input>this.addPair(name, label, 'range');
     }
 
     date(name:string, label:string) {

@@ -95,6 +95,8 @@ group = fieldset.group();
   t = group.number('number', 'Number Input');
   t.rightText = '%';
   t.icon = 'user';
+  group = fieldset.group();
+    t = group.range('rangesin', 'Range Input');  
 group = fieldset.group();
   t = group.color('color', 'Color Input');
   t.icon = 'user';
@@ -249,3 +251,8 @@ function dX() {
 }
 
 sdp.data = dX();
+
+var range = new ui.RangeInput($CON, 'range');
+range.min = 0;
+range.max = 10;
+range.value = 5;
