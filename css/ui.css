@@ -1296,8 +1296,8 @@ html, body {
     cursor: pointer;
     display: inline-block; }
   .ui-table .sort-btn.desc:before {
-    content: '>'; }
+    content: '->'; }
   .ui-table .sort-btn.asc:before {
-    content: '<'; }
+    content: '<-'; }
 
 /*# sourceMappingURL=ui.css.map */

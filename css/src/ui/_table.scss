@@ -61,11 +61,11 @@
   }
 
   .sort-btn.desc:before {
-    content: '>';
+    content: '->';
   }
 
   .sort-btn.asc:before {
-    content: '<';
+    content: '<-';
   }
 
 }
