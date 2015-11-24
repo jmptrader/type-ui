@@ -190,6 +190,12 @@ function PropertyField(name, tag) {
 
 }
 
+var btn = new ui.Button($CON, 'With icon and text', 'user');
+
+new ui.Button($CON, '', 'user');
+
+new ui.Button($CON, 'Without icon');
+
 var tm = new ui.TableModel([{name: 'Name 1', desc: 'Desc 1'}, {name: 'Name 2', desc: 'Desc 2'}]);
 var pf = new PropertyField('desc', 'Description');
 pf.sortable = false;

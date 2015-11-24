@@ -19,10 +19,12 @@ module ui {
 
     private _text: Text;
     private _icon: HTMLElement;
+    private _iconName: string;
 
     constructor(parent:Container, text:string, iconName:string=null) {
       super(parent);
       this._icon = this.createIcon(iconName);
+      this.icon = iconName;
       this._text = this.createText(text);
     }
 
@@ -47,7 +49,9 @@ module ui {
     }
 
     protected createIcon(iconName:string): HTMLElement {
-      return null;
+      var s = document.createElement('i');
+      this.element.appendChild(s);
+      return s;
     }
 
     get type(): string {
@@ -84,6 +88,19 @@ module ui {
 
     protected _onElementClick(event: MouseEvent) {
       this.fire('click', event);
+    }
+
+    set icon(value:string) {
+      if (value) {
+        this._icon.className = 'fa fa-fw fa-' + value;
+      } else {
+        this._icon.className = '';
+      }
+      this._iconName = value;
+    }
+
+    get icon() {
+      return this._iconName;
     }
 
   }

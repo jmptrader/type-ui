@@ -1035,6 +1035,7 @@ var ui;
             if (iconName === void 0) { iconName = null; }
             _super.call(this, parent);
             this._icon = this.createIcon(iconName);
+            this.icon = iconName;
             this._text = this.createText(text);
         }
         Object.defineProperty(Button.prototype, "className", {
@@ -1062,7 +1063,9 @@ var ui;
             return text;
         };
         Button.prototype.createIcon = function (iconName) {
-            return null;
+            var s = document.createElement('i');
+            this.element.appendChild(s);
+            return s;
         };
         Object.defineProperty(Button.prototype, "type", {
             get: function () {
@@ -1107,6 +1110,22 @@ var ui;
         Button.prototype._onElementClick = function (event) {
             this.fire('click', event);
         };
+        Object.defineProperty(Button.prototype, "icon", {
+            get: function () {
+                return this._iconName;
+            },
+            set: function (value) {
+                if (value) {
+                    this._icon.className = 'fa fa-fw fa-' + value;
+                }
+                else {
+                    this._icon.className = '';
+                }
+                this._iconName = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
         return Button;
     })(ui.Widget);
     ui.Button = Button;
