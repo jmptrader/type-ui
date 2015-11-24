@@ -1590,7 +1590,8 @@ html, body {
 
 .ui-datalist {
   list-style: none;
-  display: block; }
+  display: block;
+  padding: 0; }
   .ui-datalist li {
     list-style: none;
     display: block;
