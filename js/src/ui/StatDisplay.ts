@@ -201,11 +201,14 @@ module ui {
       this.refresh();
     }
 
-    setData(i:number, value:number) {
+    setData(i:number, value:number, refresh:boolean=true) {
       if (i >= this.from && i <= this.to) {
         var min = this.model.min;
         var max = this.model.max;
         this._data[i - this.from] = Math.max(min, Math.min(value, max));
+      }
+      if (refresh) {
+        this.refresh();
       }
     }
 
@@ -221,7 +224,7 @@ module ui {
       var min = this.model.min;
       var max = this.model.max;
       for (var i = this.from; i <= this.to; ++i) {
-        this.setData(i, this._data[i - this._from] || 0);
+        this.setData(i, this._data[i - this._from] || 0, false);
       }
     }
 
@@ -234,6 +237,7 @@ module ui {
       var element = document.createElement('canvas');
       this._context = element.getContext('2d');
       this.element.appendChild(element);
+      element.addEventListener('click', this._onCanvasClick.bind(this))
       return element;
     }
 
@@ -311,6 +315,28 @@ module ui {
 
     get ratio() {
       return 3 / 4;
+    }
+
+    protected valuesByCoord(x:number, y:number) {
+      var index = this.indexByCoord(x);
+      var value = this.valueByCoord(y);
+      return [index, value];
+    }
+
+    protected indexByCoord(x:number) {
+      return Math.floor(x * this.canvas.width / (this.canvas.offsetWidth * 5)) + this.from;
+    }
+
+    protected valueByCoord(y:number) {
+      return Math.floor(this.model.min + this.model.max - y * this.canvas.height / this.canvas.offsetHeight)
+    }
+
+    protected _onCanvasClick(event:MouseEvent) {
+      var [index, value] = this.valuesByCoord(event.offsetX, event.offsetY);
+      var evt: any = new Event('stat-click');
+      evt.index = index;
+      evt.value = value;
+      this.fire('stat-click', evt);
     }
 
   }

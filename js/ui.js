@@ -3949,11 +3949,15 @@ var ui;
             enumerable: true,
             configurable: true
         });
-        StatDisplay.prototype.setData = function (i, value) {
+        StatDisplay.prototype.setData = function (i, value, refresh) {
+            if (refresh === void 0) { refresh = true; }
             if (i >= this.from && i <= this.to) {
                 var min = this.model.min;
                 var max = this.model.max;
                 this._data[i - this.from] = Math.max(min, Math.min(value, max));
+            }
+            if (refresh) {
+                this.refresh();
             }
         };
         StatDisplay.prototype.dataAt = function (i) {
@@ -3967,7 +3971,7 @@ var ui;
             var min = this.model.min;
             var max = this.model.max;
             for (var i = this.from; i <= this.to; ++i) {
-                this.setData(i, this._data[i - this._from] || 0);
+                this.setData(i, this._data[i - this._from] || 0, false);
             }
         };
         StatDisplay.prototype.createElement = function () {
@@ -3978,6 +3982,7 @@ var ui;
             var element = document.createElement('canvas');
             this._context = element.getContext('2d');
             this.element.appendChild(element);
+            element.addEventListener('click', this._onCanvasClick.bind(this));
             return element;
         };
         Object.defineProperty(StatDisplay.prototype, "context", {
@@ -4073,6 +4078,24 @@ var ui;
             enumerable: true,
             configurable: true
         });
+        StatDisplay.prototype.valuesByCoord = function (x, y) {
+            var index = this.indexByCoord(x);
+            var value = this.valueByCoord(y);
+            return [index, value];
+        };
+        StatDisplay.prototype.indexByCoord = function (x) {
+            return Math.floor(x * this.canvas.width / (this.canvas.offsetWidth * 5)) + this.from;
+        };
+        StatDisplay.prototype.valueByCoord = function (y) {
+            return Math.floor(this.model.min + this.model.max - y * this.canvas.height / this.canvas.offsetHeight);
+        };
+        StatDisplay.prototype._onCanvasClick = function (event) {
+            var _a = this.valuesByCoord(event.offsetX, event.offsetY), index = _a[0], value = _a[1];
+            var evt = new Event('stat-click');
+            evt.index = index;
+            evt.value = value;
+            this.fire('stat-click', evt);
+        };
         return StatDisplay;
     })(ui.Widget);
     ui.StatDisplay = StatDisplay;
