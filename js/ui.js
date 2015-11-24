@@ -3771,6 +3771,328 @@ var ui;
 /// <reference path="./Widget.ts" />
 var ui;
 (function (ui) {
+    var StatModel = (function () {
+        function StatModel() {
+            this._min = 0;
+            this._max = 100;
+            this._displays = [];
+        }
+        Object.defineProperty(StatModel.prototype, "min", {
+            get: function () {
+                return this._min;
+            },
+            set: function (value) {
+                this._min = value;
+                if (value > this.max) {
+                    this.max = value;
+                }
+                this._refresh();
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(StatModel.prototype, "max", {
+            get: function () {
+                return this._max;
+            },
+            set: function (value) {
+                this._max = value;
+                if (value < this.min) {
+                    this.min = value;
+                }
+                this._refresh();
+            },
+            enumerable: true,
+            configurable: true
+        });
+        StatModel.prototype.addDisplay = function (display) {
+            this._displays.push(display);
+        };
+        StatModel.prototype._refresh = function () {
+            this._displays.forEach(function (d) { return d.refresh(); });
+        };
+        return StatModel;
+    })();
+    ui.StatModel = StatModel;
+    var StatWrapper = (function (_super) {
+        __extends(StatWrapper, _super);
+        function StatWrapper(stat) {
+            _super.call(this);
+            this._stat = stat;
+        }
+        Object.defineProperty(StatWrapper.prototype, "min", {
+            get: function () {
+                return this._stat.min;
+            },
+            set: function (value) {
+                this._stat.min = value;
+                if (value > this.max) {
+                    this.max = value;
+                }
+                this._refresh();
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(StatWrapper.prototype, "max", {
+            get: function () {
+                return this._stat.max;
+            },
+            set: function (value) {
+                this._stat.max = value;
+                if (value < this.min) {
+                    this.min = value;
+                }
+                this._refresh();
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return StatWrapper;
+    })(StatModel);
+    ui.StatWrapper = StatWrapper;
+    var StatDisplay = (function (_super) {
+        __extends(StatDisplay, _super);
+        function StatDisplay(parent, model) {
+            _super.call(this, parent);
+            this._model = model;
+            this._data = [];
+            this._color = '#FF0000';
+            this.backgroundColor = '#FFF';
+            this.rulerColor = '#000';
+            this._from = 1;
+            this._to = 99;
+            this._canvas = this.createCanvas();
+            this.refresh();
+            this.createHorizontalRule();
+            window.addEventListener('resize', this._onWindowResize.bind(this));
+        }
+        StatDisplay.prototype.createHorizontalRule = function () {
+            this._fromTxt = document.createTextNode(this.from.toString());
+            this._toTxt = document.createTextNode(this.to.toString());
+            this._midTxt = document.createTextNode(this.mid.toString());
+            var xr = document.createElement('div');
+            xr.classList.add('x-rule');
+            this.element.appendChild(xr);
+            var ft = document.createElement('span');
+            var tt = document.createElement('span');
+            var mt = document.createElement('span');
+            ft.classList.add('min');
+            mt.classList.add('avg');
+            tt.classList.add('max');
+            xr.appendChild(ft);
+            xr.appendChild(tt);
+            xr.appendChild(mt);
+            ft.appendChild(this._fromTxt);
+            mt.appendChild(this._midTxt);
+            tt.appendChild(this._toTxt);
+        };
+        Object.defineProperty(StatDisplay.prototype, "color", {
+            get: function () {
+                return this._color;
+            },
+            set: function (value) {
+                this._color = value;
+                this.refresh();
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(StatDisplay.prototype, "from", {
+            get: function () {
+                return this._from;
+            },
+            set: function (value) {
+                this._from = value;
+                if (value > this._to) {
+                    this._to = value;
+                }
+                this._midTxt.nodeValue = this.mid.toString();
+                this._fromTxt.nodeValue = value.toString();
+                this.refresh();
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(StatDisplay.prototype, "to", {
+            get: function () {
+                return this._to;
+            },
+            set: function (value) {
+                this._to = value;
+                if (value < this._from) {
+                    this._from = value;
+                }
+                this._midTxt.nodeValue = this.mid.toString();
+                this._toTxt.nodeValue = value.toString();
+                this.refresh();
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(StatDisplay.prototype, "mid", {
+            get: function () {
+                return (this.to - this.from) / 2 + this.from;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(StatDisplay.prototype, "data", {
+            get: function () {
+                return this._data.slice(0);
+            },
+            set: function (value) {
+                this._data = value;
+                this._adjustValues();
+                this.refresh();
+            },
+            enumerable: true,
+            configurable: true
+        });
+        StatDisplay.prototype.setData = function (i, value) {
+            if (i >= this.from && i <= this.to) {
+                var min = this.model.min;
+                var max = this.model.max;
+                this._data[i - this.from] = Math.max(min, Math.min(value, max));
+            }
+        };
+        StatDisplay.prototype.dataAt = function (i) {
+            if (i >= this.from && i <= this.to) {
+                return this._data[i - this.from];
+            }
+            return null;
+        };
+        StatDisplay.prototype._adjustValues = function () {
+            this._data = this._data || [];
+            var min = this.model.min;
+            var max = this.model.max;
+            for (var i = this.from; i <= this.to; ++i) {
+                this.setData(i, this._data[i - this._from] || 0);
+            }
+        };
+        StatDisplay.prototype.createElement = function () {
+            var element = document.createElement('div');
+            return element;
+        };
+        StatDisplay.prototype.createCanvas = function () {
+            var element = document.createElement('canvas');
+            this._context = element.getContext('2d');
+            this.element.appendChild(element);
+            return element;
+        };
+        Object.defineProperty(StatDisplay.prototype, "context", {
+            get: function () {
+                return this._context;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(StatDisplay.prototype, "className", {
+            get: function () {
+                return 'ui-stat-display';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(StatDisplay.prototype, "canvas", {
+            get: function () {
+                return this._canvas;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(StatDisplay.prototype, "model", {
+            get: function () {
+                return this._model;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        StatDisplay.prototype.refresh = function () {
+            var _a = this.canvasSize, w = _a[0], h = _a[1];
+            this.resizeCanvas(w, h);
+            this.drawBackground(w, h);
+            this.drawCurve(w, h);
+            this.drawRuler(w, h);
+        };
+        Object.defineProperty(StatDisplay.prototype, "canvasSize", {
+            get: function () {
+                return [this.canvasWidth, this.canvasHeight];
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(StatDisplay.prototype, "canvasWidth", {
+            get: function () {
+                return (this.to - this.from + 1) * 5;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(StatDisplay.prototype, "canvasHeight", {
+            get: function () {
+                return this.model.max - this.model.min + 11;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        StatDisplay.prototype.drawBackground = function (w, h) {
+            this.context.fillStyle = this.backgroundColor;
+            this.context.fillRect(0, 0, w, h);
+            this.context.fillStyle = this.color;
+        };
+        StatDisplay.prototype.drawCurve = function (w, h) {
+            for (var i = this.from; i <= this.to; ++i) {
+                var size = this.dataAt(i);
+                var x = (i - this.from) * 5;
+                var y = h - size - 10;
+                this.context.fillRect(x + 1, y, 3, size);
+            }
+        };
+        StatDisplay.prototype.drawRuler = function (w, h) {
+            this.context.fillStyle = this.rulerColor;
+            this.context.fillRect(1, h - 10, w - 2, 5);
+            this.context.fillRect(1, h - 10, 3, 10);
+            this.context.fillRect(w - 4, h - 10, 3, 10);
+            this.context.fillRect(Math.floor(w / 2) - 1, h - 10, 3, 10);
+        };
+        StatDisplay.prototype.resizeCanvas = function (w, h) {
+            this.canvas.width = w;
+            this.canvas.height = h;
+            var ratio = this.canvas.offsetWidth * this.ratio;
+            this.canvas.style.maxHeight = ratio + "px";
+            this.canvas.style.height = ratio + "px";
+        };
+        StatDisplay.prototype._onWindowResize = function () {
+            this.refresh();
+        };
+        Object.defineProperty(StatDisplay.prototype, "ratio", {
+            get: function () {
+                return 3 / 4;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return StatDisplay;
+    })(ui.Widget);
+    ui.StatDisplay = StatDisplay;
+})(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// <reference path="./Widget.ts" />
+var ui;
+(function (ui) {
     var Switch = (function (_super) {
         __extends(Switch, _super);
         function Switch(parent, name, onTxt, offTxt) {

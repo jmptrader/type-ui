@@ -234,3 +234,18 @@ var datalist = new ui.DataList(modal);
     datalist.item().addText("Item 2");
     datalist.item().addText("Item 3");
 btn.on('click', function () { modal.show(); })
+
+var sdp = new ui.StatDisplay($CON, new ui.StatWrapper({min: 0, max: 999}));
+function stX(level) {
+  return Math.floor(30 + (level * 2 + level * level / 3 - level) / 3.8);
+}
+
+function dX() {
+  var result = [];
+  for (var i = 0; i < 100; ++i) {
+    result[i] = stX(i + 1);
+  }
+  return result;
+}
+
+sdp.data = dX();

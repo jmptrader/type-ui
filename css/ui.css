@@ -1690,4 +1690,27 @@ html, body {
 .ui-window.visible {
   opacity: 255; }
 
+.ui-stat-display {
+  display: block;
+  width: 100%; }
+  .ui-stat-display canvas {
+    display: block;
+    width: 100%; }
+  .ui-stat-display .from {
+    float: left; }
+  .ui-stat-display .x-rule .min {
+    float: left; }
+  .ui-stat-display .x-rule .avg {
+    float: none;
+    width: 100%;
+    display: block;
+    text-align: center; }
+  .ui-stat-display .x-rule .max {
+    float: right; }
+  .ui-stat-display .x-rule:before,
+  .ui-stat-display .x-rule:after {
+    content: "";
+    display: table;
+    clear: both; }
+
 /*# sourceMappingURL=ui.css.map */

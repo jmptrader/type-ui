@@ -1,0 +1,38 @@
+
+.ui-stat-display {
+
+  display: block;
+  width: 100%;
+
+  canvas {
+    display: block;
+    width: 100%;
+  }
+
+  .from {
+    float: left;
+  }
+
+  .x-rule {
+    .min {
+      float: left;
+    }
+
+    .avg {
+      float: none;
+      width: 100%;
+      display: block;
+      text-align: center;
+    }
+
+    .max {
+      float: right;
+    }
+  }
+
+  .x-rule:before,
+  .x-rule:after {
+    @include clearfix();
+  }
+
+}
