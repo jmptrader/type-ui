@@ -15,7 +15,9 @@ var menu = new ui.Menu(app);
       sm1.item('Sub Item 2');
 
 var toolbar = new ui.Toolbar(app);
-toolbar.icon('user');
+var i = toolbar.icon('user');
+i.tooltip = 'This is a tooltip!';
+i.tooltipPosition = 'right';
 toolbar.separator();
 toolbar.icon('delete');
 
@@ -87,6 +89,7 @@ group = fieldset.group();
 group = fieldset.group();
   t = group.date('date', 'Date Input');
   t.icon = 'user';
+  t.tooltip = 'This is a date input';
 group = fieldset.group();
     var sel = group.select('select', 'A selection');
       sel.icon = 'user';

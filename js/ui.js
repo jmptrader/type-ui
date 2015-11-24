@@ -205,6 +205,44 @@ var ui;
         Widget.prototype._onClick = function (event) {
             this.fire('click', event);
         };
+        Object.defineProperty(Widget.prototype, "tooltip", {
+            get: function () {
+                return this.element.getAttribute('data-tooltip');
+            },
+            set: function (value) {
+                this.element.setAttribute('data-tooltip', value);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Widget.prototype, "tooltipPosition", {
+            get: function () {
+                if (this.classList.contains('ui-tooltip-top')) {
+                    return 'top';
+                }
+                if (this.classList.contains('ui-tooltip-left')) {
+                    return 'left';
+                }
+                if (this.classList.contains('ui-tooltip-right')) {
+                    return 'right';
+                }
+                if (this.classList.contains('ui-tooltip-bottom')) {
+                    return 'bottom';
+                }
+                return null;
+            },
+            set: function (pos) {
+                if (['top', 'left', 'right', 'bottom'].indexOf(pos) !== -1) {
+                    this.classList.remove('ui-tooltip-top');
+                    this.classList.remove('ui-tooltip-left');
+                    this.classList.remove('ui-tooltip-right');
+                    this.classList.remove('ui-tooltip-bottom');
+                    this.classList.add('ui-tooltip-' + pos);
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
         return Widget;
     })(ui.EventManager);
     ui.Widget = Widget;
@@ -3153,6 +3191,177 @@ var ui;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/// <reference path="./HandleSubMenu.ts"/>
+/// <reference path="./MenuItem.ts"/>
+var ui;
+(function (ui) {
+    var Table = (function (_super) {
+        __extends(Table, _super);
+        function Table(parent, model) {
+            _super.call(this, parent);
+            this._sortButtons = [];
+            this._model = model;
+            model.addTable(this);
+            this._head = this._createHead();
+            this._body = this._createBody();
+            this.refresh();
+            this._lastSortIndex = null;
+            this._lastSortMode = null;
+        }
+        Object.defineProperty(Table.prototype, "model", {
+            get: function () {
+                return this.model;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Table.prototype.createElement = function () {
+            var element = document.createElement('table');
+            return element;
+        };
+        Object.defineProperty(Table.prototype, "className", {
+            get: function () {
+                return 'ui-table';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Table.prototype._createHead = function () {
+            var e = document.createElement('thead');
+            this.element.appendChild(e);
+            return e;
+        };
+        Table.prototype._createBody = function () {
+            var e = document.createElement('tbody');
+            this.element.appendChild(e);
+            return e;
+        };
+        Table.prototype.refresh = function () {
+            var head = this._model.headers;
+            var cells = this._model.cells;
+            this._refreshHead(head);
+            this._refreshBody(cells);
+        };
+        Table.prototype._refreshHead = function (head) {
+            this._clearElement(this._head);
+            this._sortButtons = [];
+            var row = this._generateRow(head, 'th');
+            this._head.appendChild(row);
+        };
+        Table.prototype._refreshBody = function (cells) {
+            var _this = this;
+            this._clearElement(this._body);
+            cells.forEach(function (i) { return _this._body.appendChild(_this._generateRow(i)); });
+        };
+        Table.prototype._clearElement = function (e) {
+            while (e.firstChild) {
+                e.removeChild(e.firstChild);
+            }
+        };
+        Table.prototype._generateRow = function (row, type) {
+            var _this = this;
+            if (type === void 0) { type = 'td'; }
+            var tr = document.createElement('tr');
+            row.forEach(function (i, index) {
+                var td = document.createElement(type);
+                td.appendChild(i);
+                if (type == 'th') {
+                    if (_this._model.canSort(index)) {
+                        var sort = document.createElement('div');
+                        sort.classList.add('sort-btn');
+                        td.appendChild(sort);
+                        sort.addEventListener('click', function () { return _this._sortColumn(index); });
+                        _this._sortButtons.push(sort);
+                    }
+                    else {
+                        _this._sortButtons.push(null);
+                    }
+                }
+                tr.appendChild(td);
+            });
+            return tr;
+        };
+        Table.prototype.sortBy = function (field, order) {
+            if (order === void 0) { order = ui.TableOrder.DEFAULT; }
+            this._model.sortBy(field, order);
+            this.refresh();
+        };
+        Table.prototype.sortByIndex = function (index, order) {
+            if (order === void 0) { order = ui.TableOrder.DEFAULT; }
+            this._model.sortByIndex(index, order);
+            this.refresh();
+        };
+        Table.prototype._sortColumn = function (index) {
+            var evt = new Event('sort');
+            var dir = this._inverseDirection();
+            evt.direction = dir;
+            evt.index = index;
+            this.fire('sort', evt);
+            if (evt.defaultPrevented) {
+                return;
+            }
+            this._lastSortIndex = dir;
+            this.sortByIndex(index, dir);
+            this._refreshSortButtons(index, dir);
+        };
+        Table.prototype._inverseDirection = function () {
+            return this._lastSortIndex === ui.TableOrder.INVERSE ? ui.TableOrder.DEFAULT : ui.TableOrder.INVERSE;
+        };
+        Table.prototype._refreshSortButtons = function (index, order) {
+            this._sortButtons.forEach(function (i) {
+                if (i) {
+                    i.classList.remove('asc');
+                    i.classList.remove('desc');
+                }
+            });
+            var btn = this._sortButtons[index];
+            if (!btn) {
+                return;
+            }
+            btn.classList.add(order === ui.TableOrder.DEFAULT ? 'desc' : 'asc');
+        };
+        return Table;
+    })(ui.Widget);
+    ui.Table = Table;
+})(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// <reference path="./Table.ts" />
+var ui;
+(function (ui) {
+    var PropertyTable = (function (_super) {
+        __extends(PropertyTable, _super);
+        function PropertyTable() {
+            _super.apply(this, arguments);
+        }
+        return PropertyTable;
+    })(ui.Table);
+    ui.PropertyTable = PropertyTable;
+})(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 /// <reference path="./Container.ts" />
 var ui;
 (function (ui) {
@@ -4130,152 +4339,6 @@ var ui;
         return Tab;
     })(ui.Container);
     ui.Tab = Tab;
-})(ui || (ui = {}));
-/*
- * Copyright 2015 Ramiro Rojo
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *    http://www.apache.org/licenses/LICENSE-2.0
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/// <reference path="./HandleSubMenu.ts"/>
-/// <reference path="./MenuItem.ts"/>
-var ui;
-(function (ui) {
-    var Table = (function (_super) {
-        __extends(Table, _super);
-        function Table(parent, model) {
-            _super.call(this, parent);
-            this._sortButtons = [];
-            this._model = model;
-            model.addTable(this);
-            this._head = this._createHead();
-            this._body = this._createBody();
-            this.refresh();
-            this._lastSortIndex = null;
-            this._lastSortMode = null;
-        }
-        Object.defineProperty(Table.prototype, "model", {
-            get: function () {
-                return this.model;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Table.prototype.createElement = function () {
-            var element = document.createElement('table');
-            return element;
-        };
-        Object.defineProperty(Table.prototype, "className", {
-            get: function () {
-                return 'ui-table';
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Table.prototype._createHead = function () {
-            var e = document.createElement('thead');
-            this.element.appendChild(e);
-            return e;
-        };
-        Table.prototype._createBody = function () {
-            var e = document.createElement('tbody');
-            this.element.appendChild(e);
-            return e;
-        };
-        Table.prototype.refresh = function () {
-            var head = this._model.headers;
-            var cells = this._model.cells;
-            this._refreshHead(head);
-            this._refreshBody(cells);
-        };
-        Table.prototype._refreshHead = function (head) {
-            this._clearElement(this._head);
-            this._sortButtons = [];
-            var row = this._generateRow(head, 'th');
-            this._head.appendChild(row);
-        };
-        Table.prototype._refreshBody = function (cells) {
-            var _this = this;
-            this._clearElement(this._body);
-            cells.forEach(function (i) { return _this._body.appendChild(_this._generateRow(i)); });
-        };
-        Table.prototype._clearElement = function (e) {
-            while (e.firstChild) {
-                e.removeChild(e.firstChild);
-            }
-        };
-        Table.prototype._generateRow = function (row, type) {
-            var _this = this;
-            if (type === void 0) { type = 'td'; }
-            var tr = document.createElement('tr');
-            row.forEach(function (i, index) {
-                var td = document.createElement(type);
-                td.appendChild(i);
-                if (type == 'th') {
-                    if (_this._model.canSort(index)) {
-                        var sort = document.createElement('div');
-                        sort.classList.add('sort-btn');
-                        td.appendChild(sort);
-                        sort.addEventListener('click', function () { return _this._sortColumn(index); });
-                        _this._sortButtons.push(sort);
-                    }
-                    else {
-                        _this._sortButtons.push(null);
-                    }
-                }
-                tr.appendChild(td);
-            });
-            return tr;
-        };
-        Table.prototype.sortBy = function (field, order) {
-            if (order === void 0) { order = ui.TableOrder.DEFAULT; }
-            this._model.sortBy(field, order);
-            this.refresh();
-        };
-        Table.prototype.sortByIndex = function (index, order) {
-            if (order === void 0) { order = ui.TableOrder.DEFAULT; }
-            this._model.sortByIndex(index, order);
-            this.refresh();
-        };
-        Table.prototype._sortColumn = function (index) {
-            var evt = new Event('sort');
-            var dir = this._inverseDirection();
-            evt.direction = dir;
-            evt.index = index;
-            this.fire('sort', evt);
-            if (evt.defaultPrevented) {
-                return;
-            }
-            this._lastSortIndex = dir;
-            this.sortByIndex(index, dir);
-            this._refreshSortButtons(index, dir);
-        };
-        Table.prototype._inverseDirection = function () {
-            return this._lastSortIndex === ui.TableOrder.INVERSE ? ui.TableOrder.DEFAULT : ui.TableOrder.INVERSE;
-        };
-        Table.prototype._refreshSortButtons = function (index, order) {
-            this._sortButtons.forEach(function (i) {
-                if (i) {
-                    i.classList.remove('asc');
-                    i.classList.remove('desc');
-                }
-            });
-            var btn = this._sortButtons[index];
-            if (!btn) {
-                return;
-            }
-            btn.classList.add(order === ui.TableOrder.DEFAULT ? 'desc' : 'asc');
-        };
-        return Table;
-    })(ui.Widget);
-    ui.Table = Table;
 })(ui || (ui = {}));
 /*
  * Copyright 2015 Ramiro Rojo

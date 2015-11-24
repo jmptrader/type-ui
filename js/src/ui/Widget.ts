@@ -124,6 +124,40 @@ module ui {
       this.fire('click', event);
     }
 
+    get tooltip(): string {
+      return this.element.getAttribute('data-tooltip');
+    }
+
+    set tooltip(value:string) {
+      this.element.setAttribute('data-tooltip', value);
+    }
+
+    get tooltipPosition() {
+      if (this.classList.contains('ui-tooltip-top')) {
+        return 'top';
+      }
+      if (this.classList.contains('ui-tooltip-left')) {
+        return 'left';
+      }
+      if (this.classList.contains('ui-tooltip-right')) {
+        return 'right';
+      }
+      if (this.classList.contains('ui-tooltip-bottom')) {
+        return 'bottom';
+      }
+      return null;
+    }
+
+    set tooltipPosition(pos:string) {
+      if (['top', 'left', 'right', 'bottom'].indexOf(pos) !== -1) {
+        this.classList.remove('ui-tooltip-top');
+        this.classList.remove('ui-tooltip-left');
+        this.classList.remove('ui-tooltip-right');
+        this.classList.remove('ui-tooltip-bottom');
+        this.classList.add('ui-tooltip-' + pos);   
+      }
+    }
+
   }
 
 }
