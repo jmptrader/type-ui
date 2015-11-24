@@ -13,6 +13,7 @@
  */
 .ui-window {
      visibility: hidden;
+     opacity: 0;
      position: fixed;
      left: 0px;
      top: 0px;
@@ -21,7 +22,7 @@
      text-align:center;
      z-index: 99991000;
      background: rgba(128, 128, 128, 0.5);
-
+     transition: all 0.5s;
      .body {
           width:auto;
           max-width: $app-max-width;
@@ -45,4 +46,8 @@
      .clear {
        @include clearfix();
      }
+}
+
+.ui-window.visible {
+  opacity: 255;
 }

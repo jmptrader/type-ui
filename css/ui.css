@@ -1620,6 +1620,7 @@ html, body {
  */
 .ui-window {
   visibility: hidden;
+  opacity: 0;
   position: fixed;
   left: 0px;
   top: 0px;
@@ -1627,7 +1628,8 @@ html, body {
   height: 100%;
   text-align: center;
   z-index: 99991000;
-  background: rgba(128, 128, 128, 0.5); }
+  background: rgba(128, 128, 128, 0.5);
+  transition: all 0.5s; }
   .ui-window .body {
     width: auto;
     max-width: 1200px;
@@ -1646,5 +1648,8 @@ html, body {
     content: "";
     display: table;
     clear: both; }
+
+.ui-window.visible {
+  opacity: 255; }
 
 /*# sourceMappingURL=ui.css.map */

@@ -66,6 +66,11 @@ module ui {
 
     set visible(value:boolean) {
       this.style.visibility = value ? "visible" : "hidden";
+      if (this.visible) {
+        this.classList.add('visible');
+      } else {
+        this.classList.remove('visible');
+      }
     }
 
     get hidden() {

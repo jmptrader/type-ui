@@ -4764,6 +4764,12 @@ var ui;
             },
             set: function (value) {
                 this.style.visibility = value ? "visible" : "hidden";
+                if (this.visible) {
+                    this.classList.add('visible');
+                }
+                else {
+                    this.classList.remove('visible');
+                }
             },
             enumerable: true,
             configurable: true
