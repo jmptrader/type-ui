@@ -83,6 +83,7 @@ group = fieldset.group();
 group = fieldset.group();
   t = group.color('color', 'Color Input');
   t.icon = 'user';
+  t.tooltip = 'Can colors?';
   var $color = t;
   group = fieldset.group();
     group.color('color', 'Color Input 2');

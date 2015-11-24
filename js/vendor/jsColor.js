@@ -95,10 +95,33 @@
 				return new initConfig.klass(initConfig);
 			},
 			doEventListeners = function(elm, multiple, off) {
+
+				function getOffsetLeft( elem ) {
+    			var offsetLeft = 0;
+    			do {
+      			if ( !isNaN( elem.offsetLeft ) ) {
+          		offsetLeft += elem.offsetLeft;
+      			}
+    			} while( elem = elem.offsetParent );
+    			return offsetLeft;
+				}
+
+				function getOffsetTop( elem ) {
+    			var offsetTop = 0;
+    			do {
+      			if ( !isNaN( elem.offsetLeft ) ) {
+          		offsetTop += elem.offsetTop;
+      			}
+    			} while( elem = elem.offsetParent );
+    			return offsetTop;
+				}
+
 				var onOff = off ? 'removeEventListener' : 'addEventListener',
 					focusListener = function(e) {
 						var input = this,
-							position = {left: input.offsetLeft, top: input.offsetTop},
+							//position = {left: input.offsetLeft, top: input.offsetTop},
+							//position = input.getBoundingClientRect(),
+							position = {left: getOffsetLeft(input), top: getOffsetTop(input)},
 							index = multiple ? Array.prototype.indexOf.call(elms, this) : 0,
 							colorPicker = colorPickers[index] ||
 								(colorPickers[index] = createInstance(this, config)),
