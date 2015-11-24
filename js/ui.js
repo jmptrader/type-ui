@@ -4698,4 +4698,144 @@ var ui;
     })(ui.Widget);
     ui.ToolbarSeparator = ToolbarSeparator;
 })(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// <reference path="./Container.ts" />
+var ui;
+(function (ui) {
+    var Window = (function (_super) {
+        __extends(Window, _super);
+        function Window(title, closeButton) {
+            if (title === void 0) { title = ''; }
+            if (closeButton === void 0) { closeButton = true; }
+            _super.call(this, null);
+            this._body = this.createBody();
+            this.id = ui.randomId();
+            this._title = this.createTitle(title);
+            this._closeBtn = closeButton ? this.createCloseButton() : null;
+            var cf = document.createElement('div');
+            cf.classList.add('clear');
+            this.body.appendChild(cf);
+        }
+        Object.defineProperty(Window.prototype, "body", {
+            get: function () {
+                return this._body;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Window.prototype.createBody = function () {
+            var element = document.createElement('div');
+            element.classList.add('body');
+            this.element.appendChild(element);
+            element.addEventListener('click', this._onBodyClick.bind(this));
+            return element;
+        };
+        Object.defineProperty(Window.prototype, "className", {
+            get: function () {
+                return 'ui-window';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Window.prototype.appendElement = function (element) {
+            this.body.appendChild(element);
+        };
+        Window.prototype.removeElement = function (element) {
+            this.body.removeChild(element);
+        };
+        Window.prototype.addText = function (text) {
+            this.body.appendChild(document.createTextNode(text));
+        };
+        Object.defineProperty(Window.prototype, "visible", {
+            get: function () {
+                return this.style.visibility == "visible";
+            },
+            set: function (value) {
+                this.style.visibility = value ? "visible" : "hidden";
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Window.prototype, "hidden", {
+            get: function () {
+                return !this.visible;
+            },
+            set: function (value) {
+                this.visible = !value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Window.prototype.show = function () {
+            this.visible = true;
+        };
+        Window.prototype.hide = function () {
+            this.visible = false;
+        };
+        Window.prototype.toggle = function () {
+            if (this.visible) {
+                this.hide();
+            }
+            else {
+                this.show();
+            }
+        };
+        Window.prototype.close = function () {
+            this.hide();
+        };
+        Window.prototype.createCloseButton = function () {
+            var btn = document.createElement('button');
+            btn.classList.add('ui-close');
+            btn.addEventListener('click', this._onClick.bind(this));
+            btn.appendChild(document.createTextNode('X'));
+            this.body.appendChild(btn);
+            return btn;
+        };
+        Window.prototype.createTitle = function (title) {
+            var e = document.createElement('h3');
+            this._titleText = document.createTextNode(title);
+            e.appendChild(this._titleText);
+            this.body.appendChild(e);
+            return e;
+        };
+        Window.prototype._onClick = function (event) {
+            _super.prototype._onClick.call(this, event);
+            if (!event.defaultPrevented) {
+                this.close();
+            }
+        };
+        Window.prototype._onBodyClick = function (event) {
+            if (event.stopPropagation) {
+                event.stopPropagation(); // W3C model
+            }
+            else {
+                event.cancelBubble = true; // IE model
+            }
+        };
+        Object.defineProperty(Window.prototype, "title", {
+            get: function () {
+                return this._titleText.nodeValue;
+            },
+            set: function (value) {
+                this._titleText.nodeValue = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return Window;
+    })(ui.Container);
+    ui.Window = Window;
+})(ui || (ui = {}));
 //# sourceMappingURL=ui.js.map

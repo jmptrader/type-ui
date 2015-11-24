@@ -211,3 +211,11 @@ var table = new ui.Table($CON, tm);
 new ui.HorizontalRule($CON);
 
 new ui.HorizontalRule($CON);
+
+var btn = new ui.Button($CON, 'Show modal');
+var modal = new ui.Window();
+var datalist = new ui.DataList(modal);
+    datalist.item().addText("Item 1");
+    datalist.item().addText("Item 2");
+    datalist.item().addText("Item 3");
+btn.on('click', function () { modal.show(); })
