@@ -654,7 +654,9 @@ html, body {
 .ui-tab.vertical {
   display: inline-table; }
   .ui-tab.vertical .ui-tab-header {
-    display: table-cell; }
+    display: table-cell;
+    overflow-y: auto;
+    overflow-x: hidden; }
   .ui-tab.vertical .ui-tab-body {
     display: table-cell;
     width: 100%;

@@ -141,6 +141,8 @@
 
   .ui-tab-header {
     display: table-cell;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 
   .ui-tab-body {
