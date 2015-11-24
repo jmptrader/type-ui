@@ -154,6 +154,11 @@ var ul = new ui.UnorderedList($CON);
   ul.item().addText("Item 2");
   ul.item().addText("Item 3");
 
+var datalist = new ui.DataList($CON);
+    datalist.item().addText("Item 1");
+    datalist.item().addText("Item 2");
+    datalist.item().addText("Item 3");
+
 var editor = new ui.AceEditor($CON, 'editor');
 editor.value = 'function test() {}';
 

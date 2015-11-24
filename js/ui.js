@@ -1387,6 +1387,153 @@ var ui;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/// <reference path="./Container.ts" />
+var ui;
+(function (ui) {
+    var ListItem = (function (_super) {
+        __extends(ListItem, _super);
+        function ListItem() {
+            _super.apply(this, arguments);
+        }
+        ListItem.prototype.createElement = function () {
+            var element = document.createElement('li');
+            return element;
+        };
+        Object.defineProperty(ListItem.prototype, "className", {
+            get: function () {
+                return 'ui-li';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return ListItem;
+    })(ui.Container);
+    ui.ListItem = ListItem;
+})(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// <reference path="./ListItem.ts" />
+/// <reference path="./Widget.ts" />
+var ui;
+(function (ui) {
+    var List = (function (_super) {
+        __extends(List, _super);
+        function List(parent) {
+            _super.call(this, parent);
+        }
+        List.prototype.addItem = function () {
+            var li = new ui.ListItem(this);
+            return li;
+        };
+        List.prototype.item = function () {
+            return this.addItem();
+        };
+        List.prototype.removeItem = function (item) {
+            this.removeChild(item);
+        };
+        Object.defineProperty(List.prototype, "items", {
+            get: function () {
+                return this.children;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return List;
+    })(ui.Container);
+    ui.List = List;
+})(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// <reference path="./List.ts" />
+var ui;
+(function (ui) {
+    var UnorderedList = (function (_super) {
+        __extends(UnorderedList, _super);
+        function UnorderedList(parent) {
+            _super.call(this, parent);
+        }
+        UnorderedList.prototype.createElement = function () {
+            var element = document.createElement('ul');
+            return element;
+        };
+        Object.defineProperty(UnorderedList.prototype, "className", {
+            get: function () {
+                return 'ui-ul';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return UnorderedList;
+    })(ui.List);
+    ui.UnorderedList = UnorderedList;
+})(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/// <reference path="./UnorderedList.ts" />
+var ui;
+(function (ui) {
+    var DataList = (function (_super) {
+        __extends(DataList, _super);
+        function DataList() {
+            _super.apply(this, arguments);
+        }
+        Object.defineProperty(DataList.prototype, "className", {
+            get: function () {
+                return 'ui-datalist';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return DataList;
+    })(ui.UnorderedList);
+    ui.DataList = DataList;
+})(ui || (ui = {}));
+/*
+ * Copyright 2015 Ramiro Rojo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 /// <reference path="./Input.ts" />
 var ui;
 (function (ui) {
@@ -2415,85 +2562,6 @@ var ui;
         return HorizontalRule;
     })(ui.Widget);
     ui.HorizontalRule = HorizontalRule;
-})(ui || (ui = {}));
-/*
- * Copyright 2015 Ramiro Rojo
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *    http://www.apache.org/licenses/LICENSE-2.0
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/// <reference path="./Container.ts" />
-var ui;
-(function (ui) {
-    var ListItem = (function (_super) {
-        __extends(ListItem, _super);
-        function ListItem() {
-            _super.apply(this, arguments);
-        }
-        ListItem.prototype.createElement = function () {
-            var element = document.createElement('li');
-            return element;
-        };
-        Object.defineProperty(ListItem.prototype, "className", {
-            get: function () {
-                return 'ui-li';
-            },
-            enumerable: true,
-            configurable: true
-        });
-        return ListItem;
-    })(ui.Container);
-    ui.ListItem = ListItem;
-})(ui || (ui = {}));
-/*
- * Copyright 2015 Ramiro Rojo
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *    http://www.apache.org/licenses/LICENSE-2.0
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/// <reference path="./ListItem.ts" />
-/// <reference path="./Widget.ts" />
-var ui;
-(function (ui) {
-    var List = (function (_super) {
-        __extends(List, _super);
-        function List(parent) {
-            _super.call(this, parent);
-        }
-        List.prototype.addItem = function () {
-            var li = new ui.ListItem(this);
-            return li;
-        };
-        List.prototype.item = function () {
-            return this.addItem();
-        };
-        List.prototype.removeItem = function (item) {
-            this.removeChild(item);
-        };
-        Object.defineProperty(List.prototype, "items", {
-            get: function () {
-                return this.children;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        return List;
-    })(ui.Container);
-    ui.List = List;
 })(ui || (ui = {}));
 /*
  * Copyright 2015 Ramiro Rojo
@@ -4629,41 +4697,5 @@ var ui;
         return ToolbarSeparator;
     })(ui.Widget);
     ui.ToolbarSeparator = ToolbarSeparator;
-})(ui || (ui = {}));
-/*
- * Copyright 2015 Ramiro Rojo
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *    http://www.apache.org/licenses/LICENSE-2.0
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/// <reference path="./List.ts" />
-var ui;
-(function (ui) {
-    var UnorderedList = (function (_super) {
-        __extends(UnorderedList, _super);
-        function UnorderedList(parent) {
-            _super.call(this, parent);
-        }
-        UnorderedList.prototype.createElement = function () {
-            var element = document.createElement('ul');
-            return element;
-        };
-        Object.defineProperty(UnorderedList.prototype, "className", {
-            get: function () {
-                return 'ui-ul';
-            },
-            enumerable: true,
-            configurable: true
-        });
-        return UnorderedList;
-    })(ui.List);
-    ui.UnorderedList = UnorderedList;
 })(ui || (ui = {}));
 //# sourceMappingURL=ui.js.map

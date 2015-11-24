@@ -1588,4 +1588,18 @@ html, body {
   margin-left: 0;
   margin-bottom: -16px; }
 
+.ui-datalist {
+  list-style: none;
+  display: block; }
+  .ui-datalist li {
+    list-style: none;
+    display: block;
+    padding: 10px; }
+  .ui-datalist li:nth-child(odd) {
+    background: #cee3f1;
+    color: #292c71; }
+  .ui-datalist li:nth-child(even) {
+    background: #a7cce5;
+    color: #1c1e4b; }
+
 /*# sourceMappingURL=ui.css.map */

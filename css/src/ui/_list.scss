@@ -1,0 +1,22 @@
+
+.ui-datalist {
+  list-style: none;
+  display:block;
+
+  li {
+    list-style: none;
+    display:block;
+    padding: 10px;
+  }
+
+  li:nth-child(odd) {
+    background: $active-bg-color;
+    color: $active-txt-color;
+  }
+
+  li:nth-child(even) {
+    background: darken($active-bg-color, 10%);
+    color: darken($active-txt-color, 10%);
+  }
+
+}
