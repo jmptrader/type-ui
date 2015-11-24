@@ -541,11 +541,6 @@ html, body {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-.ui-tab {
-  -webkit-box-shadow: 0 8px 6px -6px black;
-  -moz-box-shadow: 0 8px 6px -6px black;
-  box-shadow: 0 8px 6px -6px black; }
-
 .ui-tab:before,
 .ui-tab:after {
   content: "";
