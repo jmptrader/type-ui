@@ -21,14 +21,20 @@ module ui {
     private _model: TableModel<T>;
     private _head: HTMLTableSectionElement;
     private _body: HTMLTableSectionElement;
+    private _lastSortIndex: number;
+    private _lastSortMode: TableOrder;
+    private _sortButtons: Array<HTMLElement>;
 
     constructor(parent:Container, model:TableModel<T>) {
       super(parent);
+      this._sortButtons = [];
       this._model = model;
       model.addTable(this);
       this._head = this._createHead();
       this._body = this._createBody();
       this.refresh();
+      this._lastSortIndex = null;
+      this._lastSortMode = null;
     }
 
     get model() {
@@ -65,6 +71,7 @@ module ui {
 
     protected _refreshHead(head:Array<HTMLElement>) {
       this._clearElement(this._head);
+      this._sortButtons = [];
       var row = this._generateRow(head, 'th');
       this._head.appendChild(row);
     }
@@ -82,9 +89,21 @@ module ui {
 
     protected _generateRow(row:Array<HTMLElement>, type:string='td') {
       var tr = document.createElement('tr');
-      row.forEach( (i) => {
+      row.forEach( (i, index) => {
         var td = document.createElement(type);
         td.appendChild(i);
+        if (type == 'th') {
+          if (this._model.canSort(index)) {
+            let sort = document.createElement('div');
+            sort.classList.add('sort-btn');
+            td.appendChild(sort);
+            sort.addEventListener('click', () => this._sortColumn(index) )
+            this._sortButtons.push(sort);
+          } else {
+            this._sortButtons.push(null);
+          }
+
+        }
         tr.appendChild(td);
       });
       return tr;
@@ -93,6 +112,43 @@ module ui {
     sortBy(field:string, order:TableOrder=TableOrder.DEFAULT) {
       this._model.sortBy(field, order);
       this.refresh();
+    }
+
+    sortByIndex(index:number, order:TableOrder=TableOrder.DEFAULT) {
+      this._model.sortByIndex(index, order);
+      this.refresh();
+    }
+
+    protected _sortColumn(index:number) {
+      var evt:any = new Event('sort');
+      let  dir = this._inverseDirection();
+      evt.direction = dir;
+      evt.index = index;
+      this.fire('sort', evt);
+      if (evt.defaultPrevented) {
+        return;
+      }
+      this._lastSortIndex = dir;
+      this.sortByIndex(index, dir);
+      this._refreshSortButtons(index, dir);
+    }
+
+    protected _inverseDirection() {
+      return this._lastSortIndex === TableOrder.INVERSE ? TableOrder.DEFAULT : TableOrder.INVERSE;
+    }
+
+    protected _refreshSortButtons(index:number, order:TableOrder) {
+      this._sortButtons.forEach( (i) => {
+        if (i) {
+          i.classList.remove('asc');
+          i.classList.remove('desc');
+        }
+      });
+      var btn = this._sortButtons[index];
+      if (!btn) {
+        return;
+      }
+      btn.classList.add(order === TableOrder.DEFAULT ? 'desc': 'asc');
     }
 
   }

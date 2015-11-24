@@ -4152,11 +4152,14 @@ var ui;
         __extends(Table, _super);
         function Table(parent, model) {
             _super.call(this, parent);
+            this._sortButtons = [];
             this._model = model;
             model.addTable(this);
             this._head = this._createHead();
             this._body = this._createBody();
             this.refresh();
+            this._lastSortIndex = null;
+            this._lastSortMode = null;
         }
         Object.defineProperty(Table.prototype, "model", {
             get: function () {
@@ -4194,6 +4197,7 @@ var ui;
         };
         Table.prototype._refreshHead = function (head) {
             this._clearElement(this._head);
+            this._sortButtons = [];
             var row = this._generateRow(head, 'th');
             this._head.appendChild(row);
         };
@@ -4208,11 +4212,24 @@ var ui;
             }
         };
         Table.prototype._generateRow = function (row, type) {
+            var _this = this;
             if (type === void 0) { type = 'td'; }
             var tr = document.createElement('tr');
-            row.forEach(function (i) {
+            row.forEach(function (i, index) {
                 var td = document.createElement(type);
                 td.appendChild(i);
+                if (type == 'th') {
+                    if (_this._model.canSort(index)) {
+                        var sort = document.createElement('div');
+                        sort.classList.add('sort-btn');
+                        td.appendChild(sort);
+                        sort.addEventListener('click', function () { return _this._sortColumn(index); });
+                        _this._sortButtons.push(sort);
+                    }
+                    else {
+                        _this._sortButtons.push(null);
+                    }
+                }
                 tr.appendChild(td);
             });
             return tr;
@@ -4221,6 +4238,40 @@ var ui;
             if (order === void 0) { order = ui.TableOrder.DEFAULT; }
             this._model.sortBy(field, order);
             this.refresh();
+        };
+        Table.prototype.sortByIndex = function (index, order) {
+            if (order === void 0) { order = ui.TableOrder.DEFAULT; }
+            this._model.sortByIndex(index, order);
+            this.refresh();
+        };
+        Table.prototype._sortColumn = function (index) {
+            var evt = new Event('sort');
+            var dir = this._inverseDirection();
+            evt.direction = dir;
+            evt.index = index;
+            this.fire('sort', evt);
+            if (evt.defaultPrevented) {
+                return;
+            }
+            this._lastSortIndex = dir;
+            this.sortByIndex(index, dir);
+            this._refreshSortButtons(index, dir);
+        };
+        Table.prototype._inverseDirection = function () {
+            return this._lastSortIndex === ui.TableOrder.INVERSE ? ui.TableOrder.DEFAULT : ui.TableOrder.INVERSE;
+        };
+        Table.prototype._refreshSortButtons = function (index, order) {
+            this._sortButtons.forEach(function (i) {
+                if (i) {
+                    i.classList.remove('asc');
+                    i.classList.remove('desc');
+                }
+            });
+            var btn = this._sortButtons[index];
+            if (!btn) {
+                return;
+            }
+            btn.classList.add(order === ui.TableOrder.DEFAULT ? 'desc' : 'asc');
         };
         return Table;
     })(ui.Widget);
@@ -4266,6 +4317,9 @@ var ui;
             enumerable: true,
             configurable: true
         });
+        TableModel.prototype.canSort = function (index) {
+            return this.fields[index].sortable;
+        };
         Object.defineProperty(TableModel.prototype, "fieldsByName", {
             get: function () {
                 var fields = this.fields;
@@ -4278,11 +4332,21 @@ var ui;
         });
         TableModel.prototype.sortBy = function (key, dir) {
             if (dir === void 0) { dir = TableOrder.DEFAULT; }
-            var field = this.fields[key];
+            var field = this.fieldsByName[key];
             if (!field) {
                 return;
             }
             this._order = key;
+            this._orderMode = dir;
+            this._cells = null;
+        };
+        TableModel.prototype.sortByIndex = function (index, dir) {
+            if (dir === void 0) { dir = TableOrder.DEFAULT; }
+            var field = this.fields[index];
+            if (!field) {
+                return;
+            }
+            this._order = field.name;
             this._orderMode = dir;
             this._cells = null;
         };

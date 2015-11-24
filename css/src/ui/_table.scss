@@ -43,4 +43,29 @@
     color: darken($active-txt-color, 10%);
   }
 
+  .sort-btn {
+    float: right;
+  }
+
+  .sort-btn:before {
+    content: '<>';
+    font: 14px "Consolas", monospace;
+    font-weight: bold;
+    color: $hover-txt-color;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+    cursor: pointer;
+    display: inline-block
+  }
+
+  .sort-btn.desc:before {
+    content: '>';
+  }
+
+  .sort-btn.asc:before {
+    content: '<';
+  }
+
 }

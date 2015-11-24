@@ -1282,5 +1282,22 @@ html, body {
   .ui-table tbody tr:nth-child(even) {
     background: #a7cce5;
     color: #1c1e4b; }
+  .ui-table .sort-btn {
+    float: right; }
+  .ui-table .sort-btn:before {
+    content: '<>';
+    font: 14px "Consolas", monospace;
+    font-weight: bold;
+    color: #dedede;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+    cursor: pointer;
+    display: inline-block; }
+  .ui-table .sort-btn.desc:before {
+    content: '>'; }
+  .ui-table .sort-btn.asc:before {
+    content: '<'; }
 
 /*# sourceMappingURL=ui.css.map */

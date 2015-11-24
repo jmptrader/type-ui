@@ -20,6 +20,7 @@ module ui {
 
   export interface TableModeField<T> {
     name: string;
+    sortable: boolean;
     sort(a:T, b:T): number;
     format(value:T): HTMLElement;
     header(): HTMLElement;
@@ -52,6 +53,10 @@ module ui {
       this._refresh();
     }
 
+    canSort(index:number):boolean {
+      return this.fields[index].sortable;
+    }
+
     get fieldsByName() {
       var fields = this.fields;
       var result: { [s:string] : TableModeField<T> } = {};
@@ -60,11 +65,21 @@ module ui {
     }
 
     sortBy(key:string, dir:TableOrder=TableOrder.DEFAULT) {
-      let field = this.fields[key];
+      let field = this.fieldsByName[key];
       if (!field) {
         return;
       }
       this._order = key;
+      this._orderMode = dir;
+      this._cells = null;
+    }
+
+    sortByIndex(index:number, dir:TableOrder=TableOrder.DEFAULT) {
+      let field = this.fields[index];
+      if (!field) {
+        return;
+      }
+      this._order = field.name;
       this._orderMode = dir;
       this._cells = null;
     }

@@ -170,6 +170,9 @@ new ui.HorizontalRule($CON);
 
 function PropertyField(name, tag) {
 
+  this.name = name;
+  this.sortable = true;
+
   this.format = function (o) {
     return document.createTextNode(o[name]);
   }
@@ -185,7 +188,9 @@ function PropertyField(name, tag) {
 }
 
 var tm = new ui.TableModel([{name: 'Name 1', desc: 'Desc 1'}, {name: 'Name 2', desc: 'Desc 2'}]);
-tm.fields = [new PropertyField('name', 'Name'), new PropertyField('desc', 'Description') ];
+var pf = new PropertyField('desc', 'Description');
+pf.sortable = false;
+tm.fields = [new PropertyField('name', 'Name'), pf ];
 var table = new ui.Table($CON, tm);
 
 new ui.HorizontalRule($CON);
