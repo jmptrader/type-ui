@@ -3983,6 +3983,7 @@ var ui;
             this._context = element.getContext('2d');
             this.element.appendChild(element);
             element.addEventListener('click', this._onCanvasClick.bind(this));
+            element.addEventListener('mousedown', this._onCanvasMouseDown.bind(this));
             return element;
         };
         Object.defineProperty(StatDisplay.prototype, "context", {
@@ -4095,6 +4096,13 @@ var ui;
             evt.index = index;
             evt.value = value;
             this.fire('stat-click', evt);
+        };
+        StatDisplay.prototype._onCanvasMouseDown = function (event) {
+            var _a = this.valuesByCoord(event.offsetX, event.offsetY), index = _a[0], value = _a[1];
+            var evt = new Event('stat-mousedown');
+            evt.index = index;
+            evt.value = value;
+            this.fire('stat-mousedown', evt);
         };
         return StatDisplay;
     })(ui.Widget);

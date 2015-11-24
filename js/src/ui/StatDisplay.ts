@@ -238,6 +238,7 @@ module ui {
       this._context = element.getContext('2d');
       this.element.appendChild(element);
       element.addEventListener('click', this._onCanvasClick.bind(this))
+      element.addEventListener('mousedown', this._onCanvasMouseDown.bind(this))
       return element;
     }
 
@@ -337,6 +338,14 @@ module ui {
       evt.index = index;
       evt.value = value;
       this.fire('stat-click', evt);
+    }
+
+    protected _onCanvasMouseDown(event:MouseEvent) {
+      var [index, value] = this.valuesByCoord(event.offsetX, event.offsetY);
+      var evt: any = new Event('stat-mousedown');
+      evt.index = index;
+      evt.value = value;
+      this.fire('stat-mousedown', evt);
     }
 
   }
