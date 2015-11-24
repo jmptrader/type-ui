@@ -541,12 +541,17 @@ html, body {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+.ui-tab {
+  -webkit-box-shadow: 0 8px 6px -6px black;
+  -moz-box-shadow: 0 8px 6px -6px black;
+  box-shadow: 0 8px 6px -6px black; }
+
 .ui-tab:before,
 .ui-tab:after {
   content: "";
   display: table;
   clear: both;
-  min-height: 5px; }
+  min-height: 0x; }
 
 .ui-tab-header {
   margin: 0;
@@ -570,10 +575,7 @@ html, body {
   margin: 0;
   padding: 15px;
   background: #cee3f1;
-  color: #292c71;
-  -webkit-box-shadow: 0 8px 6px -6px black;
-  -moz-box-shadow: 0 8px 6px -6px black;
-  box-shadow: 0 8px 6px -6px black; }
+  color: #292c71; }
 
 .ui-tab-head:first-child {
   margin-left: 0; }
@@ -666,10 +668,7 @@ html, body {
     margin-left: 15px;
     margin-right: 0px;
     border-left: 4px solid #317DB1;
-    border-top: 0 solid;
-    -webkit-box-shadow: 0 8px 6px -6px black;
-    -moz-box-shadow: 0 8px 6px -6px black;
-    box-shadow: 0 8px 6px -6px black; }
+    border-top: 0 solid; }
   .ui-tab.vertical .ui-tab-head:hover {
     padding: 15px 15px;
     margin-top: 0;
@@ -900,47 +899,50 @@ html, body {
     color: transparent; }
   .ui-input-wrapper input[type=range] {
     -webkit-appearance: none;
-    margin: 18px 0;
-    width: 100%; }
+    margin: 0px 0;
+    width: 100%;
+    background: transparent; }
   .ui-input-wrapper input[type=range]:focus {
-    outline: none; }
+    outline: none;
+    background: transparent; }
   .ui-input-wrapper input[type=range]::-webkit-slider-runnable-track {
     width: 100%;
     height: 8.4px;
     cursor: pointer;
     animate: 0.2s;
-    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-    background: #3071a9;
-    border-radius: 1.3px;
-    border: 0.2px solid #010101; }
+    background: #579ecf;
+    border: 0 solid; }
+  .ui-input-wrapper input[type=range]:disabled::-webkit-slider-runnable-track {
+    background: black;
+    cursor: not-allowed; }
   .ui-input-wrapper input[type=range]::-webkit-slider-thumb {
-    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-    border: 1px solid #000000;
-    height: 36px;
-    width: 16px;
-    border-radius: 3px;
-    background: #ffffff;
+    border: 0 solid;
+    height: 20px;
+    width: 8px;
+    background: #cee3f1;
     cursor: pointer;
     -webkit-appearance: none;
-    margin-top: -14px; }
+    margin-top: -6px; }
+  .ui-input-wrapper input[type=range]:disabled::-webkit-slider-thumb {
+    background: #143246;
+    cursor: not-allowed; }
   .ui-input-wrapper input[type=range]:focus::-webkit-slider-runnable-track {
-    background: #367ebd; }
+    background: #3686bd; }
+  .ui-input-wrapper input[type=range]:focus:disabled::-webkit-slider-thumb {
+    background: arken(#143246, 40%);
+    cursor: not-allowed; }
   .ui-input-wrapper input[type=range]::-moz-range-track {
     width: 100%;
     height: 8.4px;
     cursor: pointer;
     animate: 0.2s;
-    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-    background: #3071a9;
-    border-radius: 1.3px;
-    border: 0.2px solid #010101; }
+    background: #579ecf;
+    border: 0 solid; }
   .ui-input-wrapper input[type=range]::-moz-range-thumb {
-    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-    border: 1px solid #000000;
-    height: 36px;
-    width: 16px;
-    border-radius: 3px;
-    background: #ffffff;
+    border: 0 solid;
+    height: 20px;
+    width: 8px;
+    background: #cee3f1;
     cursor: pointer; }
   .ui-input-wrapper input[type=range]::-ms-track {
     width: 100%;
@@ -949,30 +951,24 @@ html, body {
     animate: 0.2s;
     background: transparent;
     border-color: transparent;
-    border-width: 16px 0;
+    border-width: 6px 0;
     color: transparent; }
   .ui-input-wrapper input[type=range]::-ms-fill-lower {
-    background: #2a6495;
-    border: 0.2px solid #010101;
-    border-radius: 2.6px;
-    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; }
+    background: #3686bd;
+    border: 0 solid; }
   .ui-input-wrapper input[type=range]::-ms-fill-upper {
-    background: #3071a9;
-    border: 0.2px solid #010101;
-    border-radius: 2.6px;
-    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; }
+    background: #579ecf;
+    border: 0 solid; }
   .ui-input-wrapper input[type=range]::-ms-thumb {
-    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-    border: 1px solid #000000;
-    height: 36px;
-    width: 16px;
-    border-radius: 3px;
-    background: #ffffff;
+    border: 0 solid;
+    height: 20px;
+    width: 8px;
+    background: #cee3f1;
     cursor: pointer; }
   .ui-input-wrapper input[type=range]:focus::-ms-fill-lower {
-    background: #3071a9; }
+    background: #579ecf; }
   .ui-input-wrapper input[type=range]:focus::-ms-fill-upper {
-    background: #367ebd; }
+    background: #3686bd; }
 
 .ui-input,
 .ui-input-number,

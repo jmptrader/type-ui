@@ -12,13 +12,14 @@
  * limitations under the License.
  */
 .ui-tab {
+@include shadow-element();
 }
 
 
 .ui-tab:before,
 .ui-tab:after {
   @include clearfix();
-  min-height: 5px;
+  min-height: 0x;
 }
 
 .ui-tab-header {
@@ -46,7 +47,7 @@
   padding:15px;
   background:  $active-bg-color;
   color:     $active-txt-color;
-  @include shadow-element();
+
 }
 
 .ui-tab-head:first-child {
@@ -160,7 +161,6 @@
     margin-right: 0px;
     border-left: 4px solid $primary-border-color;
     border-top: 0 solid;
-    @include shadow-element();
   }
 
   .ui-tab-head:hover {
