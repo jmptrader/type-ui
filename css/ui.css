@@ -817,12 +817,14 @@ html, body {
   font-size: 1em; }
 
 .ui-input {
+  padding: 5px;
   display: table-cell;
   min-height: 2em;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   border: 0px solid;
+  background: #cee3f1;
   color: #0e0f26;
   box-sizing: border-box; }
 

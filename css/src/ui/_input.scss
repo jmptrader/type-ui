@@ -21,6 +21,7 @@
 }
 
 .ui-input {
+  padding: 5px;
   display: table-cell;
   min-height: 2em;
   -webkit-appearance: none;
@@ -28,7 +29,8 @@
   appearance:         none;
   //border: 2px solid $primary-border-color;
   border: 0px solid;
-  color:  $base-txt-color;
+  background: $active-bg-color;
+  color: $base-txt-color;
   box-sizing: border-box;
 }
 
