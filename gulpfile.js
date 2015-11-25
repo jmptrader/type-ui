@@ -37,8 +37,8 @@ gulp.task('scripts', ['typescript'], function() {
 
 // CSS concat, auto-prefix and minify
 gulp.task('styles', ['sass'], function() {
-  gulp.src('./build/sass/index.css')
-    .pipe(concat('./src/vendor/*.css'))
+  gulp.src(['./build/sass/index.css', './src/css/vendor/*.css'])
+    .pipe(concat('./build/css/ui.css'))
     .pipe(autoprefix('last 2 versions'))
     .pipe(minifyCSS())
     .pipe(rename("ui.min.css"))
