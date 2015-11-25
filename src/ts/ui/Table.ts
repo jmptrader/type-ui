@@ -38,7 +38,7 @@ module ui {
     }
 
     get model() {
-      return this.model;
+      return this._model;
     }
 
     protected createElement(): HTMLElement {
@@ -72,13 +72,39 @@ module ui {
     protected _refreshHead(head:Array<HTMLElement>) {
       this._clearElement(this._head);
       this._sortButtons = [];
-      var row = this._generateRow(head, 'th');
+      var row = this._generateRow(head, -1, 'th');
       this._head.appendChild(row);
     }
 
     protected _refreshBody(cells:Array<Array<HTMLElement>>) {
       this._clearElement(this._body);
-      cells.forEach( (i) => this._body.appendChild(this._generateRow(i)) );
+      cells.forEach( (i, index) => {
+        let row = this._generateRow(i, index);
+        row.onclick = this._onRowClickGenerator(row, index);
+        this._body.appendChild(row);
+      } );
+    }
+
+    protected _onRowClickGenerator(row:HTMLTableRowElement, index:number) {
+      return (event:any) => {
+        let e:any = new Event('row-click');
+        e.rowElement = row;
+        e.index = index;
+        e.data = this.model.data[index];
+        e.original = event;
+        this.fire('row-click', e);
+      }
+    }
+
+    protected _onCellClickGenerator(rowIndex:number, index:number, td:HTMLElement) {
+      return (event:Event) => {
+        let e:any = new Event('cell-click');
+        e.rowIndex = rowIndex;
+        e.index = index;
+        e.data = this.model.data[rowIndex];
+        e.field = this.model.fields[index];
+        this.fire('cell-click', e);
+      }
     }
 
     protected _clearElement(e:HTMLTableSectionElement) {
@@ -87,7 +113,7 @@ module ui {
       }
     }
 
-    protected _generateRow(row:Array<HTMLElement>, type:string='td') {
+    protected _generateRow(row:Array<HTMLElement>, rowIndex:number, type:string='td') {
       var tr = document.createElement('tr');
       row.forEach( (i, index) => {
         var td = document.createElement(type);
@@ -103,6 +129,8 @@ module ui {
             this._sortButtons.push(null);
           }
 
+        } else {
+          td.addEventListener('click', this._onCellClickGenerator(rowIndex, index, td))
         }
         tr.appendChild(td);
       });
