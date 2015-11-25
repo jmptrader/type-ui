@@ -1,3 +1,4 @@
+
 (function (window) {
 	window.jsColorPicker = function(selectors, config) {
 		var renderCallback = function(colors, mode) {

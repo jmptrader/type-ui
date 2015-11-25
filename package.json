@@ -1,0 +1,34 @@
+{
+  "name": "type-ui",
+  "version": "1.0.0",
+  "description": "A gui made with type script and sass",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/holywyvern/type-ui.git"
+  },
+  "keywords": [
+    "UI",
+    "TypeScript",
+    "SASS"
+  ],
+  "author": "Ramiro Rojo <ramiro.rojo.cretta@gmail.com>",
+  "license": "APACHE 2.0",
+  "bugs": {
+    "url": "https://github.com/holywyvern/type-ui/issues"
+  },
+  "homepage": "https://github.com/holywyvern/type-ui",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-minify-css": "^1.2.1",
+    "gulp-sass": "^2.1.0",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-strip-debug": "^1.1.0",
+    "gulp-uglify": "^1.5.1"
+  }
+}
