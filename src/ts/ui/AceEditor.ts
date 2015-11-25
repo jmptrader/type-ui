@@ -27,6 +27,7 @@ module ui {
       this._editorDiv = this._createEditorDiv();
       this.parent.element.appendChild(this._editorDiv);
       this._editor = this._createEditor(this._editorDiv, this._editorDiv.id, mode);
+      this._editor.setOption('spellcheck', true);
       this.tabSize = 2;
       this.softTabs = true;
     }
@@ -161,6 +162,14 @@ module ui {
     set value(value:string) {
       this._editor.setValue(value);
       this.input.value = value;
+    }
+
+    setOption(name:string, value:any) {
+      this._editor.setOption(name, value);
+    }
+
+    getOption(name:string):any {
+      return this._editor.getOption(name);
     }
 
   }
