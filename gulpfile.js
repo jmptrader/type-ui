@@ -10,6 +10,7 @@ var uglify     = require('gulp-uglify');
 var autoprefix = require('gulp-autoprefixer');
 var minifyCSS  = require('gulp-minify-css');
 var rename     = require("gulp-rename");
+var bump       = require('gulp-bump');
 
 var tsProject = ts.createProject('./src/ts/tsconfig.json');
 
@@ -43,6 +44,24 @@ gulp.task('styles', ['sass'], function() {
     .pipe(minifyCSS())
     .pipe(rename("ui.min.css"))
   .pipe(gulp.dest("./css"));
+});
+
+gulp.task('bump:major', function(){
+  gulp.src(['./bower.json', './component.json', './package.json'])
+  .pipe(bump({type:'major'}))
+  .pipe(gulp.dest('./'));
+});
+
+gulp.task('bump:minor', function(){
+  gulp.src(['./bower.json', './component.json', './package.json'])
+  .pipe(bump({type:'minor'}))
+  .pipe(gulp.dest('./'));
+});
+
+gulp.task('bump:patch', function(){
+  gulp.src(['./bower.json', './component.json', './package.json'])
+  .pipe(bump({type:'minor'}))
+  .pipe(gulp.dest('./'));
 });
 
 gulp.task('default', ['sass', 'typescript', 'styles', 'scripts'], function () {
