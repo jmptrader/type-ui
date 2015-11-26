@@ -18,12 +18,12 @@ module ui {
 
   export class MenuItem extends EventManager {
 
-    private _menu: HandleSubMenu;
-    private _element: HTMLLIElement;
-    private _link: HTMLAnchorElement;
-    private _text : Text;
-    private _icon : HTMLElement;
-    private _iconName : string;
+    protected _menu: HandleSubMenu;
+    protected _element: HTMLLIElement;
+    protected _link: HTMLAnchorElement;
+    protected _text : Text;
+    protected _icon : HTMLElement;
+    protected _iconName : string;
 
     constructor(menu:HandleSubMenu, text:string='') {
       super();
@@ -50,7 +50,11 @@ module ui {
     set icon(value:string) {
       this._iconName = value;
       if (!value) {
-        this._icon.className = 'fa fa-fw';
+        if (this.menu instanceof SubMenu) {
+          this._icon.className = 'fa fa-fw';
+        } else {
+          this._icon.className = '';
+        }
         return;
       }
       this._icon.className = 'fa fa-fw fa-' + value;

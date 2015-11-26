@@ -22,6 +22,13 @@ module ui {
       this.element.classList.add('separator');
     }
 
+    get icon() {
+      return this._iconName;
+    }
+
+    set icon(value:string) {
+      this._iconName = null;
+    }
 
 
   }

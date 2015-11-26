@@ -15,11 +15,12 @@
  .ui-toolbar {
    height: 42px;
    background: $primary-bg-color;
+   background: linear-gradient($primary-bg-color, darken($primary-bg-color, 10%));
    //border: 2px solid $primary-border-color;
    transition:all linear 0.15s;
    padding-left: 10px;
    padding-right: 10px;
-   @include shadow-element();
+   border-bottom: 1px solid $hover-border-color;
  }
 
  .ui-toolbar:before,
@@ -27,34 +28,41 @@
    @include clearfix();
  }
 
- .ui-toolbar .separator:before {
+ .ui-toolbar .separator {
+   margin-left: 2px;
+   margin-right: 2px;
    display: inline-block;
-   content: " ";
-   min-width: 42px;
-   max-width: 42px;
+   min-width: 2px;
+   max-width: 2px;
+   width: 2px;
+   height: 42px;
    min-height: 42px;
    overflow: hidden;
    border: 0px solid;
+   background: $hover-bg-color;
  }
 
 .ui-toolbar-icon,
 .ui-toolbar-icon:focus {
+  border: 1px solid $hover-border-color;
   position: relative;
   top: -16px;
   width: 42px;
   min-width: 42px;
-  border: 0 solid;
   background: $primary-bg-color;
+  background: linear-gradient($primary-bg-color, darken($primary-bg-color, 10%));
   color: $base-txt-color;
   padding: 10px;
   text-decoration: none;
   cursor: pointer;
   box-shadow: none;
+  border-radius: 30%;
 }
 
 .ui-toolbar-icon:hover {
-  border: 0px solid;
+  border: 1px solid $hover-border-color;
   background: $hover-bg-color;
+  background: linear-gradient(lighten($hover-bg-color, 20%), $hover-bg-color);
   color: $hover-txt-color;
   text-decoration: none;
 }

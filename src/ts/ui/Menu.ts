@@ -21,10 +21,10 @@ module ui {
 
   export class Menu extends Widget implements HandleSubMenu {
 
-    private _wrapper: HTMLDivElement;
-    private _list: HTMLUListElement;
-    private _items: Array<MenuItem>;
-    private _toggle: HTMLAnchorElement;
+    protected _wrapper: HTMLDivElement;
+    protected _list: HTMLUListElement;
+    protected _items: Array<MenuItem>;
+    protected _toggle: HTMLAnchorElement;
 
     constructor(parent:Container) {
       super(parent);

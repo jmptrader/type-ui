@@ -61,6 +61,7 @@
   padding: 7px 15px;
   margin-top: 6px;
   background:  $primary-bg-color;
+  background:  linear-gradient($primary-bg-color, darken($primary-bg-color, 10%));
   color:     $base-txt-color;
   font-size:16px;
   font-weight:600;
@@ -77,6 +78,7 @@
 .ui-tab-head:hover {
   background: $hover-bg-color;
   color:      $hover-txt-color;
+  background:  linear-gradient($hover-bg-color, darken($hover-bg-color, 10%));
   text-decoration:none;
 }
 
@@ -104,6 +106,7 @@
 .ui-tab-head.disabled,
 .ui-tab-head.disabled:hover {
     background: $disabled-bg-color;
+    background:  linear-gradient($disabled-bg-color, darken($disabled-bg-color, 10%));
     color: $disabled-txt-color;
     cursor: $cursor-disabled;
     border-top: 4px solid $disabled-border-color;

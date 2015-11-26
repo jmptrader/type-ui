@@ -105,8 +105,9 @@ module ui {
 
     protected _addCaret() {
       var caret = document.createElement('span');
-      var c = this.menu instanceof SubMenu ? 'ui-arrow-right' : 'ui-arrow-down';
-      caret.style.marginLeft = '10px';
+      caret.classList.add('menu-caret');
+      caret.classList.add('fa');
+      var c = this.menu instanceof SubMenu ? 'fa-chevron-right' : 'fa-chevron-down';
       caret.classList.add(c);
       this.link.appendChild(caret);
     }

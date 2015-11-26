@@ -12,12 +12,22 @@
  * limitations under the License.
  */
 .ui-menu {
+  display:block;
   background: $primary-bg-color;
   //border: 2px solid $primary-border-color;
   transition:all linear 0.15s;
   @include shadow-element();
   padding-left: 10px;
   padding-right: 10px;
+  background: linear-gradient($primary-bg-color, darken($primary-bg-color, 20%));
+  border-bottom: 1px solid #0c0c0c;
+
+  .menu-caret {
+    margin-left: 10px;
+    display: inline-block;
+    text-align: left;
+  }
+
 }
 
 .ui-menu ul {
@@ -36,8 +46,8 @@
 .ui-menu .separator,
 .ui-menu .separator a,
 .ui-menu .separator:hover {
-  min-width: 4px;
-  max-width: 4px;
+  min-width: 2px;
+  max-width: 2px;
   min-height: 22px;
   overflow: hidden;
   background: $primary-border-color;
@@ -47,8 +57,8 @@
 .ui-menu ul li ul .separator,
 .ui-menu ul li ul .separator a,
 .ui-menu ul li ul .separator:hover {
-  min-height: 4px;
-  max-height: 4px;
+  min-height: 2px;
+  max-height: 2px;
   min-width: 100%;
   max-height: 100%;
   overflow: hidden;
@@ -73,6 +83,7 @@ z-index: 9999;
 
 .ui-menu li ul {
   @include shadow-element();
+  border: 1px solid #0c0c0c;
 }
 
 .ui-menu li a {
@@ -82,37 +93,45 @@ padding:10px 12px;
 text-decoration: none;
 }
 
-.ui-menu li:hover,
 .ui-menu li:hover > a,
 .ui-menu ul li:hover > a,
 .ui-menu li:hover ul li:hover > a {
-  color: $active-txt-color;
-  background: $active-bg-color;
+  color: $hover-txt-color;
+  background: $hover-bg-color;
+  background: linear-gradient(lighten($hover-bg-color, 20%), $hover-bg-color);
 }
 
 .ui-menu li:hover ul li a {
   color: $base-txt-color;
 }
 
-.ui-menu li:hover ul li a:hover {
+.ui-menu li:hover ul li a:hover,
+.ui-menu li:hover ul li.separator a:hover,
+.ui-menu li:hover ul li.separator:hover a {
   background: $hover-bg-color;
+  background: linear-gradient(lighten($hover-bg-color, 20%), $hover-bg-color);
   color: $hover-txt-color;
 }
 
+.ui-menu li:hover ul li.separator a:hover {
+  background: $hover-bg-color;
+  background: linear-gradient(lighten($hover-bg-color, 20%), $hover-bg-color);
+  color: $hover-txt-color;
+}
 
 .ui-menu li ul li:hover {
 }
 
 .ui-menu li a:hover,
 .ui-menu ul li:hover > a {
-  color: $active-txt-color;
+  color: $hover-txt-color;
   text-decoration: none;
 }
 
 .ui-menu li ul {
 display:none;
 position:absolute;
-width:140px;
+width: auto;
 min-width:140px;
 //border: 2px solid $primary-border-color;
 }
