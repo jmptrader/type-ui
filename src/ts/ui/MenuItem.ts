@@ -22,6 +22,8 @@ module ui {
     private _element: HTMLLIElement;
     private _link: HTMLAnchorElement;
     private _text : Text;
+    private _icon : HTMLElement;
+    private _iconName : string;
 
     constructor(menu:HandleSubMenu, text:string='') {
       super();
@@ -30,6 +32,7 @@ module ui {
       this._link = this._createLink(text);
       menu.addElement(this);
       this._setupCommonEvents();
+      this.icon = null;
     }
 
     get menu() {
@@ -38,6 +41,19 @@ module ui {
 
     get element() {
       return this._element;
+    }
+
+    get icon() {
+      return this._iconName;
+    }
+
+    set icon(value:string) {
+      this._iconName = value;
+      if (!value) {
+        this._icon.className = 'fa fa-fw';
+        return;
+      }
+      this._icon.className = 'fa fa-fw fa-' + value;
     }
 
     protected get link() {
@@ -51,9 +67,12 @@ module ui {
 
     _createLink(text:string):HTMLAnchorElement {
       var a = document.createElement('a');
+      var icon = document.createElement('i');
       var txt = document.createTextNode(text);
+      a.appendChild(icon);
       a.appendChild(txt);
       a.href = '#';
+      this._icon = icon;
       this._text = txt;
       this.element.appendChild(a);
       return a;
