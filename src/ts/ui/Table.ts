@@ -121,7 +121,8 @@ module ui {
         if (type == 'th') {
           if (this._model.canSort(index)) {
             let sort = document.createElement('div');
-            sort.classList.add('sort-btn');
+            sort.classList.add('fa');
+            sort.classList.add('fa-sort');
             td.appendChild(sort);
             sort.addEventListener('click', () => this._sortColumn(index) )
             this._sortButtons.push(sort);
@@ -168,15 +169,17 @@ module ui {
     protected _refreshSortButtons(index:number, order:TableOrder) {
       this._sortButtons.forEach( (i) => {
         if (i) {
-          i.classList.remove('asc');
-          i.classList.remove('desc');
+          i.classList.remove('fa-sort-asc');
+          i.classList.remove('fa-sort-desc');
+          i.classList.add('fa-sort');
         }
       });
       var btn = this._sortButtons[index];
       if (!btn) {
         return;
       }
-      btn.classList.add(order === TableOrder.DEFAULT ? 'desc': 'asc');
+      btn.classList.remove('fa-sort');
+      btn.classList.add(order === TableOrder.DEFAULT ? 'fa-sort-desc': 'fa-sort-asc');
     }
 
   }
