@@ -29,10 +29,17 @@
 
 .ui-button:checked,
 .ui-button:active {
+  outline-color: transparent;
+  outline-style: none;
   border: 2px solid $pressed-border-color;
   background: $pressed-bg-color;
   color: $pressed-txt-color;
   text-decoration: none;
+}
+
+.ui-button:focus {
+  outline-color: transparent;
+  outline-style: none;
 }
 
 .ui-button:disabled,

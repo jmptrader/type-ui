@@ -59,6 +59,12 @@
   text-decoration: none;
 }
 
+
+.ui-toolbar-icon:focus {
+  outline-color: transparent;
+  outline-style: none;
+}
+
 .ui-toolbar-icon:checked,
 .ui-toolbar-icon:active {
   background: $pressed-bg-color;
