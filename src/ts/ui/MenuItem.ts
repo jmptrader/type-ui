@@ -143,19 +143,19 @@ module ui {
     }
 
     protected _onKeydown(event:Event) {
-      if (this.enaled) {
+      if (this.enabled) {
         this.fire('keydown', event);
       }
     }
 
     protected _onKeyup(event:Event) {
-      if (this.enaled) {
+      if (this.enabled) {
         this.fire('keyup', event);
       }
     }
 
     protected _onClick(event:Event) {
-      if (this.enaled) {
+      if (this.enabled) {
         this.fire('click', event);
       }
     }

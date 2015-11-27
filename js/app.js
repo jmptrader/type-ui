@@ -4,6 +4,7 @@ var menu = new ui.Menu(app);
   var i1 = menu.item('Item 1');
   var i2 = menu.subMenu('Menu 1');
     i2.item('Sub Item 1');
+    i2.on('click', function () { alert('AHHHHHHHH') })
   var i3 = menu.item('Item 2');
   menu.separator();
   var i4 = menu.subMenu('Menu 2');
