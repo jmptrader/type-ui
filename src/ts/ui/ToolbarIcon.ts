@@ -26,5 +26,25 @@ module ui {
       return 'ui-toolbar-icon';
     }
 
+    protected get button() {
+      return <HTMLButtonElement>this.element;
+    }
+
+    get disabled():boolean {
+      return this.button.disabled;
+    }
+
+    set disabled(value:boolean) {
+      this.button.disabled = value;
+    }
+
+    get enabled() {
+      return !this.disabled;
+    }
+
+    set enabled(value:boolean) {
+      this.disabled = !value;
+    }
+
   }
 }
