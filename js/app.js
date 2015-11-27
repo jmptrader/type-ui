@@ -35,6 +35,8 @@ var menu = new ui.Menu(app);
 
 var toolbar = new ui.Toolbar(app);
 var i = toolbar.icon('user');
+i.disabled = true;
+console.log(i);
 i.tooltip = 'This is a tooltip!';
 i.tooltipPosition = 'right';
 toolbar.separator();
