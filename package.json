@@ -1,6 +1,6 @@
 {
   "name": "type-ui",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "A gui made with type script and sass",
   "main": "index.js",
   "scripts": {
