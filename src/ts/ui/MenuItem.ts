@@ -47,6 +47,34 @@ module ui {
       return this._iconName;
     }
 
+    get disabled() {
+      return this.classList.contains('disabled');
+    }
+
+    set disabled(value:boolean) {
+      if (value) {
+        this.classList.add('disabled');
+      } else {
+        this.classList.remove('disabled');
+      }
+    }
+
+    get enabled() {
+      return !this.disabled;
+    }
+
+    set enaled(value) {
+      this.disabled = !value;
+    }
+
+    get style() {
+      return this.element.style;
+    }
+
+    get classList() {
+      return this.element.classList;
+    }
+
     set icon(value:string) {
       this._iconName = value;
       if (!value) {
@@ -115,15 +143,21 @@ module ui {
     }
 
     protected _onKeydown(event:Event) {
-      this.fire('keydown', event);
+      if (this.enaled) {
+        this.fire('keydown', event);
+      }
     }
 
     protected _onKeyup(event:Event) {
-      this.fire('keyup', event);
+      if (this.enaled) {
+        this.fire('keyup', event);
+      }
     }
 
     protected _onClick(event:Event) {
-      this.fire('click', event);
+      if (this.enaled) {
+        this.fire('click', event);
+      }
     }
 
   }

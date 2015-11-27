@@ -141,6 +141,29 @@ min-width:140px;
   display:block;
 }
 
+.ui-menu li.disabled,
+.ui-menu li.disabled:hover,
+.ui-menu li.disabled > a,
+.ui-menu li.disabled:hover > a,
+.ui-menu li:hover ul li.disabled:hover>a,
+.ui-menu li.disabled:hover>a,
+.ui-menu ul li.disabled:hover>a,
+.ui-menu li.disabled:hover>a:hover,
+.ui-menu ul li.disabled:hover>a:hover,
+.ui-menu li.disabled>a,
+.ui-menu ul li.disabled>a,
+.ui-menu li.disabled>a:hover,
+.ui-menu ul li.disabled>a:hover,
+.ui-menu li:hover ul li.disabled a {
+  color: $disabled-txt-color;
+  background: $disabled-bg-color;
+  cursor: $cursor-disabled;
+}
+
+.ui-menu li.disabled:hover > ul {
+  display:none;
+}
+
 .ui-menu li ul li {
 position:relative;
 }
